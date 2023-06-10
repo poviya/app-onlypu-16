@@ -1,0 +1,9 @@
+<div class="mx-4 space-y-5">
+    <div>
+        <app-primary-suscription  *ngIf="membershipPrimary.length > 0" [membership]="membershipPrimary" (updateMembershipEvent)="onUpdateMembership($event)"></app-primary-suscription>
+        <app-primary-suscription  *ngIf="membershipPrimary.length == 0" [membership]="membershipPrimary" (createMembershipEvent)="onCreateMembership($event)"></app-primary-suscription>
+    </div>
+    <div>
+        <app-bundles-suscription *ngIf="membershipBundles.length > 0" [membership]="membershipBundles"  (updateDiscountEvent)="onUpdateDiscount($event)"></app-bundles-suscription>
+    </div>
+</div>

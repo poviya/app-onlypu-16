@@ -1,0 +1,31 @@
+<div *ngIf="count" class="">
+    <!-- <div class="hidden">
+        <h1 class="text-base font-bold text-zinc-800 dark:text-zinc-500 uppercase">Nane</h1>
+    </div>
+     -->
+    <div class="flex justify-start items-center space-x-5 text-sm font-semibold">
+        <a  routerLink="/my/subscribers"
+            [routerLinkActiveOptions]="{exact: true}"
+            routerLinkActive="bg-primary-700 dark:bg-primary-700 text-white"
+            class="bg-zinc-100 dark:bg-zinc-800 rounded-full px-4 py-1 space-x-2 shadow-md">
+            <span>{{'all' | translate}}</span>
+            <span>{{count.all}}</span>
+        </a>
+
+        <a routerLink="/my/subscribers/active"
+            [routerLinkActiveOptions]="{exact: true}"
+            routerLinkActive="bg-primary-700 dark:bg-primary-700 text-white"
+            class="bg-zinc-100 dark:bg-zinc-800  rounded-full px-4 py-1 space-x-2 shadow-md">
+            <span>{{'active' | translate}}</span>
+            <span>{{count.active}}</span>
+        </a>
+
+        <a routerLink="/my/subscribers/expired"
+            [routerLinkActiveOptions]="{exact: true}"
+            routerLinkActive="bg-primary-700 dark:bg-primary-700 text-white"
+            class="bg-zinc-100 dark:bg-zinc-800  rounded-full px-4 py-1 space-x-2 shadow-md">
+            <span>{{'expired' | translate}}</span>
+            <span>{{count.expired}}</span>
+        </a>
+    </div>
+</div>

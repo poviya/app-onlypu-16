@@ -1,0 +1,116 @@
+
+<h1 class="text-center  font-light text-3xl sm:text-4xl pt-5 mb-4">
+  {{'¡Publica gratis en solo unos pocos pasos!' | translate}}
+</h1>
+  <form [formGroup]="myform" novalidate class="px-2 sm:px-0">
+      
+      <div class="flex justify-between items-center">
+        <h1 class="text-xl font-bold my-6 ">Tus fotos</h1>
+      </div>
+  
+      <fieldset class="w-full rounded-xl border border-slate-100 p-2 sm:p-4 shadow-2xl shadow-white/0 bg-other-background2">
+          <div class="hidden">
+              <label for="file" class="hidden">File</label>
+              <div class="file-select relative bg-primary-600  text-white rounded flex justify-center" id="src-file1" >
+                <input  
+                  formControlName="file"
+                  id="file" 
+                  multiple=""  
+                  (change)="onFileChange($event)"
+                  type="file" name="src-file1" aria-label="Archivo">
+              </div>
+  
+          </div>
+      
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 ustify-between mt-0">
+
+            <div *ngFor='let item of selectedFiles; let first = first;'>
+              <div class="relative group flex justify-end items-center h-32 sm:h-40 w-auto border border-secondary-200 bg-secondary-300">
+                <img class="object-center object-cover h-full w-full" src="{{item.url}}" alt="watch-image" />
+                <button
+                  (click)="deleteImage(item)"
+                  class="text-tertiary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none p-1 w-6 rounded-full  bg-secondary-50 shadow-sm">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <div class="absolute opacity-10 group-hover:opacity-100 transition duration-500 bottom-3 py-0 z-0 px-0 w-auto bg-white bg-opacity-50"></div>
+              </div>
+            </div>
+
+            <div *ngFor='let item of images; let first = first;'>
+              <div class="relative group flex justify-end items-center h-32 sm:h-40 w-auto border border-secondary-200 bg-secondary-300">
+                <img class="object-center object-cover h-full w-full" src="{{item.url}}" alt="watch-image" />
+                <button 
+                  (click)="deleteFile(item)" 
+                  class="text-tertiary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none p-1 w-6 rounded-full  bg-secondary-50 shadow-sm">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <div class="absolute opacity-10 group-hover:opacity-100 transition duration-500 bottom-3 py-0 z-0 px-0 w-auto bg-white bg-opacity-50"></div>
+              </div>
+            </div>
+            
+            <div class="hover:border-seconadary-200 cursor-pointer hover:bg-transparent group h-32 sm:h-40 w-full flex flex-col items-center justify-center rounded-md border-2 border-dashed border-secondary-300 text-sm leading-6 text-slate-900 font-medium">
+              <label for="file" class="hidden">File</label>
+              <div class="file-select cursor-pointer relative bg-slate-50 text-tertiary-500 font-bold-500 h-40 w-auto rounded flex justify-center" id="src-file1" >
+                <input  
+                  formControlName="file"
+                  id="file" 
+                  multiple="" 
+                  (change)="onFileChange($event)"
+                  type="file" name="src-file1" class="h-full w-auto cursor-pointer" aria-label="Archivo">
+              </div>
+            </div>
+
+          </div>
+         
+      </fieldset>
+  
+     <div class="flex justify-center my-10">
+        <button
+          (click)="onSubmit()"
+          [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+          class=" py-3 px-20 shadow-sm bg-primary-600 uppercase text-white rounded-full font-semibold hover:bg-primary-700" 
+          [disabled]="myform.status == 'VALID' ? false: true">
+          Guardar y Continuar
+        </button>
+     </div>
+  </form>
+  
+  <pre class="hidden">{{myform.value | json}}</pre>
+  <pre class="hidden">Form status: {{ myform.status }}</pre>
+  
+  <!-- 
+  
+      <div class="container">
+      <form novalidate
+          [formGroup]="myform">
+    
+      <fieldset>
+        <div class="form-group"
+             [ngClass]="{
+            'bg-red-600': firstName.invalid && (firstName.dirty || firstName.touched),
+            'bg-green-600': firstName.valid && (firstName.dirty || firstName.touched)
+          }">
+          <label>First Name</label>
+          <input type="text"
+                 class="form-control"
+                 formControlName="firstName"
+                 required>
+          <div class="form-control-feedback"
+               *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+            <p *ngIf="firstName.errors">First Name is required</p>
+          </div>
+    
+          <!--
+            <pre>Valid? {{ myform.controls.name.controls.firstName.valid }}</pre>
+            <pre>Dirty? {{ myform.controls.name.controls.firstName.dirty }}</pre>
+          
+      </div>
+    
+  
+  </fieldset>
+  
+  
+  <pre>{{myform.value | json}}</pre>
+  </form>
+  </div>
+  -->

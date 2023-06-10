@@ -1,0 +1,23 @@
+<div *ngIf="isBrowser" class="lg:mr-[18.5rem]">
+  <div class="border border-t-0 dark:border-zinc-800">
+    <app-header></app-header>
+    <main class="px-0">
+      <app-post-list [posts]="posts" [loading]="loading" (findAllPostsInfiniteEvent)="findAllPostsInfinite()"></app-post-list>
+    </main>
+    <!-- footer -->
+    <app-footer-one [width]="width"></app-footer-one>
+  </div>
+  <div
+    class="fixed top-[0.0rem] bottom-0 right-[max(0px,calc(50%-36rem))] w-[18.5rem] overflow-y-auto hidden lg:block  bg-transparent py-5 px-2 space-y-8">
+    <div>
+      <app-search-users></app-search-users>
+    </div>
+    <div>
+      <app-sugestions></app-sugestions>
+    </div>
+    <div>
+      <app-term-links></app-term-links>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,81 @@
+<div class="uppercase text-xs px-2">
+  {{date | date:' dd LLLL'}}
+</div>
+<div class="space-y-2 mt-2 px-2">
+  <div *ngFor="let item of this.posts"  class="border  border-slate-900 rounded-lg" style="background-color: #191818;">
+    <div class="hidden justify-between px-4 py-3">
+      <div class="flex items-center ">
+        <img class="h-12 w-12 rounded-full" src="https://picsum.photos/id/1027/150/150"/>
+        <div class="ml-3 ">
+          <span class="text-sm font-semibold antialiased block leading-tight">8fact</span>
+          <p class="text-xs mt-0 space-x-1 truncate">
+            <span class="font-bold">{{item.age}} años</span>
+            <span>|</span>
+            <span class=" text-slate-600">{{item.AdCategory![0].name}}</span>
+            <span>|</span>
+            <span class=" text-slate-600">{{item.StateCity![0].name}}</span>
+        </p>
+        </div>
+       
+      </div>
+    </div>
+    <div class=" px-2 py-2 space-y-2">
+      <p class="truncate-title  font-normal text-lg text-primary-600">{{item.title}}</p>
+    </div>
+    <div class="w-full mt-2">
+      <carousel>
+        <ng-container *ngFor="let image of item.PostMedias">
+          <ng-container *carouselItem>
+            <div class="h-96 w-screen md:w-160">
+              <img class="h-full w-full object-cover" src="{{image.url}}"/>
+            </div>
+          </ng-container>
+        </ng-container>
+      </carousel> 
+    </div>
+    
+    <div class=" px-2 py-2 space-y-2">
+      <p class="text-base tracking-tight font-normal text-white leading-6 truncate-description">
+          {{item.description}}
+      </p>
+      <p class="text-xs mt-0 space-x-1 truncate text-slate-100">
+          <span class="font-bold">{{item.age}} años</span>
+          <span>|</span>
+          <span class=" text-slate-300">{{item.AdCategory![0].name}}</span>
+          <span>|</span>
+          <span class=" text-slate-300">{{item.StateCity![0].name}}</span>
+      </p>
+    </div>
+
+    <div class="flex items-center justify-between mx-4 mt-3 mb-2 text-lg">
+      <div class="hidden">
+        <i class="far fa-heart"></i>
+      </div>
+      <a
+        class="border flex justify-between items-center space-x-1 text-xs uppercase border-primary-600 text-white bg-primary-600 rounded-md p-2"  
+        href="https://wa.me/{{item.phonePrefix}}{{item.phone}}/?text={{textMessage(item)}}" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>WhatsApp</span>
+      </a>
+      <a  
+        class="border flex justify-between items-center space-x-1 text-xs uppercase border-primary-600 text-white bg-primary-600 rounded-md p-2"  
+        href="https://wa.me/{{item.phonePrefix}}{{item.phone}}/?text={{textMessage(item)}}" target="_blank">
+        <i class="fab fa-telegram"></i>
+        <span>Telegram</span>
+      </a>
+      <a
+        class="border flex justify-between items-center space-x-1 text-xs uppercase border-primary-600 text-white bg-primary-600 rounded-md p-2"   
+        href="tel:{{item.phonePrefix}} {{item.phone}}">
+        <i class="fas fa-phone-alt"></i>
+        <span>Telefono</span>
+      </a>
+    </div>
+
+    <div class="font-semibold text-sm mx-4 mt-2 mb-4 hidden">92,372 likes</div>
+    
+  </div>
+</div>
+
+<div class="flex-grow h-0 overflow-auto">
+  
+</div>

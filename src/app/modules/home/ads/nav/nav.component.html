@@ -1,0 +1,83 @@
+
+
+
+<div *ngIf="this.posts.length > 0">
+    <nav *ngIf="postName && dataSearchSlug" itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" id="bc1"
+    class="px-4">
+    <ol class="space-x-2 overflow-x-hidden flex items-center">
+    
+      <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem">
+        <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+          routerLink="/{{dataSearchSlug.countryCode}}"
+          class="w-8 h-8 flex justify-center items-center rounded-sm border-none border-primary-600 py-1 text-xs text-zinc-600 dark:text-zinc-300">
+          <i class="fas fa-home"></i>
+        </a>
+        <meta itemprop="position" content="1">
+      </li>
+    
+      <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"
+        *ngIf="postName.PostAdCategory" class="space-x-2 flex">
+        <div class="flex justify-center items-center text-xs text-primary-600">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+          class="flex justify-center font-semibold text-xs items-center rounded border-none border-primary-600 py-1 px-2  text-zinc-600 dark:text-zinc-300 "
+          routerLink="/{{dataSearchSlug.countryCode}}/{{dataSearchSlug.categorySlug}}">
+          {{this.postName.PostAdCategory | translate}}
+        </a>
+        <meta itemprop="position" content="2">
+      </li>
+    
+      <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"
+        *ngIf="postName.StateCity" class="flex space-x-2">
+        <div class="flex justify-center items-center text-xs text-primary-600">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+          class="flex justify-center font-semibold items-center rounded border-none border-primary-600 py-1 px-2 text-xs text-zinc-600 dark:text-zinc-300 "
+          routerLink="/{{dataSearchSlug.countryCode}}/{{dataSearchSlug.categorySlug}}/{{dataSearchSlug.stateCitySlug}}">
+          {{this.postName.StateCity}}
+        </a>
+        <meta itemprop="position" content="3">
+      </li>
+      <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"
+        *ngIf="postName.CityZone" class="flex space-x-2">
+        <div class="flex justify-center items-center text-xs text-primary-600">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+          class="flex justify-center font-semibold  items-center rounded border-none border-primary-600 py-1 px-2 text-sm text-zinc-600 dark:text-zinc-300"
+          routerLink="/{{dataSearchSlug.countryCode}}/{{dataSearchSlug.categorySlug}}/{{dataSearchSlug.stateCitySlug}}/{{dataSearchSlug.cityZoneSlug}}">
+          {{this.postName.CityZone}}
+        </a>
+        <meta itemprop="position" content="4">
+      </li>
+    </ol>
+    
+    </nav>
+    
+    <div *ngIf="postName" class="px-4 pt-0">
+    <h1 class="flex space-x-1 text-xs">
+      <span *ngIf="postName.PostAdCategory">
+        {{this.postName.PostAdCategory | translate}}
+      </span>
+      <span class=" lowercase" *ngIf="postName.PostAdCategory">
+        {{'en' | translate}}
+      </span>
+      <span *ngIf="postName.Country && !postName.StateCity && !postName.CityZone">
+        {{this.postName.Country}}
+      </span>
+    
+      <span *ngIf="postName.Country && postName.StateCity && !postName.CityZone">
+        {{this.postName.StateCity}}
+      </span>
+    
+      <span *ngIf="postName.Country && postName.StateCity && postName.CityZone">
+        {{this.postName.CityZone}}
+      </span>
+    </h1>
+    <span class="uppercase text-xs px-0 mt-0 mb-0 text-zinc-600 dark:text-zinc-400">
+      {{date | date}}
+    </span>
+    </div>
+</div>

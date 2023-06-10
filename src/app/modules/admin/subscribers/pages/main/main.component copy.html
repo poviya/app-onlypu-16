@@ -1,0 +1,15 @@
+<div *ngIf="isBrowser">
+    <header>
+       <app-header></app-header>
+    </header>
+    
+    <main class="p-4">
+        <div class="my-6">
+            <app-search [count]="count"></app-search>
+        </div>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+   
+</div>

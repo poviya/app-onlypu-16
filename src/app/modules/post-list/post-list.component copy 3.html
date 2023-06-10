@@ -1,0 +1,333 @@
+<!-- <div class="video-list">
+    <div *ngFor="let video of videos; let i = index" class="video">
+      <video #videoElement [src]="video" [muted]="true"></video>
+      <button (click)="selectVideo(i)">Seleccionar</button>
+    </div>
+  </div> -->
+
+<!-- <div class="video-container">
+    <video #videoPlayer [src]="currentVideoUrl" (ended)="playNextVideo()" autoplay [muted]="true" 
+        class="h-96 sm:h-112 md:h-112 w-fit flex justify-center">
+    </video>
+    <div class="controls">
+        <button (click)="togglePlay()">Play/Pause</button>
+        <button (click)="likeVideo()">Like</button>
+        <button (click)="shareVideo()">Share</button>
+    </div>
+</div> -->
+
+<!-- <div #videoContainer class="video-container" (swiperight)="swipeUp()" (swipeleft)="swipeDown()">
+    <video #videoPlayer [src]="currentVideoUrl" (ended)="playNextVideo()" autoplay  [muted]="true" ></video>
+    <div class="controls">
+        <button (click)="togglePlay()">Play/Pause</button>
+        <button (click)="likeVideo()">Like</button>
+        <button (click)="shareVideo()">Share</button>
+    </div>
+</div>
+
+<div class="video-list">
+    <ul>
+        <li *ngFor="let video of videos; let i = index" [class.active]="i === currentVideoIndex">
+            
+        </li>
+    </ul>
+</div> -->
+
+
+<div class="">
+    <div *ngIf="this.posts.length > 0; else loadingTemplate" class=" pt-0">
+
+        <main class="space-y-0 px-0 md:px-0">
+            <!-- -->
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-2">
+
+                <div *ngFor="let item of this.posts; let i = index">
+                    <article #theLastList
+                        class="
+            border  {{item.plan == 1? 'border-blue-600' : item.plan == 2 ? 'border-purple-500' : 'border-l-0 border-r-0 border-zinc-200 dark:border-zinc-800 '}}
+            my-0 break-inside  bg-zinc-50 dark:bg-background-dark dark:text-zinc-200 flex flex-col bg-clip-border w-full shadow-sm">
+
+                        <div class="flex p-4 items-center justify-between">
+                            <div class="flex">
+                                <a class="inline-block mr-4" routerLink="/{{item.User!.username}}">
+
+                                    <div *ngIf="item.User!.Profile else noProfile">
+                                        <img *ngIf="item.User!.Profile!.length > 0"
+                                            class="rounded-full max-w-none w-12 h-12 object-cover"
+                                            src="{{item.User!.Profile!.length > 0 ? this.prinImages(item.User!.Profile!) : ''}}" />
+                                        <div *ngIf="item.User!.Profile?.length == 0"
+                                            class="rounded-full max-w-none w-12 h-12 object-cover bg-zinc-200 dark:bg-zinc-700">
+                                        </div>
+                                    </div>
+
+                                    <ng-template #noProfile>
+                                        <div
+                                            class="rounded-full max-w-none w-12 h-12 object-cover bg-zinc-200 dark:bg-zinc-700">
+                                        </div>
+                                    </ng-template>
+
+                                </a>
+                                <div class="flex flex-col truncate">
+                                    <div>
+                                        <a class="inline-block text-lg font-bold dark:text-white truncate-one "
+                                            routerLink="/{{item.User!.username}}">{{item.User!.name ? item.User!.name :
+                                            item.User!.username}}</a>
+                                    </div>
+                                    <div class="text-zinc-500 dark:text-zinc-400 text-xs">
+                                        {{item.planAt | dateAgo}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex space-x-5 justify-between items-center">
+                                <div class="flex">
+                                    <span *ngIf="item.plan == 1 || item.plan ==2"
+                                        class=" py-1 text-sm text-white -top-1 right-4 rounded-full transform translate-x-2 -translate-y-3">
+                                        <div *ngIf="item.plan == 2"
+                                            class="text-xs bg-purple-800  text-white px-2 rounded-full">
+                                            <i class="fas fa-share"></i>
+                                            <span class="font-bold">Gold</span>
+                                        </div>
+                                        <div *ngIf="item.plan == 1"
+                                            class="text-xs bg-blue-800  text-white px-2 rounded-full">
+                                            <i class="fas fa-share"></i>
+                                            <span class="font-bold">Top</span>
+                                        </div>
+                                    </span>
+                                </div>
+                                <app-dropdown>
+                                    <ul *ngIf="this.authService.user" class="cursor-pointer">
+                                        <li *ngIf="item.User!._id == this.authService.user._id" (click)="onEdit(item)"
+                                            class="w-full py-2 px-4 hover:bg-zinc-100 hover:dark:bg-zinc-800 dark:hover:text-zinc-50">
+                                            {{'edit' | translate}}
+                                        </li>
+                                        <li *ngIf="item.User!._id == this.authService.user._id"
+                                            (click)="onDeleteDialog(item)"
+                                            class="w-full py-2 px-4 hover:bg-zinc-100 hover:dark:bg-zinc-800 dark:hover:text-zinc-50">
+                                            {{'delete' | translate}}
+                                        </li>
+                                        <li (click)="copyText(item)"
+                                            class="w-full py-2 px-4 hover:bg-zinc-100 hover:dark:bg-zinc-800 dark:hover:text-zinc-50">
+                                            {{'copy_link_post' | translate}}
+                                        </li>
+                                        <li
+                                            class="w-full py-2 px-4 hover:bg-zinc-100 hover:dark:bg-zinc-800 dark:hover:text-zinc-50">
+                                            {{'report' | translate}}
+                                        </li>
+                                    </ul>
+                                    <ul *ngIf="!this.authService.user" class="cursor-pointer">
+                                        <li (click)="copyText(item)"
+                                            class="w-full py-2 px-4 hover:bg-zinc-100 hover:dark:bg-zinc-800 dark:hover:text-zinc-50">
+                                            {{'copy_link_post' | translate}}
+                                        </li>
+                                        <li
+                                            class="w-full py-2 px-4 hover:bg-zinc-100 hover:dark:bg-zinc-800 dark:hover:text-zinc-50">
+                                            {{'report' | translate}}
+                                        </li>
+                                    </ul>
+                                </app-dropdown>
+                            </div>
+                        </div>
+
+                        <p class="px-2 mb-2">
+                            <!-- <a routerLink="/pu/{{item.slug}}"
+                                class="overflow-x-auto truncate-one font-medium text-base sm:text-lg text-primary-600 cursor-pointer">
+                                {{item.title}}
+                            </a> -->
+                            <button (click)="onPostDialog(item)"
+                                class="overflow-x-auto truncate-one font-medium text-base sm:text-lg text-primary-600 cursor-pointer">
+                                {{item.title}}
+                            </button>
+                        </p>
+
+                        <p *ngIf="item.type  == 'AD'" class="px-2 text-xs space-x-1 truncate mb-2">
+                            <span class="font-bold">{{item.age}} {{'years' | translate}}</span>
+                            <span>|</span>
+                            <span class="">{{item.StateCity!.name}}</span>
+                        </p>
+
+                        <p class="px-2 text-sm mb-2">
+                            <read-more [text]="innerText(item.description)" [maxHeight]="22"></read-more>
+                        </p>
+                        <div *ngIf="item.PostMedia!.length > 0 " class="relative">
+
+                            <app-post-media *ngIf="item.PostMedia![0].type == 'iamge'" [postMedia]="item.PostMedia"
+                                [slides]="item.PostMedia" [i]="i">
+                            </app-post-media>
+                            
+
+                            <div *ngIf="item.PostMedia![0].type == 'video'" class="video-list  h-96  md:h-112 w-full">
+                                <div class=" h-96  md:h-112 w-full"
+                                    style=" background-image: url('{{item.PostMedia![0].urlSnapshot}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
+                                    
+                                    <div class="video backdrop-blur-xl bg-zinc-200/10 ">
+                                        <video #videoElement [src]="item.PostMedia![0].url" [muted]="false" class=" bg-black h-96 sm:h-112 md:h-112 w-fit flex justify-center"></video>
+                                        <button (click)="selectVideo(i)">Seleccionar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div *ngIf="item.typeView == 'SUBSCRIBERS' || item.typeView == 'PAYMENT'"
+                                class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
+                                <i class="fa-solid fa-lock"></i>
+                                <span>{{'suscribe' | translate}}</span>
+                            </div>
+                            <ng-template #private>
+                                <div
+                                    class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
+                                    <i class="fa-solid fa-lock"></i>
+                                    <span>{{'suscribe' | translate}}</span>
+                                </div>
+                            </ng-template>
+                        </div>
+
+                        <!-- contacts -->
+                        <div *ngIf="item.whatsapp || item.phone || item.telegram"
+                            class=" mt-2 flex items-center justify-center mx-0 text-lg space-x-0 sm:space-x-0">
+                            <div class="flex flex-wrap space-x-2 items-center">
+                                <a *ngIf="item.whatsapp && item.phone" (click)="onUpdateClick(item._id!, 'whatsapp')"
+                                    class=" flex justify-between items-center space-x-1 text-xs font-semibold uppercase border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-2"
+                                    href="https://wa.me/{{item.phonePrefix}}{{item.phone}}/?text={{textMessage(item)}}"
+                                    target="_blank">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </a>
+                                <a *ngIf="item.phone" (click)="onUpdateClick(item._id!, 'phone')"
+                                    class="flex justify-between items-center space-x-1 text-xs font-semibold uppercase border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-2"
+                                    href="tel:{{item.phonePrefix}} {{item.phone}}">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <span>{{'phone' | translate}}</span>
+                                </a>
+                                <a *ngIf="item.telegram" (click)="onUpdateClick(item._id!, 'telegram')"
+                                    class=" {{!item.phone ? 'flex' : 'flex'}} flex justify-between items-center space-x-1 text-xs font-semibold uppercase border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-2"
+                                    href="https://t.me/{{item.telegram}}" target="_blank">
+                                    <i class="fab fa-telegram"></i>
+                                    <span>Telegram</span>
+                                </a>
+                            </div>
+
+                        </div>
+
+
+                        <div class="px-4 flex justify-between space-x-3 my-2">
+                            <div class="flex space-x-3">
+                                <button (click)="onLikes(item)"
+                                    class="inline-flex items-center text-zinc-600 dark:text-zinc-300" href="#">
+                                    <span class="mr-2 text-primary-600 dark:text-primary-600 text-lg">
+                                        <i class="fa-solid fa-heart"></i>
+
+                                    </span>
+                                    <span class="text-xs font-bold">{{item.likes! | thousands}}</span>
+                                </button>
+
+                                <button (click)="onPostDialog(item)" class="inline-flex items-center" href="#">
+                                    <span class="mr-2 text-zinc-600 dark:text-zinc-300 text-lg">
+                                        <i class="fa-solid fa-comment"></i>
+                                    </span>
+                                    <span class="text-xs font-bold">{{item.Comment!.length | thousands}}</span>
+                                </button>
+
+                                <button *ngIf="item.PostMedia!.length > 0 " (click)="onTipDialog(item)"
+                                    class="flex justify-between items-center space-x-1 text-xs font-semibold border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-1">
+                                    <span class=""><i class="fa-solid fa-dollar-sign"></i></span>
+                                    <span class="text-xs">{{'sendTip' | translate}}</span>
+                                </button>
+                            </div>
+
+
+                            <button (click)="compartir(item)" class="text-zinc-600 dark:text-zinc-300">
+                                <i class="fa-solid fa-share"></i>
+                            </button>
+                        </div>
+
+                    </article>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <ng-template #loadingTemplate>
+        <div class="my-10">
+            <div *ngIf="loading; else noData" class="space-y-2">
+
+                <section *ngFor="let item of this.postLoading"
+                    class="bg-zinc-50 dark:bg-zinc-800  p-4 w-full mx-auto space-y-2 shadow-sm">
+                    <div class="animate-pulse flex space-x-4">
+                        <div class="rounded-full bg-zinc-200 dark:bg-zinc-700 h-12 w-12"></div>
+                        <div class="flex-1 space-y-6 py-1">
+                            <div class="flex flex-col space-y-1">
+                                <div class="h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-32">
+
+                                </div>
+                                <div class="h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-24">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class=" animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded ">
+
+                    </div>
+                    <div class=" animate-pulse w-full h-44 md:h-112 bg-zinc-200 dark:bg-zinc-700 rounded ">
+
+                    </div>
+                </section>
+
+            </div>
+            <ng-template #noData>
+                <div class=" text-center font-light text-3xl">
+                    {{'there_is_no_data' | translate}}
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
+
+    <app-center-dialog *ngIf="modalDelete" (onClose)="closeModalDelete()">
+        <div class="p-5">
+            <div class="flex justify-between mb-5 space-x-5">
+                <div class="text-center text-3xl flex items-center space-x-2 font-light">
+                    <span><i class="fas fa-exclamation-circle text-yellow-500 text-2xl"></i></span>
+                    <span>{{'confirmDelete' | translate}}</span>
+                </div>
+                <button (click)="closeModalDelete()">
+                    <span class="material-icons-outlined notranslate ">clear</span>
+                </button>
+            </div>
+            <div class="flex justify-center items-center space-x-5">
+                <button
+                    class="bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 hover:dark:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 py-1 px-8 rounded-full text-zinc-800 dark:text-zinc-50 shadow-md"
+                    (click)="closeModalDelete()">{{'cancel' | translate}}</button>
+                <button class="bg-primary-600 hover:bg-primary-700 py-1 px-8 rounded-full text-zinc-50 shadow-md"
+                    (click)="onDelete();">{{'delete' | translate}}</button>
+            </div>
+        </div>
+    </app-center-dialog>
+</div>
+
+<app-post-dialog *ngIf="modalPost && post" (onClose)="closeModalPost()">
+    <div>
+        <div class="fixed top-0 left-0 right-0">
+            <div class="flex justify-between p-2">
+                <!--backdrop-blur-xl bg-background-light/90 dark:bg-background-dark/0 -->
+                <div>
+                    <button (click)="closeModalPost()"
+                        class="flex items-center uppercase font-bold cursor-pointer space-x-3">
+                        <span class="material-icons-outlined notranslate">arrow_back</span>
+                        <span>{{ 'return' | translate }}</span>
+                    </button>
+                </div>
+                <div>
+                    <button (click)="closeModalPost()">
+                        <span class="material-icons-outlined notranslate">clear</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <app-post-ad-modal *ngIf="post.type == 'AD'" [post]="post"></app-post-ad-modal>
+        <app-post-modal *ngIf="post.type == 'POST'" [post]="post"></app-post-modal>
+    </div>
+
+</app-post-dialog>

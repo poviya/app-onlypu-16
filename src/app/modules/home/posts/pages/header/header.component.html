@@ -1,0 +1,19 @@
+<div
+    class="sticky top-0  w-full py-2 px-3 text-xs bg-background-light dark:bg-zinc-900 dark:text-zinc-200 z-10 border-b border-zinc-200 dark:border-zinc-800">
+    <div class="flex justify-between items-center h-10 space-x-5">
+        <div class="flex justify-between space-x-5">
+            <button (click)="onScrollTop()" class="flex items-center uppercase font-bold cursor-pointer space-x-2">
+                <span>{{'sidebar.menu.home' | translate}}</span>
+            </button>
+            <button (click)="onAdd()"
+                class="w-8 h-8 text-center  p-0 rounded-full border dark:border-zinc-700 ">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+
+        </div>
+
+        <div class="flex flex-col items-center cursor-pointer uppercase text-lg w-full">
+            <app-search-users class="w-full"></app-search-users>
+        </div>
+    </div>
+</div>

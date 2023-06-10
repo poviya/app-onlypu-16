@@ -1,0 +1,15 @@
+<section class="carousel-wrapper" [ngStyle]="carouselWrapperStyle">
+  <ul class="carousel-inner" #carousel>
+    <li *ngFor="let item of items" class="carousel-item">
+      <ng-container [ngTemplateOutlet]="item.tpl"></ng-container>
+    </li>
+  </ul>
+</section>
+<ng-container *ngIf="showControls">
+  <div (click)="prev()" class="flex text-slate-100 opacity-50 absolute top-0 left-0 justify-center items-center px-1 h-full w-5 sm:w-10 cursor-pointer group focus:outline-none" data-carousel-prev>
+    <i class="fas fa-chevron-left"></i>
+  </div><!-- {{countClock}} -->
+  <div (click)="next()" class="flex text-slate-100 opacity-50 absolute top-0 right-0 justify-center items-center px-1  h-full w-5 sm:w-10 cursor-pointer group focus:outline-none" data-carousel-next>
+      <i class="fas fa-chevron-right"></i>
+  </div>
+</ng-container> 

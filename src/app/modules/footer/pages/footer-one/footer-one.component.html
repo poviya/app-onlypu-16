@@ -1,0 +1,50 @@
+<footer class="h-full footer text-sm mt-10">
+
+    <div class="{{width}} px-2 mx-auto lg:px-2 flex items-center">
+        <form [formGroup]="myform" novalidate>
+        <select
+            formControlName="language" 
+            #langSelect (change)="changeLang(langSelect.value)" 
+            class="w-auto rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-800 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700">
+            <option *ngFor="let lang of langs" [value]="lang.value" class="notranslate">
+              {{ lang.name }}
+            </option>
+          </select>
+        </form>
+    </div>
+
+    <div class="py-5">
+        <div class="flex flex-col {{width}} px-2 pt-0 pb-0 mx-auto md:flex-row">
+            <div class="mt-2 text-xs text-center sm:text-left text-zinc-500 dark:text-zinc-500">
+                © Copyright 2022 ONLYPU Inc United States. All Rights Reserved.
+            </div>
+
+            <!-- Required Unicons (if you want) -->
+            <div class="flex flex-row justify-center mt-2 text-xl md:flex-auto sm:justify-end item-center">
+                <a rel="nofollow" href="https://facebook.com/onlypucom" target="_blank" class="w-6 mx-1">
+                    <i class="fab fa-facebook text-primary-600"></i>
+                </a>
+                <a rel="nofollow" href="https://twitter.com/onlypucom" target="_blank" class="w-6 mx-1">
+                    <i class="fab fa-twitter text-primary-600"></i>
+                </a>
+                <!-- 
+                <a href="#" class="w-6 mx-1">
+                    <i class="uil uil-youtube"></i>
+                </a>
+                <a href="#" class="w-6 mx-1">
+                    <i class="uil uil-linkedin"></i>
+                </a>
+                --->
+                <a rel="nofollow" href="https://instagram.com/onlypucom" target="_blank" class="w-6 mx-1">
+                    <i class="fab fa-instagram text-primary-600"></i>
+                </a>
+
+                <a rel="nofollow" href="https://instagram.com/onlypucom" target="_blank" class="w-6 mx-1">
+                    <i class="fab fa-telegram text-primary-600"></i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</footer>

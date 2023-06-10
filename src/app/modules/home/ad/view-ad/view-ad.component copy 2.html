@@ -1,0 +1,187 @@
+<div *ngIf="post" class="mt-10 mb-16">
+    <div class="grid grid-cols-5 gap-4">
+        <div class="col-span-5 sm:col-span-4 space-y-2">
+            <div>
+                <div *ngIf="post?.CityZone; else stateCity ">
+                    <div class="flex justify-start items-center space-x-1 text-primary-600">
+                        <div class="text-xs flex justify-center items-center"> 
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <a
+                        class="text-sm" 
+                        href="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+                            Volver a la búsqueda
+                        </a>
+                    </div>
+                </div>
+                <ng-template #stateCity>
+                    <div class="flex justify-start items-center space-x-1 text-primary-600">
+                        <div class=" text-xs"> 
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+                        <a 
+                        class="text-sm" 
+                        href="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}">
+                            Volver a la búsqueda
+                        </a>
+                    </div>
+                </ng-template>
+                <div class="flex space-x-2 items-center mt-3 flex-wrap">
+                    <a routerLink="/" class="w-8 h-8 flex justify-center items-center rounded-md border border-secondary-500 py-1 px-1 text-xs text-secondary-50 bg-secondary-600">
+                        <i class="fas fa-home"></i>
+                    </a>
+
+                    <div class="flex space-x-2"> 
+                        <div class="flex justify-center items-center text-xs"> 
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <a 
+                        class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600" 
+                        routerLink="/{{post.AdCategory!.slug}}">
+                            {{post.AdCategory!.name}}
+                        </a>
+                    </div>
+                    
+                    <div class="flex space-x-2"> 
+                        <div class="flex justify-center items-center text-xs"> 
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <a 
+                        class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600" 
+                        routerLink="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}">
+                            {{post.StateCity!.name}}
+                        </a>
+                    </div>
+
+                    <div *ngIf="post?.CityZone" class="flex space-x-2"> 
+                        <div class="flex justify-center items-center text-xs"> 
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <a
+                        class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600"   
+                        routerLink="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+                            {{post.CityZone!.name}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-5 pt-6 sm:pt-8">
+                <div class="text-sm text-secondary-100 italic">
+                    {{post.createdAt | date}}
+                </div>
+                <div>
+                    <div *ngIf="post.plan == 2" class="text-xs bg-purple-800  text-white px-2 rounded-full">
+                        <i class="fas fa-share"></i>
+                        <span class="font-bold">Top</span><span> premium</span>
+                    </div>
+                    <div *ngIf="post.plan == 1" class="text-xs bg-blue-800  text-white px-2 rounded-full">
+                        <i class="fas fa-share"></i>
+                        <span class="font-bold">Top</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap space-x-2 text-sm">
+                <div class="font-semibold">
+                    {{post.age}} años 
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div>|</div>
+                    <div>
+                        {{post.AdCategory!.name}}
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div>|</div>
+                    <div class="flex items-center space-x-1 font-semibold">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{post.StateCity!.name}}</span>
+                    </div>
+                </div>
+                <div *ngIf="post.CityZone" class="flex items-center space-x-2">
+                    <div>|</div>
+                    <div class="flex items-center space-x-1 font-semibold">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{post.CityZone!.name}}</span>
+                    </div>
+                </div>
+                <div *ngIf="post.address" class="flex items-center space-x-2">
+                    <div>|</div>
+                    <div class="flex items-center space-x-2 font-semibold">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{post.address}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="space-x-2 text-xs text-secondary-100">
+                <span>ID del anuncio:</span>
+                <span class="text-xs">{{post.code}}</span>
+            </div>
+            <h1 class="font-semibold text-xl text-primary-600 pt-4 ">
+                {{post.title}}
+            </h1>
+            <p class="pt-6" [innerHtml] = "innerText(post.description)"></p>
+
+        </div>
+        <div class="hidden sm:block">
+            <div class="flex flex-col space-y-5 mt-16">
+                <a
+                class="border flex justify-center items-center space-x-2 text-xs uppercase border-primary-600 bg-primary-600 hover:bg-primary-700 text-secondary-50 rounded-md p-2"   
+                href="tel:{{post.phonePrefix}} {{post.phone}}">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Telefono</span>
+                </a>
+                <a
+                class="border flex justify-center items-center space-x-2 text-xs uppercase border-emerald-600 bg-emerald-600 hover:bg-emerald-700 text-secondary-50 rounded-md p-2"  
+                href="https://wa.me/{{post.phonePrefix}}{{post.phone}}/?text={{textMessage()}}" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a 
+                class="border flex justify-center items-center space-x-2 text-xs uppercase border-sky-600 bg-sky-600 hover:bg-sky-700 text-secondary-50 rounded-md p-2"  
+                href="https://t.me/+59165540614/?text={{textMessage()}}" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div  class="masonry mt-10">
+        <div  *ngFor="let item of post.PostMedia" class="masonry-item">
+            <img src="{{item.url}}" alt="">
+        </div>
+    </div>
+</div>
+
+<div class=" w-full fixed bottom-0 z-50 block sm:hidden"> <!-- style="background-color: #222020;" -->
+    <div class="flex flex-row justify-between items-center space-x-2 mr-4 mb-1">
+      <div class="w-3/6">
+        <a
+        class="border flex justify-center items-center space-x-2 text-sm uppercase border-emerald-500 bg-emerald-500 hover:bg-emerald-700 text-secondary-50 rounded-md p-3"  
+        href="https://wa.me/{{post.phonePrefix}}{{post.phone}}/?text={{textMessage()}}" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>WhatsApp</span>
+        </a>
+      </div>
+  
+      <div class="w-3/6">
+        <a
+        class="border flex justify-center items-center space-x-2 text-sm uppercase border-primary-600 bg-primary-600 hover:bg-primary-700 text-secondary-50 rounded-md p-3"   
+        href="tel:{{post.phonePrefix}} {{post.phone}}">
+            <i class="fas fa-phone-alt"></i>
+            <span>Telefono</span>
+        </a>
+      </div>
+      
+    </div>
+   
+</div>
+
+  
+  
+
+
+
+
+  
+  

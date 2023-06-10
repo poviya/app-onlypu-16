@@ -1,0 +1,75 @@
+<fieldset class="w-full rounded-xl border border-gray-200  p-4 sm:p-6 shadow-xl bg-white">
+  <div class="my-4">
+    <h1 class="text-xl font-bold">Upload video</h1>
+  </div>
+  <form [formGroup]="myform" novalidate class="px-2 sm:px-0">
+
+    <div class="mb-4 flex flex-col">
+      <div class="flex justify-between">
+        <label for="email" class="mb-2 font-semibold ">Caption</label>
+      </div>
+      <div class="relative">
+          <textarea formControlName="description" id="text" 
+          [ngClass]="{
+              'bg-green-50 border-green-400': myform.controls['description'].valid && (myform.controls['description'].dirty || myform.controls['description'].touched),
+              'bg-red-50 border-red-400': myform.controls['description'].invalid && (myform.controls['description'].dirty || myform.controls['description'].touched)
+            }"
+          class="w-full rounded-lg border border-gray-300 px-2 py-2 pl-1 hover:border-gray-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40">
+          </textarea>
+      </div>
+    </div>
+
+    <div class="mt-4 flex flex-col">
+      <div class="flex justify-between">
+        <label for="email" class="mb-2 font-semibold ">Who can watch this video</label>
+      </div>
+      <div class="relative w-24">
+
+          <select formControlName="typeView"
+          [ngClass]="{
+              'bg-green-50 border-green-400': myform.controls['typeView'].valid && (myform.controls['typeView'].dirty || myform.controls['typeView'].touched),
+              'bg-red-50 border-red-400': myform.controls['typeView'].invalid && (myform.controls['typeView'].dirty || myform.controls['typeView'].touched)
+          }"
+          class="w-full rounded-lg border border-gray-300 px-2 py-2 pl-1 hover:border-gray-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40">
+              <option *ngFor="let item of typeViewArray" value="{{item.value}}">{{item.name}}</option>
+          </select>
+      </div>
+    </div>
+    
+    <div class="mt-4 flex flex-col">
+      <div class="">
+        <input type='file' class="form-control" style="height:32px;" accept="video/*" #fileElement (change)="readUrl($event, linkUrl)">
+      </div>
+      <div class="hidden">
+        <span class="col-sm-12 text-center">or</span>
+      </div>
+      <div class="hidden">
+        <input type="text" class="form-control" style="height:42px;" #linkUrl placeholder=" Paste URL here"/>
+        <button class="btn btn-info ml-1 pl-3 pr-3" style="height:42px;" (click)="getLink(linkUrl, fileElement)">GO</button>
+      </div>
+      <div class="">
+        <img src="./assets/images/loading.gif" class="video  h-80" *ngIf="loadingState">
+        <video videoElement class=" bg-black h-80 video rounded-sm" autoplay disablePictureInPicture controlsList="nodownload noplaybackrate " controls crossorigin="anonymous"  *ngIf="videoLoaded">
+          <source [src]="videoUrl" autoplay type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+
+    <div class="flex justify-center space-x-5 mt-5">
+      <button
+          (click)="onDiscard()"
+          class=" py-3 px-20 shadow-sm bg-white hover:bg-gray-100 border border-gray-300 uppercase text-gray-900 rounded-full" 
+          >
+          Discard
+      </button>
+      <button
+          (click)="onSubmit()"
+          [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+          class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full" 
+          [disabled]="myform.status == 'VALID' ? false: true">
+          Post
+      </button>
+    </div>
+  </form>
+</fieldset>

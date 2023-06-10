@@ -1,0 +1,55 @@
+<div *ngIf="paymentOrder" class="min-h-screen flex flex-col items-center justify-center">
+    <div class="flex justify-center items-center">
+        <a routerLink="/">
+            <img class="h-14" src="./assets/logo/logo.png" alt="">
+            <div class="flex justify-end -mt-2 font-bold">
+                <span class="">Pay</span>
+            </div>
+        </a>
+    </div>
+    <div class="flex flex-col mt-5
+        bg-zinc-50 
+        dark:bg-zinc-800 
+        dark:text-zinc-200
+        shadow-md
+        px-4
+        sm:px-6
+        md:px-8
+        lg:px-10
+        py-8
+        rounded-3xl
+        w-full
+        border 
+        border-slate-200
+        dark:border-zinc-700
+        max-w-md">
+        <div *ngIf="paymentOrder.receipt.decision == 'ACCEPT'" class="space-y-5 flex flex-col justify-center">
+            <div class="text-5xl text-center text-green-500">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="text-3xl font-light text-center">
+                Pago exitoso ..!
+            </div>
+            <a *ngIf="paymentOrder.paymentType === 'TIP'" routerLink="/panel/{{paymentOrder.Post.slug}}" class="flex justify-center items-center space-x-2">
+                <span><i class="fas fa-angle-left"></i></span>
+                <span>Ver anuncio</span>
+            </a>
+            <a *ngIf="paymentOrder.paymentType === 'AD_SALE'" routerLink="/pu/{{paymentOrder.Post.slug}}" class="flex justify-center items-center space-x-2">
+                <span><i class="fas fa-angle-left"></i></span>
+                <span>Ver anuncio</span>
+            </a>
+        </div>
+       <div *ngIf="paymentOrder.receipt.decision == 'DECLINE' || paymentOrder.receipt.decision == 'ERROR'" class="space-y-5 flex flex-col justify-center">
+            <div class="text-5xl text-center text-red-500">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="text-3xl font-light text-center">
+                Pago rechazado ...!
+            </div>
+            <a routerLink="/" class="flex justify-center items-center  space-x-2">
+                <span><i class="fas fa-angle-left"></i></span>
+                <span>Volver a inicio</span>
+            </a>
+        </div>
+    </div>
+</div>

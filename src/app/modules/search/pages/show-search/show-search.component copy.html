@@ -1,0 +1,31 @@
+<div *ngIf="browser" class="py-10 space-y-2">
+    <form *ngIf="registroFormGroup" (ngSubmit)="onSubmit()" [formGroup]="registroFormGroup">
+        <div class="flex space-x-2">
+            <div class="w-3/6">
+                <select class="w-full border"  formControlName="categorySlug">
+                    <option *ngFor="let item of adCategories" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="w-3/6">
+                <input type="text" placeholder="Buscar aqui..." formControlName="q" class="border w-full">
+            </div>
+        </div>
+        <div class="flex space-x-2">
+            <div class="w-3/12">
+                <select class="w-full border" formControlName="countryStateSlug">
+                    <option value="">Todos los departamentos</option>
+                    <option *ngFor="let item of countryStates" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="w-3/12">
+                <select class="w-full border" formControlName="stateCitySlug">
+                    <option value="">Todos las ciudades</option>
+                    <option *ngFor="let item of stateCities" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="">
+                <button type="submit" class="bg-pink-600 text-white px-1">Buscar</button>
+            </div>
+        </div>
+    </form>
+</div>

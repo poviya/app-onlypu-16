@@ -1,0 +1,24 @@
+<ul id="accordion" class="accordion w-full " >
+    <li *ngFor="let menu of countries; let i = index" 
+      [class.active]="menu.activeOnlypu" > <!-- [class.active]="menu.active" -->
+      <div class="menu flex justify-between items-center " (click)="toggle(i)">
+        <!-- <i [class]="menu.iconClass"></i> -->
+          <div class="flex items-cente -z-10r">
+            <img class="h-6" src="{{menu.icon}}" alt="{{menu.name}}">
+            <span class="ml-2"> {{ menu.name }}</span>
+          </div>
+          <div class="z-0">
+            <i class="fa fa-chevron-down"></i>
+          </div>
+      </div>
+
+
+      <ul class="submenu" #submenu 
+        [style.height.px]="!menu?.activeOnlypu ? submenu?.scrollHeight : 0">
+        <li *ngFor="let submenu of menu.Cities">
+          <a [href]="menu.slug  + '/' + menu.Categories[0].slug + '/' + submenu.slug">{{ submenu.name }}</a>
+        </li>
+      </ul>
+      
+    </li>
+  </ul>

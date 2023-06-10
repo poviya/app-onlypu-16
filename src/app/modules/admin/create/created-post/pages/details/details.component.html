@@ -1,0 +1,411 @@
+<div class="hidden">
+	<button class="start-button" *ngIf="!isRecording && !blobUrl" (click)="startRecording()">Start Recording</button>
+
+	<button class="stop-button" *ngIf="isRecording && !blobUrl" (click)="stopRecording()">Stop Recording</button>
+
+	<button class="cancel-button" *ngIf="!isRecording && blobUrl" (click)="clearRecordedData()">Clear Recording</button>
+
+	<br>
+	<button class="cancel-button" *ngIf="!isRecording && blobUrl" (click)="download()">Download Recording</button>
+
+	<div *ngIf="isRecording && !blobUrl"> {{recordedTime}} </div>
+	<div>
+		<audio *ngIf="!isRecording && blobUrl" controls>
+			<source [src]="blobUrl" type="audio/webm">
+		</audio>
+	</div>
+</div>
+
+<div class="w-full rounded-xl border border-zinc-200 dark:border-zinc-700  p-4 sm:p-6 shadow-xl bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200 ">
+    <div class="mb-4">
+      <h1 class="text-xl font-bold">{{'sidebar.menu.new_post' | translate}}</h1>
+      <h2 class="text-lg font-light text-gray-400 hidden">{{'create.post_a_video_to_your_account' | translate}}</h2>
+    </div>
+    <form [formGroup]="myform" novalidate class="sm:px-0">
+  
+      <fieldset class="mb-4 flex flex-col">
+        <div class="flex justify-between">
+          <label for="email" class="mb-2 font-semibold ">{{'create.title' | translate}}</label>
+          <span class="text-xs font-light text-zinc-600 dark:text-zinc-200">{{ 'create.charactersNeeded' | translate:{'0': '5'} }}</span>
+        </div>
+        <div class="relative">
+            <textarea formControlName="title" id="text" 
+            [ngClass]="{
+              'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+              myform.controls['title'].valid && (myform.controls['title'].dirty || myform.controls['title'].touched),
+              ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+              myform.controls['title'].invalid && (myform.controls['title'].dirty || myform.controls['title'].touched),
+              'w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+            }">
+            </textarea>
+           
+        </div>
+    </fieldset>
+
+      <fieldset class="mb-4 flex flex-col">
+        <div class="flex justify-between">
+          <label for="email" class="mb-2 font-semibold ">{{'create.text' | translate}}</label>
+        </div>
+        <div class="relative">
+            <textarea formControlName="description" id="text" 
+            placeholder="                                                                                                                                                 #tag @username"
+            [ngClass]="{
+              'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+              myform.controls['description'].valid && (myform.controls['description'].dirty || myform.controls['description'].touched),
+              ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+              myform.controls['description'].invalid && (myform.controls['description'].dirty || myform.controls['description'].touched),
+              'w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+          }">
+            </textarea>
+        </div>
+      </fieldset>
+  
+      <fieldset class="mt-4 flex">
+        <div class="w-3/6">
+          <div class="flex justify-between">
+            <label for="email" class="mb-2 font-semibold ">{{'create.who_can_see' | translate}}</label>
+          </div>
+          <div class="relative w-36">
+            <select 
+            formControlName="typeView"
+            (change)="onTypeView($event)"
+            [ngClass]="{
+              'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+              myform.controls['typeView'].valid && (myform.controls['typeView'].dirty || myform.controls['typeView'].touched),
+              ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+              myform.controls['typeView'].invalid && (myform.controls['typeView'].dirty || myform.controls['typeView'].touched),
+              'w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+            }">
+                <option *ngFor="let item of typeViewArray" value="{{item.value}}">{{item.name | translate}}</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="swPrice" class="w-3/6">
+          <div class="flex justify-between">
+            <label for="credit" class="mb-2 font-semibold ">{{'create.price' | translate}}</label>
+          </div>
+          <div class="relative w-full">
+            <input formControlName="credit" id="text" 
+            [ngClass]="{
+              'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+              myform.controls['credit'].valid && (myform.controls['credit'].dirty || myform.controls['credit'].touched),
+              ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+              myform.controls['credit'].invalid && (myform.controls['credit'].dirty || myform.controls['credit'].touched),
+              'pl-8 w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+            }"/>
+            <div class="flex justify-center items-center absolute inset-y-0 left-0 pl-1 pointer-events-none">
+              <span class=" material-icons-outlined notranslate">attach_money</span>
+            </div>
+          </div>
+        </div>
+  
+      </fieldset>
+  
+      <fieldset class="w-full mt-4 rounded-xl bg-transparent shadow-2xl shadow-white/0 ">
+        <div class="mb-4 flex space-x-5">
+          <label 
+              for="toogleC"
+              class="flex items-center cursor-pointer"
+            >
+              <div class="relative">
+  
+                <input id="toogleC" formControlName="comment" type="checkbox" class="sr-only bg-pink-800" />
+   
+                <div class="w-10 h-4 bg-zinc-400 rounded-full shadow-inner"></div>
+      
+                <div class="dot absolute w-6 h-6 bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-200 rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+            </label>
+            <div class="ml-3  font-light text-sm">
+              {{'create.allow_users_to_comment' | translate}}
+            </div>
+        </div>
+  
+    </fieldset>
+  
+      <fieldset *ngIf="mediaButton && !idPost" class="my-4 divide-y-2 border-t dark:border-zinc-700 p-2">
+        <div class="flex justify-between space-x-2">
+          <div class="w-3/6">
+            <label class=" cursor-pointer relative font-bold-500 h-10 w-full rounded flex justify-center" >
+                <input 
+                class="text-sm cursor-pointer w-full hidden" 
+                type="file" 
+                formControlName="fileImages"
+                id="fileImages" 
+                accept="image/gif, image/png, image/jpg, image/jpeg"
+                multiple="" 
+                (change)="onFileChange($event)"/>
+                <div class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-50  w-full rounded-md font-normal cursor-pointer space-x-1 p-2 px-3 hover:bg-zinc-200 dark:hover:bg-zinc-700 flex justify-center items-center">
+                  <span class=" material-icons-outlined notranslate">image</span>
+                  <span>{{'create.photos' | translate}}</span>
+                </div>
+            </label>
+          </div>
+          <div class="w-3/6">
+            <label class=" cursor-pointer relative font-bold-500 h-10 w-full rounded flex justify-center" >
+                <input 
+                class="text-sm cursor-pointer w-full hidden" 
+                type="file" 
+                formControlName="fileVideo"
+                id="fileVideo" 
+                accept="video/*" 
+                (change)="readUrl($event)"/>
+                <div class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-50 w-full rounded-md font-normal cursor-pointer space-x-1 p-2 px-3  hover:bg-zinc-200 dark:hover:bg-zinc-700 flex justify-center items-center">
+                  <span class=" material-icons-outlined notranslate">smart_display</span>
+                  <span>Video</span>
+                </div>
+            </label>
+          </div>
+          <div class="w-2/6 hidden">
+            <label class=" cursor-pointer relative font-bold-500 h-10 w-full rounded flex justify-center" >
+                <button 
+                  [disabled]="true" 
+                  [ngClass]="'opacity-50'" 
+                  class="bg-zinc-100 dark:bg-zinc-700 text-zinc-800 dark:text-zinc-50 w-full rounded-md font-normal cursor-pointer space-x-1 p-2 px-3  hover:bg-zinc-200 dark:hover:bg-zinc-700 flex justify-center items-center">
+                  <span class=" material-icons-outlined notranslate">poll</span>
+                  <span>Poll</span>
+                </button>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+  
+      <fieldset *ngIf="imagesButton" class="w-full rounded-xl shadow-2xl shadow-white/0 my-4">
+  
+        <div class="grid grid-cols-3 sm:grid-cols-4 gap-2 ustify-between mt-0">
+  
+          <div *ngFor='let item of selectedFiles; let first = first;'>
+            <div class="relative group flex justify-end items-center h-32 sm:h-40 w-auto border border-secondary-200 bg-secondary-300">
+              <img class="object-center object-cover h-full w-full" src="{{item.url}}" alt="watch-image" />
+              <button
+                (click)="deleteFile(item)"
+                class="text-tertiary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 bottom-4 z-10 absolute text-base font-medium leading-none p-1 w-6 rounded-full dark:bg-zinc-900 shadow-sm">
+                  <span class=" material-icons-outlined notranslate">delete</span>
+              </button>
+              <div class="absolute opacity-10 group-hover:opacity-100 transition duration-500 bottom-3 py-0 z-0 px-0 w-auto bg-white bg-opacity-50"></div>
+            </div>
+          </div>
+  
+          <div *ngFor='let item of filesImagesArray; let first = first;'>
+            <div *ngIf="item.typeFile" class="relative group flex justify-end items-center h-32 sm:h-40 w-auto bg-zinc-100 dark:bg-zinc-900">
+              
+              <img *ngIf="item.typeFile![0] == 'image'" class="object-center object-cover h-full w-full" src="{{item.url}}" alt="watch-image" />
+              
+              <div class="flex justify-start items-center">
+       
+                <video *ngIf="item.typeFile![0] == 'video'" autoplay muted loop playsinline preload="none" #videoElement 
+                class=" text-center bg-black video h-40 w-full flex justify-center" controls disablePictureInPicture controlsList="nodownload noplaybackrate " crossorigin="anonymous" >
+                  <source [src]="item.url" type="video/mp4" class="flex justify-center items-center text-center">
+                </video>
+              </div>
+             
+              <button 
+                (click)="deleteImage(item)" 
+                class="text-white flex justify-center items-center w-7 h-7 mr-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 top-1 z-10 absolute text-base font-medium leading-none p-0 rounded-full  bg-primary-600 shadow-sm">
+                  <span class=" material-icons-outlined notranslate">delete</span>
+              </button>
+              <div class="absolute opacity-10 group-hover:opacity-100 transition duration-500 bottom-3 py-0 z-0 px-0 w-auto bg-white bg-opacity-50"></div>
+            </div>
+          </div>
+          
+          <div class="dark:text-zinc-400 font-light hover:border-seconadary-200 cursor-pointer hover:bg-transparent group h-32 sm:h-40 w-full flex flex-col items-center justify-center rounded-md text-sm leading-6">
+            <label for="file" class="hidden">File</label>
+            <div class="input_field flex flex-col text-center w-full">
+              <label class=" cursor-pointer relative font-bold-500 h-40 w-auto rounded flex justify-center animate-pulse" >
+                  <input 
+                  class="text-sm cursor-pointer w-full hidden" 
+                  type="file" 
+                  id="fileImages" 
+                  accept="image/gif, image/png, image/jpg, image/jpeg, video/*"
+                  multiple="" 
+                  (change)="onFileChange($event)"/>
+                  <div class="w-full dark:bg-zinc-900 rounded-md font-normal cursor-pointer space-x-1 p-2 px-3 hover:dark:bg-zinc-900 flex justify-center items-center">
+                    <span class=" material-icons-outlined notranslate text-5xl">add</span>
+                  </div>
+              </label>
+            </div>
+          </div>
+  
+        </div>
+       
+      </fieldset>
+  
+      <fieldset class="mt-4 hidden">
+        <div class="flex justify-between items-center space-x-4 dark:text-zinc-400 font-light">
+  
+          <div *ngIf="videoPresentationUrl" class="w-4/6">
+            <img src="{{videoPresentationUrl}}" class=" object-cover video h-60">
+          </div>
+          <div *ngIf="!videoPresentationUrl" class="w-4/6 h-60 animate-pulse bg-background-light dark:bg-zinc-900 flex items-center justify-center">
+            <span class=" material-icons-outlined notranslate text-5xl">add_photo_alternate</span>
+          </div>
+  
+          <div class="w-2/6">
+            <div>
+              With a good promotional GIF, the chances of sales increase; .jpg, .jpeg, .gif, or .png format; and no text on the image.
+            </div>
+            <div class="input_field flex flex-col text-center mt-2">
+              <label>
+                  <input 
+                  class="text-sm cursor-pointer w-36 hidden" 
+                  type="file" 
+                  id="filePromotional" 
+                  accept="image/gif"
+                  (change)="readPresentation($event)"/>
+                  <div class="text bg-primary-600 text-white rounded-full font-normal cursor-pointer space-x-1 p-2 px-3 hover:bg-primary-600 flex justify-center items-center">
+                    <div>
+                      <svg class="text-white w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                    </div>
+                    <span>Promotional GIF </span>
+                  </div>
+              </label>
+            </div>
+          </div>
+          
+        </div>
+      </fieldset>
+    
+      
+  
+        <!-- <input type='file' class="" accept="video/*" #fileElement (change)="readUrl($event, linkUrl)"> -->
+      
+        <!-- <div   class="extraOutline bg-white w-full h-72  bg-whtie m-auto rounded-lg">
+          <div class="file_upload p-5 relative border-4 border-dotted h-72 border-gray-300 rounded-lg">
+              <svg class="text-primary-600 w-24 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+              <div class="input_field flex flex-col w-max mx-auto text-center">
+                  <label>
+                      <input 
+                      class="text-sm cursor-pointer w-36 hidden" 
+                      type="file" 
+                      formControlName="file"
+                      id="file" 
+                      accept="video/*"
+                      #fileElement (change)="readUrl($event)"/>
+                      <div class="text bg-primary-600 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-primary-600">
+                        Select file
+                      </div>
+                  </label>
+  
+                  <div class="title text-primary-600 uppercase">Select video to upload</div>
+              </div>
+          </div>
+        </div> -->
+          
+        <!-- <div class="hidden">
+          <span class="col-sm-12 text-center">or</span>
+        </div>
+  
+        <div class="hidden">
+          <input type="text" class="form-control" style="height:42px;" #linkUrl placeholder=" Paste URL here"/>
+          <button class="btn btn-info ml-1 pl-3 pr-3" style="height:42px;" (click)="getLink(linkUrl, fileElement)">GO</button>
+        </div> -->
+  
+        <fieldset *ngIf="videoButton" class="mt-4">
+          <div class="flex justify-between items-center space-x-4 dark:text-zinc-400 font-light">
+  
+            <div  class="w-fit">
+  
+              <div class="relative group flex justify-end items-center h-32 sm:h-40 w-fit bg-zinc-100 dark:bg-zinc-900">
+                <div *ngIf="!loadingState && !videoUrl" class="animate-pulse dark:bg-zinc-900 shadow p-4 video h-32 sm:h-40 flex justify-center items-center">
+                  <span class=" material-icons-outlined notranslate text-5xl">play_circle_filled</span>
+                </div>
+                <div *ngIf="loadingState" class="animate-pulse dark:bg-zinc-900 shadow p-4 video h-32 sm:h-40 video flex justify-center items-center">
+                  <span class=" material-icons-outlined notranslate text-5xl">play_circle_filled</span>
+                  <!-- <div class="animate-pulse flex space-x-4">
+                    <div class="rounded-full bg-slate-700 h-10 w-10"></div>
+                    <div class="flex-1 space-y-6 py-1">
+                      <div class="h-2 bg-slate-700 rounded"></div>
+                      <div class="space-y-3">
+                        <div class="grid grid-cols-3 gap-4">
+                          <div class="h-2 bg-slate-700 rounded col-span-2"></div>
+                          <div class="h-2 bg-slate-700 rounded col-span-1"></div>
+                        </div>
+                        <div class="h-2 bg-slate-700 rounded"></div>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+                <!-- <img src="https://tethrdnation.com/wp-content/uploads/2022/02/Comp-2.gif" class=" object-cover video h-80" *ngIf="loadingState">   [muted]="'muted'"-->
+                <video playsinline autoplay loop controls preload="none" #videoElement 
+                  class=" bg-black video h-32 sm:h-40 w-40" disablePictureInPicture controlsList="nodownload noplaybackrate " 
+                  crossorigin="anonymous" *ngIf="videoLoaded">
+                  <source [src]="videoUrl" type="video/mp4">
+                </video>
+                <button 
+                  (click)="deleteVideo()"
+                  class="text-white flex justify-center items-center w-7 h-7 mr-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 top-1 z-10 absolute text-base font-medium leading-none p-0 rounded-full  bg-primary-600 shadow-sm">
+                    <span class=" material-icons-outlined notranslate">delete</span>
+                </button>
+              </div>
+              
+            </div>
+  
+            <div class="w-2/6 hidden">
+              <div>
+                With a good promotional GIF, the chances of sales increase; .jpg, .jpeg, .gif, or .png format; and no text on the image.
+              </div>
+              <div class="input_field flex flex-col text-center mt-2">
+                <label>
+                    <input 
+                    class="text-sm cursor-pointer w-36 hidden" 
+                    type="file" 
+                    id="file" 
+                    accept="video/*"
+                    #fileElement (change)="readUrl($event)"/>
+                    <div class="text bg-primary-600 text-white rounded-full font-normal cursor-pointer space-x-1 p-2 px-3 hover:bg-primary-600 flex items-center">
+                      <div>
+                        <svg class="text-white w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                      </div>
+                      <span>Select video to upload</span>
+                    </div>
+                </label>
+              </div>
+            </div>
+           
+          </div>
+        </fieldset>
+  
+      <fieldset class="flex justify-center space-x-5 mt-10">
+        <button
+            (click)="onDiscard()"
+            class=" py-2 px-5 shadow-sm bg-white font-bold hover:bg-gray-100 border border-gray-300 uppercase text-zinc-900 text-sm rounded-full" 
+            >
+            {{'create.discard' | translate}}
+        </button>
+        <button
+            *ngIf="idPost"
+            (click)="onUpdate()"
+            [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+            class=" py-2 px-5 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white text-sm font-bold rounded-full" 
+            [disabled]="myform.status == 'VALID' ? false: true">
+            {{'update' | translate}}
+        </button>
+        <button
+            *ngIf="!idPost"
+            (click)="onSubmit()"
+            [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+            class=" py-2 px-5 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white text-sm font-bold rounded-full" 
+            [disabled]="myform.status == 'VALID' ? false: true">
+            {{'post' | translate}}
+        </button>
+      </fieldset>
+    </form>
+  </div>
+  
+    <div mode="buffer" *ngFor="let progress of progressInfo">
+          <span>{{progress.fileName}}</span>
+          <span>{{progress.value}}%</span>
+          <div id="progressbar">
+            {{progress.value}}
+          </div>
+      </div>
+  
+  <!-- <div class="row m-3 col-sm-2"><button class="btn btn-info downloadBtn" (click)="takeSnapshot()" *ngIf="videoLoaded">Download Snapshot</button></div> -->
+  
+  <!-- <div class="fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-gray-700 opacity-75 flex flex-col items-center justify-center">
+      <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+      <h2 class="text-center text-white text-xl font-semibold">Loading...</h2>
+      <p class="w-1/3 text-center text-white">This may take a few seconds, please don't close this page.</p>
+  </div>
+  
+  <button>hey</button> -->

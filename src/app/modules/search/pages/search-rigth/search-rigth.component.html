@@ -1,0 +1,61 @@
+<div *ngIf="search" class="{{width}} mt-5 px-2">
+    <form *ngIf="registroFormGroup" (ngSubmit)="onSubmit()" [formGroup]="registroFormGroup" class="space-y-4">
+        <div class="  space-y-4  items-center">
+            <div class="">
+                <input type="text" placeholder="{{'search.search_here' | translate}}" formControlName="q" 
+                    class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+            </div>
+            <div class="">
+                <select class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800"  formControlName="categorySlug">
+                    <option *ngFor="let item of adCategories" value="{{item.slug}}">{{item.name! | translate}}</option>
+                </select>
+            </div>
+           
+        </div>
+        <div class="  space-y-4  items-center">
+  
+            <div class="">
+                <select 
+                    class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="countryStateSlug" 
+                    (change)="onCountryState($event)">
+                    <option value="">{{'search.all_the_states' | translate}}</option>
+                    <option *ngFor="let item of countryStates" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="">
+                <select 
+                    class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="stateCitySlug"
+                    (change)="onStateCity($event)">
+                    <option value="">{{'search.all_cities' | translate}}</option>
+                    <option *ngFor="let item of stateCitiesAll" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+  
+            <div class="hidden">
+                <select 
+                    *ngIf="swCityZones" 
+                    class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="cityZoneSlug" [attr.disabled]="true" >
+                    <option value="">{{'search.all_areas' | translate}}</option>
+                </select>
+                <select 
+                    *ngIf="!swCityZones" 
+                    class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="cityZoneSlug" >
+                    <option value="">{{'search.all_areas' | translate}}</option>
+                    <option *ngFor="let item of cityZones" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="w-full flex justify-end">
+                <button type="submit" class="flex w-full items- justify-center rounded-full sm:rounded-lg space-x-1 uppercase text-white border border-primary-600 bg-primary-600 p-2">
+                    <span class=" material-icons-outlined notranslate text-base">search</span>
+                    <span class="text-sm">{{'Search' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </form>
+  </div>

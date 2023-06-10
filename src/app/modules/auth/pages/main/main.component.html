@@ -1,0 +1,23 @@
+<!-- component -->
+<div *ngIf="isBrowser" class="min-h-screen flex flex-col items-center justify-center">
+    <div class="flex flex-col
+        bg-zinc-50
+        dark:bg-zinc-800
+        shadow-md
+        mx-4
+        px-4
+        sm:px-6
+        md:px-8
+        lg:px-10
+        py-8
+        rounded-3xl
+        w-full
+        border 
+        border-zinc-100
+        dark:border-zinc-700
+        max-w-md">
+        <main>
+			<router-outlet></router-outlet>
+		</main>
+    </div>
+</div>

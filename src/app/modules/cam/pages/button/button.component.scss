@@ -1,0 +1,11 @@
+.floating-button {
+    position: fixed;
+    z-index: 9999;
+  }
+  
+
+  .icon::before {
+    content: "";
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad según tus necesidades */
+  }

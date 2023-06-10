@@ -1,0 +1,111 @@
+<div>
+    <div *ngIf="!loadingUser" class="dark:bg-background-dark">
+    
+        <div style="background-image: url('{{this.user.Cover!.length > 0 ? this.prinImages(this.user.Cover) : null}}');" 
+            class="bg-cover bg-zinc-300 dark:bg-zinc-800 flex justify-end items-end px-6 pt-5 pb-6 h-40 md:h-56 w-full object-cover -z-10 ">
+            <div  class="space-y-1 text-center">
+            <div class="flex justify-center items-center space-x-2 text-sm">
+            </div>
+            </div>
+        </div>
+    
+        <div class="-mt-10 md:-mt-16 flex justify-between mx-4">
+            <div 
+                style="background-image: url('{{this.user.Profile!.length > 0 ? this.prinImages(this.user.Profile) : null}}');" 
+                class="bg-zinc-200 dark:bg-zinc-700 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-32 md:h-32 z-10">
+                <div class="flex justify-end items-end text-center">
+                </div>
+            </div>
+            <div class="-mb-1 md:mb-4 relative flex justify-end items-end right-0 space-x-2">
+                <!-- <button (click)="onCreateChat()"  
+                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <span class=" material-icons-outlined notranslate">chat</span>
+                </button> -->
+                <button (click)="onTipDialog()"  
+                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <span class=" material-icons-outlined notranslate">paid</span>
+                </button>
+                <button 
+                    (click)="onCam()"
+                    *ngIf="user.Cam"
+                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <span class="material-icons-outlined notranslate">video_camera_front</span>
+                </button>
+                <!-- <button 
+                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <span class=" material-icons-outlined notranslate">favorite_border</span>
+                </button> -->
+                <button (click)="compartir()" 
+                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <i class="fa-solid fa-share"></i>
+                </button>
+                <!-- <button  (click)="copyText()"
+                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <span class=" material-icons-outlined notranslate">file_upload</span>
+                </button> -->
+                <button  (click)="onSetting()" 
+                    class="hidden w-10 h-10 text-center   rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <span class=" material-icons-outlined notranslate">settings</span>
+                </button>
+            </div>
+        </div>
+    
+        <div class="px-4 pt-2 pb-4">
+            <div class="flex flex-row items-center space-x-1">
+                <p class="font-semibold text-xl dark:text-zinc-100">{{this.user.name}}</p>
+                <div class="text-yellow-500 flex-row hidden">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+            </div>
+            <div class="flex flex-row items-center space-x-2 mb-2 ">
+                <p class="text-zinc-400">@{{this.user.username}}</p>
+            </div>
+            <div *ngIf="user.bio">
+                <read-more [text]="innerText(user.bio)" [maxHeight]="22"></read-more>
+            </div>
+        </div>
+    
+    </div>
+    
+    <div *ngIf="loadingUser" class="animate-pulse"> 
+        <div class="bg-cover bg-zinc-300 dark:bg-zinc-800 flex justify-end items-end px-6 pt-5 pb-6 h-40 md:h-56 w-full object-cover -z-10 ">
+            <div  class="space-y-1 text-center">
+            <div class="flex justify-center items-center space-x-2 text-sm">
+            </div>
+            </div>
+        </div>
+    
+        <div class="-mt-16">
+            <div class="bg-zinc-200 dark:bg-zinc-700 ml-4 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-32 md:h-32 z-10">
+                <div class="flex justify-end items-end text-center">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<!-- <p>
+    Start editing to see some magic happen :)
+  </p>
+  <button (click)="openModal(modal)" >open modal</button>
+  <button (click)="openModal(modal2)" >open modal2</button>
+  
+  <app-center-dialog #modal [active]="isActive">
+    <h1>algun titulo</h1>
+    <p>algun contenido</p>
+    <button (click)="closeModal(modal)">
+      cerrar
+    </button>
+  </app-center-dialog>
+  
+  
+  <app-center-dialog #modal2 [active]="isActive">
+    <h1>algun titulo 2</h1>
+    <p>algun contenido 2</p>
+    <button (click)="closeModal(modal2)">
+      cerrar 2
+    </button>
+  </app-center-dialog> -->

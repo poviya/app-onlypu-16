@@ -1,0 +1,74 @@
+<h4 class="text-xl mb-5 font-semibold">
+    {{'suggestions' | translate}}
+</h4>
+<div *ngIf="this.users">
+    <div *ngIf="this.users.length > 0; else loadingTemplate" class="space-y-2 pt-0">
+        <div *ngFor="let item of this.users">
+            <article #theLastList class="border border-t-0 dark:border-zinc-800 rounded-lg">
+                <div style="background-image: url('{{item.Cover!.length > 0 ? this.prinImages(item.Cover) : null}}');"
+                    class="bg-cover bg-zinc-300 dark:bg-zinc-600 flex justify-end items-end px-6 h-20 md:h-28 w-full object-cover rounded-lg ">
+                    <div class="space-y-1 text-center">
+                        <div class="flex justify-center items-center space-x-2 text-sm ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="-mt-20 flex justify-between w-full pl-1">
+                    <div style="background-image: url('{{item.Profile!.length > 0 ? this.prinImages(item.Profile) : null}}');"
+                        class="border-2 border-zinc-50 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-700 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-20 md:h-20 z-10 flex-shrink-0">
+                        <div class="flex justify-end items-end text-center">
+                        </div>
+                    </div>
+                    <div class="mt-8 truncate w-full pl-2">
+                        <p class="font-semibold text-base text-left truncate">
+                            <a routerLink="/{{item.username}}" class=" hover:underline">{{item.name}}</a>
+                        </p>
+
+                        <p class=" text-sm text-gray-500 text-left truncate">
+                            <a routerLink="/{{item.username}}"
+                                class="text-zinc-500 dark:text-zinc-400 hover:text-blue-500 hover:underline">
+                                @{{item.username}} </a>
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <ng-template #loadingTemplate>
+        <div class="my-10">
+            <div *ngIf="loading; else noData">
+
+                <section *ngFor="let item of this.postLoading"
+                    class="bg-zinc-50 dark:bg-zinc-800  p-4 w-full mx-auto space-y-2 shadow-sm">
+                    <div class="animate-pulse flex space-x-4">
+                        <div class="rounded-full bg-zinc-200 dark:bg-zinc-700 h-12 w-12"></div>
+                        <div class="flex-1 space-y-6 py-1">
+                            <div class="flex flex-col space-y-1">
+                                <div class="h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-32">
+
+                                </div>
+                                <div class="h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-24">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class=" animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded ">
+
+                    </div>
+                    <div class=" animate-pulse w-full h-44 md:h-112 bg-zinc-200 dark:bg-zinc-700 rounded ">
+
+                    </div>
+                </section>
+
+            </div>
+            <ng-template #noData>
+                <div class=" text-center font-light text-3xl">
+                    {{'there_is_no_data' | translate}}
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
+</div>

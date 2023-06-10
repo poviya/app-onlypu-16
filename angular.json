@@ -27,12 +27,26 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/@fortawesome/fontawesome-free/js/all.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "react-dom/client",
+              "moment",
+              "recordrtc",
+              "rxjs-compat",
+              "@zegocloud/zego-uikit-prebuilt",
+              "lodash"
+            ],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -90,7 +104,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
@@ -100,5 +115,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "68dbe3ee-f4e4-4075-95f5-7028e9e9a890"
   }
 }

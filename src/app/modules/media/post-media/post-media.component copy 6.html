@@ -1,0 +1,135 @@
+<div *ngIf="slides" class=" h-96  md:h-112 w-full">
+  <div *ngIf="slides[0].type == 'image'">
+    <div #main class="carousel-container h-96  md:h-112 w-ful">
+      <div class="carousel-track "
+        [ngStyle]="{ transform: 'translateX(' + (-currentIndex * slideWidth) + 'px)', transition: 'transform ' + transitionDuration + 's ease-in-out' }">
+        <div *ngFor="let slide of slides" class="carousel-slide  ">
+          <div class=" h-96  md:h-112 w-full"
+            style=" background-image: url('{{slide.url}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
+            <div class="lightbox  backdrop-blur-xl bg-zinc-200/10  ">
+              <div class="flex justify-center">
+                <img [src]="slide.url" alt="" class="h-96 sm:h-112 md:h-112 w-fit">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="carousel-dots">
+        <span *ngFor="let slide of slides; let i = index" [ngClass]="{ 'active': i === currentIndex }"
+          (click)="jumpToSlide(i)">
+        </span>
+      </div>
+
+      <button type="button" *ngIf="controls" (click)="prevCarouselMedia()"
+        class="carousel-button prev flex absolute top-0 left-0 justify-center items-center px-1 sm:px-2 cursor-pointer group focus:outline-none"
+        data-carousel-prev>
+        <span
+          class="inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-zinc-500  sm:w-4 sm:h-4 dark:text-zinc-50" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          <span class="hidden">Previous</span>
+        </span>
+      </button>
+
+      <button type="button" *ngIf="controls" (click)="nextCarouselMedia()"
+        class="carousel-button next flex absolute top-0 right-0 justify-center items-center px-1 sm:px-2 cursor-pointer group focus:outline-none"
+        data-carousel-next>
+        <span
+          class="inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+          <svg class="w-4 h-4 text-zinc-500 sm:w-4 sm:h-4 dark:text-zinc-50" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+          <span class="hidden">Next</span>
+        </span>
+      </button>
+    </div>
+
+  </div>
+  <div *ngIf="slides[0].type == 'video'">
+    <div #main class="carousel-container h-96  md:h-112 w-ful">
+      <div class="carousel-track "
+        [ngStyle]="{ transform: 'translateX(' + (-currentIndex * slideWidth) + 'px)', transition: 'transform ' + transitionDuration + 's ease-in-out' }">
+        <div *ngFor="let slide of slides" class="carousel-slide  ">
+          <div class=" h-96  md:h-112 w-full"
+            style=" background-image: url('{{slide.urlSnapshot}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
+            <div class="lightbox  backdrop-blur-xl bg-zinc-200/10  ">
+              <div class="flex justify-center">
+                <!-- <video class=" bg-black h-96 sm:h-112 md:h-112 w-fit flex justify-center" preload loop controls
+                  controlsList="nodownload" disablePictureInPicture controlsList="nodownload noplaybackrate "
+                  oncontextmenu="return false;" poster="{{slide.urlSnapshot}}">
+                  <source src="{{slide.url}}" type="video/mp4">
+                </video> -->
+
+                <div class="video-item bg-black h-96 sm:h-112 md:h-112 w-fit flex justify-center"
+                  [ngClass]="{ 'active': currentVideo === slide._id }" (click)="onPlayVideo(slide._id!)">
+                  <video *ngIf="currentVideo === slide._id" [src]="slide.url"
+                    class=" bg-black h-96 sm:h-112 md:h-112 w-fit flex justify-center" preload loop controls
+                    controlsList="nodownload" disablePictureInPicture controlsList="nodownload noplaybackrate "
+                    oncontextmenu="return false;" poster="{{slide.urlSnapshot}}">
+                  </video>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #one>
+  <video *ngIf="postMedia![0].type == 'video'" class=" bg-black w-full h-72 sm:h-80 md:h-112 flex justify-center"
+    preload loop controls controlsList="nodownload" disablePictureInPicture controlsList="nodownload noplaybackrate "
+    oncontextmenu="return false;" poster="{{postMedia![0].urlSnapshot}}">
+    <source src="{{postMedia![0].url}}" type="video/mp4">
+  </video>
+
+  <div *ngIf="postMedia![0].type == 'image'" class="media-lightbox-container w-full bg-zinc-200 dark:bg-zinc-900"
+    style=" background-image: url('{{imgSrc}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
+    <!-- <div class="media">
+        <div  *ngFor="let item of postMedia; let i = index" class="media-img">
+            <img (click)="onPreviewImage(i)" src="{{item.url}}" alt="{{i}}">
+        </div>
+    </div> -->
+    <div *ngIf="showMask" class="lightbox  backdrop-blur-xl bg-zinc-200/10  " @animation2>
+      <div class="lightbox-img">
+        <img [src]="imgSrc" alt="" class="h-96 sm:h-112 md:h-112 w-fit">
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+
+<!-- <div *ngIf="postMedia!.length" class="columns-2 md:columns-3 lg:columns-1">
+  <carousel class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
+    <ng-container *ngFor="let item of postMedia">
+      <ng-container *carouselItem>
+        <img class="w-full rounded-md" src="{{item.url}}">
+      </ng-container>
+    </ng-container>
+  </carousel>
+</div>
+
+<div class="columns-2 md:columns-3 lg:columns-3">
+  <div *ngFor="let item of postMedia" class="relative mb-4 before:content-[''] before:rounded-md before:absolute before:inset-0 before:bg-black before:bg-opacity-20">
+    <img class="w-full rounded-md" src="{{item.url}}">
+    <div class="test__body absolute inset-0 p-8 text-white flex flex-col hidden">
+      <div class="relative">
+        <a class="test__link absolute inset-0" target="_blank" href="/"></a>
+        <h1 class="test__title text-3xl font-bold mb-3">Title post</h1>
+        <p class="test__author font-sm font-light">Author</p>
+      </div>
+      <div class="mt-auto">
+        <span class="test__tag bg-white bg-opacity-60 py-1 px-4 rounded-md text-black">#tag</span>
+      </div>
+    </div>
+  </div>
+</div> -->

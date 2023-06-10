@@ -1,0 +1,94 @@
+<div class="buttsson bg-white botsstom-0 border-t w-screen -mr-5 -mb-5"> <!-- *ngIf="showButton" -->
+    <div class="max-w-4xl mx-auto sm:px-0 flex flex-row justify-between pt-2 pb-2">
+      <div class="grid grid-cols-5 gap-5 w-full">
+        <div (click)="onScrollTop()" class="flex-col flex items-center text-gray-400">
+            <span class=" material-icons-outlined notranslate">
+              home
+            </span>
+            <p class="text-sm font-semibold">Inicio</p>
+        </div>
+
+        <div class="flex-col flex items-center text-gray-400">
+          <span class=" material-icons-outlined notranslate">
+            movie
+            </span>
+          <p class="text-sm font-regular">Feed</p> <!-- Whislists -->
+        </div>
+        <div class="flex-col flex items-center text-gray-400">
+            <button routerLink="/panel/create/details" class=" flex border bg-primary-600 text-secondary-50 border-primary-600 justify-center items-center shadow-sm p-1 w-10 h-10 rounded-full">
+              <span class=" material-icons-outlined notranslate">
+                add
+                </span>
+            </button> 
+        </div>
+        <div class="flex-col flex items-center text-gray-400">
+          <span class=" material-icons-outlined notranslate">
+            favorite_border
+            </span>
+          <p class="text-sm font-regular">Favoritos</p> <!-- Whislists -->
+        </div>
+        <div  (click)="openModal('menu')" class="flex-col flex items-center text-gray-400">
+          <span class=" material-icons-outlined notranslate">
+            menu
+            </span>
+            <p class="text-sm font-regular">Más</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <jw-modal id="menu">
+    <div class="bg-white h-screen right-0 fixed 2xl:relative rounded-md mt-0 mb-0">
+      <ul class="w-56">
+        <li>
+          @test
+        </li>
+        <li class="hidden">
+          <a routerLink="/panel/dasboard" class="rounded-t  space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 block whitespace-no-wrap">
+            Pantalla de inicio
+          </a>
+        </li>
+        <li class="pt-10">
+          <a class="rounded-b space-x-2  hover:bg-primary-50 hover:text-primary-600 py-2 px-4 whitespace-no-wrap flex items-center text-sm" href="#">
+              <span class=" material-icons-outlined notranslate">
+              account_circle
+              </span>
+            <span>My perfil</span>
+          </a>
+        </li>
+        <li class="">
+          <a routerLink="/panel/your-ads" class=" space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap text-sm" href="#">
+            <span class=" material-icons-outlined notranslate">
+              type_specimen
+              </span>
+            <span>Tus anuncios</span>
+          </a>
+        </li>
+        <li class="">
+          <a routerLink="/panel/bookmarks" class=" space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap text-sm" href="#">
+            <span class=" material-icons-outlined notranslate">
+              favorite_border
+              </span>
+            <span>Favoritos</span>
+          </a>
+        </li>
+        
+        <li class="">
+          <a routerLink="/panel/setting" class="rounded-b  space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap text-sm" href="#">
+            <span class=" material-icons-outlined notranslate">
+              settings
+              </span>
+            <span>Configuracion</span>
+          </a>
+        </li>
+        <li class="">
+          <div (click)="logout()" class="rounded-b space-x-2 cursor-pointer  hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap w-full float-left text-sm">
+            <span class=" material-icons-outlined notranslate">
+              logout
+              </span>
+            <span>Cerrar sesión</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </jw-modal>

@@ -1,0 +1,48 @@
+<app-center-dialog *ngIf="modalBuyCredit" (onClose)="closeModalBuyCredit()">
+    <div class="p-5 space-y-5">
+        <div class="flex justify-between mb-5 space-x-5">
+            <div class="text-center text-3xl flex items-center space-x-2 font-light">
+                <span class="text-yellow-500 text-3xl">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                </span>
+                <span>Comprar Credito</span>
+            </div>
+            <button (click)="closeModalBuyCredit()">
+                <span class="material-icons-outlined notranslate ">clear</span>
+            </button>
+        </div>
+
+        <form [formGroup]="myform" id="form" novalidate autocomplete="off" (ngSubmit)="onSubmit()">
+            <ul class="flex flex-col space-y-2 pt-5">
+                <li *ngFor="let item of productCredit; let i = index" class="relative w-full">
+                    <input formControlName="credit" class="sr-only peer" type="radio" value="{{item._id}}" name="credit"
+                        id="{{i + 1}}">
+                    <label
+                        class="flex justify-between items-center  p-3 bg-zinc-50 dark:bg-zinc-700 border border-zinc-300 dark:border-zinc-600 rounded-full cursor-pointer focus:outline-none hover:bg-zinc-50 dark:hover:bg-zinc-800 
+                    peer-checked:ring-zinc-100  peer-checked:bg-zinc-200 dark:peer-checked:bg-zinc-600 dark:peer-checked:text-zinc-100 peer-checked:ring-1 peer-checked:border-transparent"
+                        for="{{i + 1}}">
+                        <span class="text-base font-bold">{{i + 1}} ) </span>
+                        <span class="text-2xl font-semibold">{{item.price}} {{item.Money!.iso}}</span>
+                    </label>
+                </li>
+
+            </ul>
+
+            <div class="flex justify-center items-center space-x-5 mt-5 font-semibold">
+                <button
+                    class="bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 hover:dark:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 py-2 px-8 rounded-full text-zinc-800 dark:text-zinc-50 shadow-md"
+                    (click)="closeModalBuyCredit()">
+                    {{'cancel' | translate}}
+                </button>
+                <button [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'"
+                    class=" py-2 px-5 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 text-white rounded-full space-x-1"
+                    [disabled]="myform.status == 'VALID' ? false: true">
+                    {{'Comprar' | translate}}
+                    <span><i class="fab fa-cc-visa"></i></span>
+                    <span><i class="fab fa-cc-mastercard"></i></span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+</app-center-dialog>

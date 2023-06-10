@@ -1,0 +1,127 @@
+<fieldset class="w-full rounded-xl border border-gray-200  p-4 sm:p-6 shadow-xl bg-white">
+  <div class="my-4">
+    <h1 class="text-xl font-bold">Upload video</h1>
+  </div>
+  <form [formGroup]="myform" novalidate class="px-2 sm:px-0">
+
+    <div class="mb-4 flex flex-col">
+      <div class="flex justify-between">
+        <label for="email" class="mb-2 font-semibold ">Caption</label>
+      </div>
+      <div class="relative">
+          <textarea formControlName="description" id="text" 
+          [ngClass]="{
+              'bg-green-50 border-green-400': myform.controls['description'].valid && (myform.controls['description'].dirty || myform.controls['description'].touched),
+              'bg-red-50 border-red-400': myform.controls['description'].invalid && (myform.controls['description'].dirty || myform.controls['description'].touched)
+            }"
+          class="w-full rounded-lg border border-gray-300 px-2 py-2 pl-1 hover:border-gray-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40">
+          </textarea>
+      </div>
+    </div>
+
+    <div class="mt-4 flex flex-col">
+      <div class="flex justify-between">
+        <label for="email" class="mb-2 font-semibold ">Who can watch this video</label>
+      </div>
+      <div class="relative w-24">
+
+          <select formControlName="typeView"
+          [ngClass]="{
+              'bg-green-50 border-green-400': myform.controls['typeView'].valid && (myform.controls['typeView'].dirty || myform.controls['typeView'].touched),
+              'bg-red-50 border-red-400': myform.controls['typeView'].invalid && (myform.controls['typeView'].dirty || myform.controls['typeView'].touched)
+          }"
+          class="w-full rounded-lg border border-gray-300 px-2 py-2 pl-1 hover:border-gray-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40">
+              <option *ngFor="let item of typeViewArray" value="{{item.value}}">{{item.name}}</option>
+          </select>
+      </div>
+    </div>
+    
+
+    <div class="mt-4 flex flex-col">
+      <div *ngIf="!fileSelected" class="hover:border-seconadary-200 cursor-pointer hover:bg-transparent group w-full  h-72 flex flex-col items-center justify-center rounded-md border-2 border-dashed border-secondary-300 text-sm leading-6 text-gray-900 font-medium">
+        <label for="file" class="hidden">File</label>
+        <div class="file-select cursor-pointer relative bg-gray-50 text-tertiary-500 font-bold-500 w-full  h-72 rounded flex justify-center" id="src-file1" >
+          <input  
+            formControlName="file"
+            id="file" 
+            #fileElement (change)="readUrl($event, linkUrl)"
+            type="file" name="src-file1" class="h-full w-auto cursor-pointer" aria-label="Archivo">
+        </div>
+        <div class="hidden">
+          <input type='file' class="form-control" style="height:32px;" accept="video/*" #fileElement (change)="readUrl($event, linkUrl)">
+        </div>
+        <div class="hidden">
+          <span class="col-sm-12 text-center">or</span>
+        </div>
+        <div class="hidden">
+          <input type="text" class="form-control" style="height:42px;" #linkUrl placeholder=" Paste URL here"/>
+          <button class="btn btn-info ml-1 pl-3 pr-3" style="height:42px;" (click)="getLink(linkUrl, fileElement)">GO</button>
+        </div>
+      </div>
+
+      <!-- <div *ngIf="fileSelected" class="rounded-sm">
+        <img src="./assets/images/loading.gif" class="w-full  h-72" *ngIf="loadingState">
+        <div id='player' *ngIf="videoLoaded">
+          
+          <video  #videoElement id='video-element' (timeupdate)="updateProgressBar()" 
+                  #player class=" bg-black h-72 video rounded-sm" loop
+                  >
+            <source [src]="videoUrl"  type='video/mp4'>
+          </video>
+          <div id='controls' class="flex flex-col space-y-2">
+            <div class="flex justify-between">
+              <div class="flex space-x-2 items-center">
+                <button id='btnPlayPause' class='play button-video' title='play' accesskey="P" (click)='playPauseVideo();' #btnPlayPause>
+                  <span *ngIf="swPlayPause" class=" material-icons-outlined notranslate">play_circle_filled</span>
+                  <span *ngIf="!swPlayPause" class=" material-icons-outlined notranslate">stop_circle</span>
+                </button>
+                <span *ngIf="player.duration" class="text-xs">{{player.currentTime|secondsToHours}}/{{player.duration|secondsToHours }}</span>
+              </div>
+              <div class="stop space-x-2 flex justify-end items-center">
+                <input type="range" class="" (change)="setVolume()" id="volume-bar" title="volume" min="0" max="1" step="0.1" value="1" #volumeBar>
+                <button id='btnMute' class='mute button-video' title='mute' (click)='muteVolume();' #btnMute>
+                  <span *ngIf="swMute" class=" material-icons-outlined notranslate">volume_down</span>
+                  <span *ngIf="!swMute" class=" material-icons-outlined notranslate">volume_off</span>
+                </button>
+                <button id='btnStop' class='button-video' title='stop' accesskey="X" (click)='stopVideo();'><i class="fas fa-stop"></i></button>
+                <button id='btnReplay' class='replay button-video' title='replay' accesskey="R" (click)='replayVideo();'>
+                  <span class=" material-icons-outlined notranslate">replay</span>
+                </button>
+              </div>
+            </div>
+            <progress id='progress-bar' (click)="seek($event)" min='0' max='100' value='1' #progressBar>0% played</progress>	
+          </div>
+        </div>	
+        <div style="clear:both"></div>
+      </div> -->
+
+      <div *ngIf="fileSelected" class="rounded-sm">
+        <img src="./assets/images/loading.gif" class="video  h-72" *ngIf="loadingState">
+        <video #videoElement class=" bg-black h-72 video rounded-sm" autoplay disablePictureInPicture controlsList="nodownload noplaybackrate " controls crossorigin="anonymous" *ngIf="videoLoaded">
+          <source [src]="videoUrl" autoplay type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <div class="flex justify-center space-x-5 mt-5">
+      <button
+          (click)="onDiscard()"
+          class=" py-3 px-20 shadow-sm bg-white hover:bg-gray-100 border border-gray-300 uppercase text-gray-900 rounded-full" 
+          >
+          Discard
+      </button>
+      <button
+          (click)="onSubmit()"
+          [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+          class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full" 
+          [disabled]="myform.status == 'VALID' ? false: true">
+          Post
+      </button>
+    </div>
+  </form>
+</fieldset>
+
+<!-- <div class="container-fluid">
+
+<div class="row m-3 col-sm-2"><button class="btn btn-info downloadBtn" (click)="takeSnapshot()" *ngIf="videoLoaded">Download Snapshot</button></div>
+</div> -->

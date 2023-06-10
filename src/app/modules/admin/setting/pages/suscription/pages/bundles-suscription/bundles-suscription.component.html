@@ -1,0 +1,86 @@
+<div class="mb-5">
+    <h2 class="font-normal text-xl">{{'subscriptionBundles' | translate}}</h2>
+    <span class="text-zinc-600 dark:text-zinc-400 text-sm">{{'offerSubscription' | translate}}</span>
+</div>
+<div class="w-full rounded-xl border border-slate-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200  p-2 sm:p-4 shadow-xl ">  
+    <ul class="mt-2 divide-y divide-zinc-200 dark:divide-zinc-700 text-zinc-700 dark:text-zinc-400">    
+        <li *ngIf="dataThree"  class="flex py-2 justify-between ">
+            <div class="my-2">{{dataThree!.quantyTime}} {{'months' | translate}} </div>
+            <div class="font-semibold w-24 my-2 flex items-center space-x-1">
+                <span class=" material-icons-outlined notranslate">attach_money</span>
+                {{dataThree!.credit | numberMoney}}
+            </div>
+            <div>
+                <form  [formGroup]="myformThree" novalidate  (ngSubmit)="onSubmit('3')" class="flex space-x-1 w-20">
+                    <input type="text" formControlName="discount" id="discount" 
+                    [ngClass]="{
+                        'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                        myformThree.controls['discount'].valid && (myformThree.controls['discount'].dirty || myformThree.controls['discount'].touched),
+                        ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                        myformThree.controls['discount'].invalid && (myformThree.controls['discount'].dirty || myformThree.controls['discount'].touched),
+                        ' w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                    }">
+                    <button
+                        [ngClass]="myformThree.status == 'VALID' ? '' : 'opacity-50'" 
+                        class="text-sm py-2 px-2 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-md font-semibold" 
+                        [disabled]="myformThree.status == 'VALID' ? false: true"
+                        >
+                        Off
+                    </button> 
+                </form>
+            </div>
+        </li>
+        <li *ngIf="dataSix"  class="flex py-2 justify-between ">
+            <div class="my-2">{{dataSix!.quantyTime}} {{'months' | translate}}</div>
+            <div class="font-semibold w-24 my-2 flex items-center space-x-1">
+                <span class=" material-icons-outlined notranslate">attach_money</span>
+                {{dataSix!.credit | numberMoney}}
+            </div>
+            <div>
+                <form  [formGroup]="myformSix" novalidate  (ngSubmit)="onSubmit('6')" class="flex space-x-1 w-20">
+                    <input type="text" formControlName="discount" id="discount" 
+                    [ngClass]="{
+                        'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                        myformSix.controls['discount'].valid && (myformSix.controls['discount'].dirty || myformSix.controls['discount'].touched),
+                        ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                        myformSix.controls['discount'].invalid && (myformSix.controls['discount'].dirty || myformSix.controls['discount'].touched),
+                        ' w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                    }">
+                    <button
+                        [ngClass]="myformSix.status == 'VALID' ? '' : 'opacity-50'" 
+                        class="text-sm py-2 px-2 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-md font-semibold" 
+                        [disabled]="myformSix.status == 'VALID' ? false: true"
+                        >
+                        Off
+                    </button> 
+                </form>
+            </div>
+        </li>
+        <li *ngIf="dataTwelve"  class="flex py-2 justify-between ">
+            <div class="my-2">{{dataTwelve!.quantyTime}} {{'months' | translate}}</div>
+            <div class="font-semibold w-24 my-2 flex items-center space-x-1">
+                <span class=" material-icons-outlined notranslate">attach_money</span>
+                {{dataTwelve!.credit | numberMoney}}
+            </div>
+            <div>
+                <form  [formGroup]="myformTwelve" novalidate  (ngSubmit)="onSubmit('12')" class="flex space-x-1 w-20">
+                    <input type="text" formControlName="discount" id="discount" 
+                    [ngClass]="{
+                        'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                        myformTwelve.controls['discount'].valid && (myformTwelve.controls['discount'].dirty || myformTwelve.controls['discount'].touched),
+                        ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                        myformTwelve.controls['discount'].invalid && (myformTwelve.controls['discount'].dirty || myformTwelve.controls['discount'].touched),
+                        ' w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                    }">
+                    <button
+                        [ngClass]="myformTwelve.status == 'VALID' ? '' : 'opacity-50'" 
+                        class="text-sm py-2 px-2 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-md font-semibold" 
+                        [disabled]="myformTwelve.status == 'VALID' ? false: true"
+                        >
+                        Off
+                    </button> 
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,10 @@
+<div *ngIf="isBrowser" >
+    <div class="border border-t-0 dark:border-zinc-800">
+        <app-header [post]="post"></app-header>
+        <main *ngIf="post">
+            <app-view-ad *ngIf="post.type == 'AD'" [post]="post" [bookmark] = "bookmark"></app-view-ad>
+            <app-view-post *ngIf="post.type == 'POST'" [post]="post" [suscription]="suscription" [bookmark] = "bookmark"></app-view-post>
+        </main>
+        <app-footer-one [width]="width"></app-footer-one>
+    </div>
+</div>

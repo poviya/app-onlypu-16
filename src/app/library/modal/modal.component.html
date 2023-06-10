@@ -1,0 +1,13 @@
+<div [@fade]="modalState">
+    <div class="hello-modal {{ id == 'menu' ? 'jw-modal-menu' : id == 'delete' ? 'jw-modal-center' : id == 'viewPost' ? 'jw-modal-post' : id == 'search' ? 'jw-modal' : 'jw-modal-center'}}">
+        <!-- <div 
+            class="jw-modal-body "
+            [@animation] = "{value: 'visible'}"
+            (@animation.done) = onAnimationEnd($event)
+            >
+           
+        </div> -->
+        <ng-content></ng-content>
+    </div>
+    <div class="jw-modal-background hello-modal"></div>
+</div>

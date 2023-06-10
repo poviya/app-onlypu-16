@@ -1,0 +1,36 @@
+
+<fieldset class="w-full rounded-xl border border-slate-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200  p-2 sm:p-4 shadow-xl ">
+    <form [formGroup]="myform" novalidate class="px-2 sm:px-0 mt-4">
+        <div class="mb-4 grid grid-cols-1 gap-4">
+            <div class="flex flex-col">
+                <label for="price" class="mb-2 font-semibold">Price</label>
+                <div class="relative">
+                    <div class="flex absolute left-0 top-2/4 -mt-3 items-center">
+                        <span class=" material-icons-outlined notranslate">attach_money</span>
+                    </div>
+                    <input formControlName="price" id="text" 
+                    [ngClass]="{
+                        'dark:bg-zinc-700 border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                        myform.controls['price'].valid && (myform.controls['price'].dirty || myform.controls['price'].touched),
+                        ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                        myform.controls['price'].invalid && (myform.controls['price'].dirty || myform.controls['price'].touched),
+                        'pl-7 w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                    }"/>
+                </div>
+                <div class="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+                    <span>Minimum $0 USD or free</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex justify-center mt-5">
+            <button
+                (click)="onSubmit()"
+                [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+                class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full" 
+                [disabled]="myform.status == 'VALID' ? false: true">
+                Guardar
+            </button>
+        </div>
+    </form>
+</fieldset>

@@ -1,0 +1,56 @@
+
+<div class="mt-10 z-50">
+    <ul class="w-56">
+    <li class="hidden">
+        @test
+    </li>
+    <li class="hidden">
+        <a routerLink="/panel/dasboard" class="rounded-t  space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 block whitespace-no-wrap">
+        Pantalla de inicio
+        </a>
+    </li>
+    <li class="pt-10 hidden">
+        <a class="rounded-b space-x-2  hover:bg-primary-50 hover:text-primary-600 py-2 px-4 whitespace-no-wrap flex items-center text-sm" href="#">
+            <span class=" material-icons-outlined notranslate">
+            account_circle
+            </span>
+        <span>My perfil</span>
+        </a>
+    </li>
+    <li class="pt-5">
+        <a routerLink="/panel/your-ads" (click)="closeModal('menu')" class=" space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap text-sm" href="#">
+        <span class=" material-icons-outlined notranslate">
+            type_specimen
+            </span>
+        <span>Tus anuncios</span>
+        </a>
+    </li>
+    <li class="">
+        <a routerLink="/panel/bookmarks"  (click)="closeModal('menu')" class=" space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap text-sm" href="#">
+        <span class=" material-icons-outlined notranslate">
+            favorite_border
+            </span>
+        <span>Favoritos</span>
+        </a>
+    </li>
+    
+    <li class="">
+        <a routerLink="/panel/setting"  (click)="closeModal('menu')" class="rounded-b  space-x-2 hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap text-sm" href="#">
+        <span class=" material-icons-outlined notranslate">
+            settings
+            </span>
+        <span>Configuracion</span>
+        </a>
+    </li>
+    <li class="">
+        <div (click)="logout()"  (click)="closeModal('menu')" class="rounded-b space-x-2 cursor-pointer  hover:bg-primary-50 hover:text-primary-600 py-2 px-4 flex items-center whitespace-no-wrap w-full float-left text-sm">
+        <span class=" material-icons-outlined notranslate">
+            logout
+            </span>
+        <span>Cerrar sesión</span>
+        </div>
+    </li>
+    </ul>
+</div>
+
+

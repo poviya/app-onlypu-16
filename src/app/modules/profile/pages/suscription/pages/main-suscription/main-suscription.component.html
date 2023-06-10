@@ -1,0 +1,30 @@
+
+<div *ngIf="!loading">
+    <div *ngIf="suscription; else membership">
+        <div *ngIf="suscription.expired">
+            <div  class=" w-full divide-y divide-slate-200 dark:divide-zinc-700  border-none border-slate-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200  p-2 sm:p-4 shadow-sm">
+                <div  *ngIf="membershipPrimary.length > 0">
+                    <app-primary-suscription  [membership]="membershipPrimary" (createMembershipEvent)="onCreateMembership($event)" (createMembershipFreeEvent)="onCreateMembershipFree($event)"></app-primary-suscription>
+                </div>
+                <div *ngIf="membershipBundles.length > 0" class="mt-5">
+                    <app-bundles-suscription  [membership]="membershipBundles"  (createMembershipEvent)="onCreateMembership($event)"></app-bundles-suscription>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="!suscription.expired">
+           
+        </div>
+    </div>
+    <ng-template #membership>
+        <div *ngIf="user.Membership"  class=" w-full divide-y divide-slate-200 dark:divide-zinc-700  border-none border-slate-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200  p-2 sm:p-4 shadow-sm">
+            <div  *ngIf="membershipPrimary.length > 0">
+                <app-primary-suscription  [membership]="membershipPrimary" (createMembershipEvent)="onCreateMembership($event)" (createMembershipFreeEvent)="onCreateMembershipFree($event)"></app-primary-suscription>
+            </div>
+            <div *ngIf="membershipBundles.length > 0" class="mt-5">
+                <app-bundles-suscription  [membership]="membershipBundles"  (createMembershipEvent)="onCreateMembership($event)"></app-bundles-suscription>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+

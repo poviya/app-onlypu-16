@@ -1,0 +1,144 @@
+<div>
+    <div *ngIf="this.posts.length > 0; else loadingTemplate" class="space-y-4 pt-0">
+
+        <div class="space-y-0 mt-2 px-0 md:px-0">
+            <!-- -->
+            <div class="gallery-lightbox-container mt-10 z-50">
+                <div class="gallery">
+                    <div *ngFor="let item of posts; let i = index" class="gallery-img">
+                        <figure #theLastList>
+
+                            <div class="relative">
+                                <img (click)="onPreviewImage(i)" src="{{item.url}}" alt="{{i}}" class="w-full h-auto">
+
+                                <div *ngIf="authService.user; else noAuth">
+                                    <div *ngIf="authService.user._id !== item.User!._id">
+                                        <div *ngIf="item.Post!.typeView != 'FREE'">
+                                            <div *ngIf="suscription; else private">
+                                                <div *ngIf="suscription.expired"
+                                                    class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
+                                                    <i class="fa-solid fa-lock"></i>
+                                                    <span>{{'suscribe' | translate}}</span>
+                                                </div>
+                                            </div>
+                                            <ng-template #private>
+                                                <div
+                                                    class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
+                                                    <i class="fa-solid fa-lock"></i>
+                                                    <span>{{'suscribe' | translate}}</span>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <ng-template #noAuth>
+                                    <div *ngIf="item.Post!.typeView != 'FREE'">
+                                        <div *ngIf="suscription; else private">
+                                            <div *ngIf="suscription.expired"
+                                                class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
+                                                <i class="fa-solid fa-lock"></i>
+                                                <span>{{'suscribe' | translate}}</span>
+                                            </div>
+                                        </div>
+                                        <ng-template #private>
+                                            <div
+                                                class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
+                                                <i class="fa-solid fa-lock"></i>
+                                                <span>{{'suscribe' | translate}}</span>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+                                </ng-template>
+
+                            </div>
+
+                            <!-- <div *ngIf="suscription; else private">
+                                <div *ngIf="!suscription.expired; else private">
+                                    <img (click)="onPreviewImage(i)" src="{{item.url}}" alt="{{i}}">
+                                </div>
+                            </div>
+                            <ng-template #private>
+                                <div
+                                    class=" animate-pulse w-full h-36  md:h-56 bg-zinc-200 dark:bg-zinc-700 rounded flex justify-center items-center ">
+                                    <div class=" uppercase font-semibold">
+                                      <i class="fa-solid fa-lock"></i> {{'suscribe' | translate}}
+                                    </div>
+                                  </div>
+                              </ng-template> -->
+
+                        </figure>
+                    </div>
+                </div>
+                <div *ngIf="showMask" class="lightbox" @animation2>
+                    <div *ngIf="showCount" class="count space-x-1">
+                        <span>{{currentIndex + 1}}</span>
+                        <span>/</span>
+                        <span>{{totalImageCount}}</span>
+                    </div>
+
+                    <button type="button" *ngIf="controls" (click)="onClosePreview()" class="close-btn">
+                        <span
+                            class="text-zinc-500 dark:text-zinc-50 inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </button>
+
+                    <button type="button" *ngIf="controls" (click)="next()" class="btn-lightbox-carousel btn-prev">
+                        <span
+                            class="inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-zinc-500  sm:w-4 sm:h-4 dark:text-zinc-50" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <button type="button" *ngIf="controls" (click)="prev()" class="btn-lightbox-carousel btn-next">
+                        <span
+                            class="inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-zinc-500 sm:w-4 sm:h-4 dark:text-zinc-50" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <div *ngIf="previewImage" [@animation]="{value: 'visible'}" (@animation.done)=onAnimationEnd($event)
+                        class="lightbox-img">
+                        <img src="{{currentLinghtboxImage.url}}" #lightboxContainer alt="">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template #loadingTemplate>
+        <div class="my-10">
+            <div *ngIf="loading; else noData">
+
+                <div class=" p-4 w-full mx-auto shadow-sm grid grid-cols-2 md:grid-cols-3 gap-2">
+
+                    <div *ngFor="let item of this.postLoading"
+                        class=" animate-pulse h-20 bg-zinc-200 dark:bg-zinc-700 rounded ">
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <ng-template #noData>
+                <div class=" text-center font-light text-3xl">
+                    {{'there_is_no_data' | translate}}
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
+
+</div>

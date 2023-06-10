@@ -1,0 +1,142 @@
+<div class="flex flex-wrap px-2 sm:px-0">
+  <h1 class="text-center text-secondary-50 font-light text-3xl mt-4 mb-6">
+      Tus anuncios
+  </h1>
+  <div  *ngIf="isBrowser" class="w-full">
+    <ul class="flex mb-0 list-none flex-wrap pt-3 pb-0 flex-row">
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a 
+            class="text-xs font-bold uppercase px-5 py-3 shadow-lg block leading-normal cursor-pointer space-x-1" 
+            (click)="toggleTabs(1)" 
+            [ngClass]="{' bg-secondary-800': openTab !== 1, ' bg-secondary-700 border-b-2 border-b-secondary-500': openTab === 1}">
+            <span>Activos</span>
+            <span *ngIf="this.adCount">({{this.adCount?.active}})</span>
+        </a>
+      </li>
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a 
+            class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer space-x-1" 
+            (click)="toggleTabs(2)" 
+            [ngClass]="{' bg-secondary-800': openTab !== 2, ' bg-secondary-700 border-b-2 border-b-secondary-500': openTab === 2}">
+            <span>Suspendidos</span>
+            <span *ngIf="this.adCount">({{this.adCount?.inactive}})</span>
+        </a>
+      </li>
+     
+    </ul>
+    <div *ngIf="this.posts.length > 0; else loadingTemplate" class="space-y-5 mt-6">
+        <figure *ngFor="let item of this.posts" >
+            <div  #theLastList class="sm:flex border bg-secondary-700 text-slate-100   rounded-lg {{item.plan == 1? 'border-blue-600' : item.plan == 2 ? 'border-purple-500' : 'border-secondary-600'}} bg-secondary-700 shadow-lg relative hover:shadow-xl transition duration-500">
+                <div class="flex flex-col items-center "> 
+                  <div class="h-52 w-full md:w-48 md:h-52">
+                    <img src="{{prinImages(item.PostMedia)}}" 
+                      class="h-52 w-full md:w-48 md:h-full rounded-t-lg md:rounded-tr-none md:rounded-l-lg mx-auto object-cover " alt="">
+                  </div>
+                  <div class="absolute left-1 top-1 px-1 rounded text-xs opacity-50 bg-secondary-700 space-x-1">
+                    <i class="fas fa-camera"></i>
+                    <span>{{item.PostMedia?.length}}</span>
+                  </div>
+                </div>
+              
+                <div class="p-2 sm:p-3 md:p-4 text-left space-y-4 w-full flex-shrink">
+                  <blockquote>
+                    <a routerLink="/pu/{{item.slug}}" class="truncate-title font-normal text-lg text-primary-600">
+                        {{item.title}}
+                    </a>
+                    <div class="text-xs space-x-1 truncate text-secondary-100 my-1">
+                      <span class="font-semibold text-purple-100">{{item.age}} años</span>
+                      <span>|</span>
+                      <span class="font-semibold">{{item.AdCategory!.name}}</span>
+                      <span>|</span>
+                      <span>{{item.StateCity!.name}}</span>
+                    </div>
+                  </blockquote> 
+                  <figcaption>
+                      
+                      <div class="flex flex-wrap items-center space-x-2 text-secondary-100 text-xs">
+                        <div class="flex space-x-2 items-center">
+                          <span>Creado</span>
+                          <span>{{item.createdAt | date}}</span>
+                        </div>
+                        <div *ngIf="item.expirationDate" class="flex items-center space-x-2">
+                          <div>
+                            |
+                          </div>
+                          <div  class="flex space-x-2 items-center">
+                            <span>Promoción expira</span>
+                            <span>{{item.expirationDate | date}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="my-5 flex items-center space-x-4 text-secondary-100 text-sm">
+                        <button type="button" (click)="togglePublished(item)" class="flex space-x-2 px-2 rounded-md items-center bg-secondary-600">
+                          <span *ngIf="item.published"><i class="fas fa-eye"></i></span>
+                          <span *ngIf="!item.published"><i class="fas fa-eye-slash"></i></span>
+                          <span>{{item.published == true? 'Visible': 'No visible'}}</span>
+                        </button>
+                        <div class="flex space-x-2 items-center">
+                          <span><i class="fas fa-bookmark"></i></span>
+                          <span>{{item.Bookmark.length}}</span>
+                        </div>
+                      </div>
+                      
+                      <p class="flex justify-between  space-x-2 pr-1 ">
+                        <button
+                            (click)="onEdit(item._id!)" 
+                            class="py-1 px-2 space-x-1 bg-primary-700 text-white rounded-lg uppercase font-light text-sm cursor-pointer">
+                            <span><i class="far fa-edit"></i></span>
+                            <span>Editar</span>
+                        </button>
+                        <button
+                            (click)="onPromote(item._id!)" 
+                            class="py-1 px-2 space-x-1 bg-primary-700 text-white rounded-lg uppercase font-light text-sm cursor-pointer">
+                            <i class="fas fa-share"></i>
+                            <span>Promocionar</span>
+                        </button>
+                        <button
+                            (click)="onEdit(item._id!)" 
+                            class="py-1 px-2 space-x-1 bg-primary-700 text-white rounded-lg uppercase font-light text-sm cursor-pointer">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>Eliminar</span>
+                        </button>
+                      </p>
+                  </figcaption>
+                </div>
+        
+                <div>
+                  <span *ngIf="item.plan == 1 || item.plan ==2" class="absolute py-1 text-sm text-white -top-1 right-4 rounded-full transform translate-x-2 -translate-y-3">
+                    <div *ngIf="item.plan == 2" class="text-xs bg-purple-800  text-white px-2 rounded-full">
+                      <i class="fas fa-share"></i>
+                      <span class="font-bold">Top</span><span> premium</span>
+                    </div>
+                    <div *ngIf="item.plan == 1" class="text-xs bg-blue-800  text-white px-2 rounded-full">
+                      <i class="fas fa-share"></i>
+                      <span class="font-bold">Top</span>
+                    </div>
+                  </span>
+                </div>
+            </div>
+            
+        </figure>
+    </div>
+    <ng-template #loadingTemplate>
+        <div class="my-20">
+          <div *ngIf="loading; else noData" class="flex flex-col items-center justify-center">
+            <span class="flex justify-center items-center h-10 w-10">
+                <span class="animate-ping absolute inline-flex h-16 w-16 rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-green-500"></span>
+            </span>
+          </div>
+          <ng-template #noData>
+            <div class=" text-center font-light text-3xl">
+              No hay datos
+            </div>
+          </ng-template>
+        </div>
+    </ng-template>
+
+    <button  (click)="onScrollTop()" class="button rounded-full bg-secondary-600 w-8 h-8"> <!-- *ngIf="showButton" -->
+        <i class="fas fa-chevron-up"></i>
+    </button>
+  </div>
+</div>

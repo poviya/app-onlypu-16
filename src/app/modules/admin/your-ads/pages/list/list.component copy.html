@@ -1,0 +1,272 @@
+<div>
+    <div class="flex flex-wrap px-2 lg:px-0">
+  
+      <div class="w-full">
+  
+        <div *ngIf="this.posts.length > 0; else loadingTemplate" class="space-y-5 mt-6">
+          <figure *ngFor="let item of this.posts">
+            <div #theLastList
+              class="border  {{item.plan == 1? 'border-blue-600' : item.plan == 2 ? 'border-purple-500' : 'border-l-0 border-r-0 border-zinc-200 dark:border-zinc-800 '}} bg-zinc-50 dark:bg-zinc-800 rounded-lg bg-other-background2 shadow-lg relative hover:shadow-xl transition duration-500">
+              <div class="sm:flex bg-other-background1 rounded-t-lg">
+                <div *ngIf="item.PostMedia.length > 0" class="flex flex-col items-center ">
+                  <div class="h-52 w-full md:w-48 md:h-52">
+                    <img src="{{prinImages(item.PostMedia)}}"
+                      class="h-52 w-full md:w-48 md:h-full rounded-t-lg md:rounded-tr-none md:rounded-l-lg md:rounded-bl-none mx-auto object-cover "
+                      alt="">
+                  </div>
+                </div>
+  
+                <div class="p-2 sm:p-3 md:p-4 text-left space-y-4 w-full flex-shrink">
+                  <blockquote>
+                    <a *ngIf="item.published; else noLink" routerLink="/pu/{{item.slug}}"
+                      class="truncate-title font-normal text-lg text-primary-600">
+                      {{item.title}}
+                    </a>
+                    <ng-template #noLink>
+                      <div class="truncate-one font-semibold text-lg text-primary-600">
+                        {{item.title}}
+                      </div>
+                    </ng-template>
+                    <div class="text-xs space-x-1 truncate  my-1">
+                      <span class="font-bold ">{{item.age}} {{''}}</span>
+                      <span>|</span>
+                      <span *ngIf="item.PostAdCategory" class="font-bold">{{item.PostAdCategory.name! | translate}}</span>
+                      <span>|</span>
+                      <span>{{item.StateCity!.name}}</span>
+                    </div>
+                  </blockquote>
+                  <figcaption>
+  
+                    <div class="flex">
+                      <span *ngIf="item.plan == 1 || item.plan ==2"
+                        class="text-sm text-white right-4 rounded-full transform translate-x-2 -translate-y-3 mt-2">
+                        <div *ngIf="item.plan == 2" class="text-xs bg-purple-800  text-white px-2 rounded-full">
+                          <i class="fas fa-share"></i>
+                          <span class="font-bold">Gold</span>
+                        </div>
+                        <div *ngIf="item.plan == 1" class="text-xs bg-blue-800  text-white px-2 rounded-full">
+                          <i class="fas fa-share"></i>
+                          <span class="font-bold">Top</span>
+                        </div>
+                      </span>
+                    </div>
+  
+  
+                    <div class="flex flex-wrap items-center space-x-2  text-xs">
+                      <div class="flex space-x-2 items-center">
+                        <span>{{'created' | translate}}</span>
+                        <span>{{item.createdAt | date}}</span>
+                      </div>
+  
+                      <div *ngIf="item.expirationDate" class="flex items-center space-x-2">
+                        <div>
+                          |
+                        </div>
+                        <div class="flex space-x-2 items-center">
+                          <span>{{'promotionExpires' | translate}}</span>
+                          <span>{{item.expirationDate | date}}</span>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="flex space-x-3 text-zinc-600 dark:text-zinc-400 mt-2 text-xs">
+                      <div class=" space-x-1">
+                        <i class="fas fa-camera"></i>
+                        <span>{{item.PostMedia?.length}}</span>
+                      </div>
+                      <div class="flex space-x-2 items-center">
+                        <span><i class="fas fa-heart"></i></span>
+                        <span>{{item.likes}}</span>
+                      </div>
+                      <div class="flex space-x-2 items-center">
+                        <span><i class="fas fa-mouse"></i></span>
+                        <span>{{item.totalClick}}</span>
+                      </div>
+                    </div>
+                  </figcaption>
+                </div>
+              </div>
+  
+              <div class="flex justify-center p-4 bg-zinc-100 dark:bg-zinc-900 rounded-b-lg">
+  
+                <p class=" flex flex-wrap justify-between items-center space-x-5 sm:space-x-10 uppercase text-sm ">
+  
+                  <button (click)="onEdit(item._id!)"
+                    class="py-2  px-3 space-y-1 flex flex-col items-center text-primary-600 rounded-lg font-semibold cursor-pointer uppercase">
+                    <span><i class="far fa-edit"></i></span>
+                    <span>{{'edit' | translate}}</span>
+                  </button>
+  
+                  <!-- <button
+                            (click)="onPhotos(item._id!)" 
+                            class="py-2  px-3 space-y-1 flex flex-col items-center text-primary-600 rounded-lg font-semibold cursor-pointer uppercase">
+                            <span><i class="far fa-images"></i></span>
+                            <span>Fotos</span>
+                        </button> -->
+  
+                  <button (click)="onDeleteDialog(item)"
+                    class="py-2  px-3 space-y-1 flex flex-col items-center text-primary-600 rounded-lg font-semibold cursor-pointer uppercase">
+                    <span><i class="fas fa-trash-alt"></i></span>
+                    <span>{{'delete' | translate}}</span>
+                  </button>
+  
+                  <button *ngIf="item.status == 'ACTIVE'" (click)="onSuspendedDialog(item)"
+                    class="py-2 px-3 space-y-1 flex flex-col items-center text-primary-600 rounded-lg font-semibold cursor-pointer uppercase">
+                    <span><i class="fas fa-pause"></i></span>
+                    <span>{{'suspend' | translate}}</span>
+                  </button>
+  
+                  <button *ngIf="item.status == 'SUSPENDED'" (click)="onActive(item)"
+                    class="py-2 px-3 space-y-1 flex flex-col items-center text-primary-600 rounded-lg font-semibold cursor-pointer uppercase">
+                    <i class="fas fa-upload"></i>
+                    <span>{{'publish' | translate}}</span>
+                  </button>
+  
+                  <button *ngIf="item.status == 'ACTIVE'" type="button" (click)="togglePublished(item)"
+                    class="hidden space-x-2 py-2 px-3 rounded-md items-center bg-secondary-500 text-white uppercase">
+                    <span class="material-icons-outlined notranslate">settings</span>
+                  </button>
+  
+                  <button (click)="onManage(item._id)"
+                    class="py-2  px-3 space-y-1 flex flex-col items-center text-primary-600 rounded-lg font-semibold cursor-pointer uppercase">
+                    <span class="material-icons-outlined">settings</span>
+                    <span>{{'manage' | translate}}</span>
+                  </button>
+  
+  
+                  <button (click)="onPromote(item._id!)"
+                    class="py-3  px-4 space-x-1 flex  items-center border text-white border-primary-600 shadow-primary-600 bg-primary-600 rounded-lg uppercase font-light text-sm cursor-pointer">
+                    <span>{{'promote' | translate}}</span>
+                  </button>
+  
+                </p>
+              </div>
+  
+              <div>
+                <span
+                  class="absolute py-1 text-sm text-white -top-1 right-4 rounded-full transform translate-x-2 -translate-y-3">
+                  <div *ngIf="item.status == 'ACTIVE'" class="text-xs bg-green-500  text-white px-2 rounded-full">
+                    <span class="font-bold">{{'active' | translate}}</span>
+                  </div>
+                  <div *ngIf="item.status == 'SUSPENDED'" class="text-xs bg-yellow-500  text-white px-2 rounded-full">
+                    <span class="font-bold">{{'suspended' | translate}}</span>
+                  </div>
+                </span>
+              </div>
+            </div>
+  
+          </figure>
+        </div>
+  
+        
+        <ng-template #loadingTemplate>
+          <div class="my-10">
+            <div *ngIf="loading; else noData">
+              <section class="space-y-5">
+                <figure *ngFor="let item of this.postLoading">
+                  <div
+                    class="flex brder border-zinc-200 dark:border-zinc-700  text-slate-800   rounded-lg  break-inside bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200 bg-clip-border  shadow-lg relative hover:shadow-xl transition duration-500">
+                    <div class="flex flex-col items-center ">
+  
+                      <div
+                        class=" w-28 h-52 md:w-48 md:h-60 rounded-l-lg md:rounded-tr-none md:rounded-l-lg mx-auto object-cove animate-pulse bg-zinc-200 dark:bg-zinc-800">
+                      </div>
+                    </div>
+  
+                    <div class="p-2 sm:p-3 md:p-6 text-left space-y-4 w-full flex-shrink overflow-x-auto">
+                      <blockquote>
+  
+                        <div
+                          class="overflow-x-auto truncate-title font-medium text-base sm:text-lg text-primary-600 cursor-pointer animate-pulse  h-5 bg-zinc-200 dark:bg-zinc-700 rounded w-full">
+                        </div>
+  
+                      </blockquote>
+                      <figcaption>
+                        <p>
+                          <span
+                            class="text-sm tracking-tight font-normal leading-6 truncate-description overflow-x-auto animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-full">
+  
+                          </span>
+                          <span
+                            class="mt-2 text-sm tracking-tight font-normal leading-6 truncate-description overflow-x-auto animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-full">
+  
+                          </span>
+                          <cite
+                            class="flex text-xs space-x-1 truncate-zone  my-2 animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-16">
+                          </cite>
+                        </p>
+  
+                        <div class=" mt-4 flex items-center justify-end mx-0 text-lg space-x-0 sm:space-x-0">
+  
+                          <div class="flex flex-wrap space-x-2 items-center">
+                            <div class="animate-pulse h-6 bg-zinc-200 dark:bg-zinc-700 rounded w-20 md:w-28">
+                            </div>
+                            <div class="animate-pulse h-6 bg-zinc-200 dark:bg-zinc-700 rounded w-20 md:w-28">
+                            </div>
+  
+                          </div>
+  
+                        </div>
+  
+                      </figcaption>
+                    </div>
+  
+                  </div>
+  
+                </figure>
+              </section>
+  
+            </div>
+            <ng-template #noData>
+              <div class=" text-center font-light text-3xl">
+                {{'there_is_no_data' | translate}}
+              </div>
+            </ng-template>
+          </div>
+        </ng-template>
+  
+      </div>
+    </div>
+  
+    <app-center-dialog *ngIf="moodalDelete" (onClose)="closeModalDelete()">
+      <div class="p-5">
+        <div class="flex justify-between mb-5 space-x-5">
+          <div class="text-center text-3xl flex items-center space-x-2 font-light">
+            <span><i class="fas fa-exclamation-circle text-yellow-500 text-2xl"></i></span>
+            <span>{{'confirmDelete' | translate}}</span>
+          </div>
+          <button (click)="closeModalDelete()">
+            <span class="material-icons-outlined notranslate ">clear</span>
+          </button>
+        </div>
+        <div class="flex justify-center items-center space-x-5">
+          <button
+            class="bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 hover:dark:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 py-1 px-8 rounded-full text-zinc-800 dark:text-zinc-50 shadow-md"
+            (click)="closeModalDelete()">{{'cancel' | translate}}</button>
+          <button class="bg-primary-600 hover:bg-primary-700 py-1 px-8 rounded-full text-zinc-50 shadow-md"
+            (click)="onDelete()">{{'delete' | translate}}</button>
+        </div>
+      </div>
+    </app-center-dialog>
+  
+    <app-center-dialog *ngIf="moodalSuspended" (onClose)="closeModalSuspended()">
+      <div class="p-5">
+        <div class="flex justify-between mb-5 space-x-5">
+          <div class="text-center text-3xl flex items-center space-x-2 font-light">
+            <span><i class="fas fa-exclamation-circle text-yellow-500 text-2xl"></i></span>
+            <span>{{'DoYouWantToSuspend' | translate}}</span>
+          </div>
+          <button (click)="closeModalSuspended()">
+            <span class="material-icons-outlined notranslate ">clear</span>
+          </button>
+        </div>
+        <div class="flex justify-center items-center space-x-5">
+          <button
+            class="bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 hover:dark:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 py-1 px-8 rounded-full text-zinc-800 dark:text-zinc-50 shadow-md"
+            (click)="closeModalSuspended()">{{'cancel' | translate}}</button>
+          <button class="bg-primary-600 hover:bg-primary-700 py-1 px-8 rounded-full text-zinc-50 shadow-md"
+            (click)="onSuspended();">{{'suspend' | translate}}</button>
+        </div>
+      </div>
+    </app-center-dialog>
+  </div>

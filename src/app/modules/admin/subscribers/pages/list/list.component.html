@@ -1,0 +1,69 @@
+
+<div class=" grid grid-cols-2 gap-2">
+    <div *ngFor="let item of this.suscriptions"  class="w-full pb-2 bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-200 rounded-lg text-center hover:shadow-lg align-center shadow-md">
+    
+
+        <div style="background-image: url('{{item.Join!.Cover!.length > 0 ? this.prinImages(item.Join!.Cover) : null}}');" 
+            class="bg-cover bg-zinc-300 dark:bg-zinc-600 flex justify-end items-end px-6 pt-5 pb-6 h-20 md:h-20 w-full object-cover rounded-t-lg ">
+            <div  class="space-y-1 text-center">
+            <div class="flex justify-center items-center space-x-2 text-sm ">
+            </div>
+            </div>
+        </div>
+    
+        <div class="-mt-8 flex justify-between w-full">
+            <div 
+                style="background-image: url('{{item.Join!.Profile!.length > 0 ? this.prinImages(item.Join!.Profile) : null}}');" 
+                class="border-2 border-zinc-50 dark:border-zinc-800 bg-zinc-200 dark:bg-zinc-700 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-20 md:h-20 z-10 flex-shrink-0">
+                <div class="flex justify-end items-end text-center">
+                </div>
+            </div>
+            <div class="mt-8 truncate w-full pl-2">
+                <p class="font-semibold text-base text-left truncate">{{item.Join!.name}} </p>
+        
+                <p class=" text-sm text-gray-500 text-left truncate">   
+                    <a  routerLink="/{{item.Join!.username}}" class="text-zinc-500 dark:text-zinc-400 hover:text-blue-500 hover:underline"> @{{item.Join!.username}} </a> 
+                </p>
+            </div>
+        </div>
+        
+        <div class="flex justify-between space-x-2 mx-2 mt-4">
+            <button (click)="onCam(item)"
+            class="flex-shrink-0 rounded-full py-1 px-1 bg-zinc-100 dark:bg-zinc-800 hover:bg-primary-600/5 hover:text-primary-700 flex space-x-1 justify-between items-center">
+                <span class=" material-icons-outlined notranslate text-sm">video_camera_front </span>
+                <span class="text-sm font-semibold">{{'videoCalls' | translate}}</span>
+            </button>
+            <button 
+            (click)="openModalTip(item)"
+            class="flex-shrink-0 rounded-full py-1 px-1 bg-zinc-100 dark:bg-zinc-800 hover:bg-primary-600/5 hover:text-primary-700 flex space-x-1 justify-between items-center">
+                <span class=" material-icons-outlined notranslate text-sm">paid </span>
+                <span class="text-sm font-semibold">{{'sendTip' | translate}}</span>
+            </button>
+        </div>
+    
+        <div *ngIf="item.type == 'FREE'" class="mt-4 mx-2">
+            <button 
+            class="rounded-full w-full uppercase text-sm font-semibold py-2 px-4 bg-transparent hover:bg-primary-600/5 border border-zinc-200 hover:border-primary-600 dark:border-zinc-800 text-primary-600 flex space-x-1 justify-between items-center">
+                <div>
+                    <span>{{'subscribed' | translate}}</span>
+                </div>
+                <div>
+                    <span>{{'free' | translate}}</span>
+                </div>
+            </button>
+        </div>
+        <div *ngIf="item.type == 'PAY'" class="mt-4 mx-2">
+            <button 
+            class="rounded-full w-full uppercase text-sm font-semibold py-2 px-4 bg-transparent hover:bg-primary-600/5 border border-zinc-200 hover:border-primary-600 dark:border-zinc-800 text-primary-600 flex space-x-1 justify-between items-center">
+                <div>
+                    <span>{{'subscribed' | translate}}</span>
+                </div>
+                <div>
+                    <span>{{'paid' | translate}}</span>
+                </div>
+            </button>
+        </div>
+    </div>
+    
+</div>
+

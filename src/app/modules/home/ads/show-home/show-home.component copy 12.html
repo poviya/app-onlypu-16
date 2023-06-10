@@ -1,0 +1,34 @@
+
+<div *ngIf="isBrowser">
+ 
+</div>
+<div *ngIf="this.postStories" class="flex overflow-x-auto  space-x-8 w-full ">
+  <div  class="flex justify-center space-x-2 md:space-x-5 ">
+    <figure *ngFor="let item of this.postStories; let i = index">
+      <a *ngIf="item.PostMedia?.length > 0" routerLink="/pu/{{item.slug}}" target="_blank"  class="relative cursor-pointer flex w-28 h-44 md:w-36 md:h-52 justify-center overflow-hidden rounded-lg transform transition-transform duration-300 ease-in-out hover:-translate-y-1">
+        <!-- (click)="onViewPost(item)" -->
+        <div>
+          <img src="{{prinImages(item.PostMedia)}}" 
+            class="w-28 h-44 md:w-36 md:h-52 rounded-lg mx-auto object-cover " alt="">
+        </div>
+        <div class="absolute bottom-0 left-2 mb-2 flex">
+          <p class="flex items-center font-medium text-white shadow-sm text-xs">
+            <i class="fa fa-camera mr-2 text-white"></i>
+            <span>{{item.PostMedia.length}}</span>
+          </p>
+        </div>
+        <div class="absolute bottom-0 right-5 mb-3 hidden">
+          <p class="flex items-center font-medium text-gray-800">
+            <i class="fa fa-heart mr-2 text-sm text-white"></i>
+          </p>
+        </div>
+        
+        <span class="absolute top-0 right-2 z-10 mt-2 ml-2 inline-flex select-none rounded-sm px-0 text-xs font-semibold text-white truncate-story">{{item.title}}</span>
+        <!-- 
+          <span class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#1f93ff] px-2 py-1 text-xs font-semibold text-white"> Residential </span>
+          <span class="absolute top-0 left-0 z-10 mt-3 ml-3 inline-flex select-none rounded-lg bg-transparent px-3 py-2 text-lg font-medium text-white"> <i class="fa fa-star"></i> </span>
+        -->
+      </a>                
+    </figure>
+  </div>
+</div>

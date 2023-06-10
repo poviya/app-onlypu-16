@@ -1,0 +1,13 @@
+<div *ngIf="isBrowser">
+    <app-menu [width]="width"></app-menu>
+    <div class="max-w-4xl mx-auto">
+        <div class="my-10">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <button  (click)="onScrollTop()" class="button rounded-full bg-white w-10 h-10 text-slate-800 shadow-lg border border-slate-100"> <!-- *ngIf="showButton" -->
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    <app-footer-one [width]="width"></app-footer-one>
+</div>
+

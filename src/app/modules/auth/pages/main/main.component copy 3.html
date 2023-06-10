@@ -1,0 +1,25 @@
+<!-- component -->
+<div *ngIf="isBrowser" class="h-screen md:flex">
+	<header>
+		<div
+		class="relative overflow-hidden md:flex w-1/2 from-pink-700 via-pink-600 to-pink-800 bg-gradient-to-br i justify-around items-center hidden">
+		<div>
+            <h1 class="text-4xl font-bold text-white">Aventura caliente en tu cuidad</h1>
+            
+            <p class="max-w-xl mt-3 text-slate-100">
+              Conectamos a escorts, damas de compa;ia, sugar babys y sugar dadys.
+            </p>
+        </div>
+		<div class="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+		<div class="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+		<div class="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+		<div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+	</div>
+	</header>
+	
+	<main class="flex md:w-1/2 justify-center py-10 items-center ">
+        <div class="flex justify-center items-center w-full max-w-md px-6 ">
+            <router-outlet></router-outlet>
+        </div>
+	</main>
+</div>

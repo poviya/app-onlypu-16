@@ -1,0 +1,17 @@
+<!-- component -->
+<div class="my-0  border-t border-b border-zinc-100 dark:border-zinc-800  bg-zinc-50 dark:bg-background-dark shadow-sm">
+    <nav class="flex justify-center flex-row text-zinc-600 dark:text-zinc-400">
+        <a [routerLink]="['/search/users']" [queryParams]="{ q: search }"
+            [routerLinkActive]="['hover:text-primary-600', 'border-primary-600', 'text-primary-600', 'border-b-2']"
+            [routerLinkActiveOptions]="{ exact: false }"
+            class="py-4 px-6 block focus:outline-none font-medium space-x-1 w-full text-center uppercase">
+            <span>{{ 'users' | translate }}</span>
+        </a>
+        <a routerLink="/search/posts"  [queryParams]="{ q: search }"
+            routerLinkActive="hover:text-primary-600 border-primary-600 text-primary-600 border-b-2"
+            [routerLinkActiveOptions]="{exact: false}"
+            class="    py-4 px-6 block  focus:outline-none font-medium space-x-1 w-full text-center uppercase">
+            <span>{{'posts' | translate}}</span>
+        </a>
+    </nav>
+</div>

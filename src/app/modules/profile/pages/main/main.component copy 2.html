@@ -1,0 +1,31 @@
+<div *ngIf="this.isBrowser"  class="lg:mr-[18.5rem]">
+    <div class="border border-t-0 dark:border-zinc-800">
+        <app-header [user]="user"></app-header>
+        <div class="space-y-2">
+            <div class=" w-full bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200 shadow-sm">
+                <app-profile [loadingUser]="loadingUser" [user]="user"></app-profile>
+            </div>
+            <div *ngIf="!currentUser">
+                <app-main-suscription *ngIf="user && !join" [user]="user" [membership]="membership"></app-main-suscription>
+            </div>
+    
+            <div>
+                <app-menu [slug]="slug" [count]="count"></app-menu>
+            </div>
+        </div>
+       <main class="px-0">
+        <router-outlet></router-outlet>
+       </main>
+       <!-- footer -->
+       <app-footer-one [width] = "width"></app-footer-one>
+    </div>
+    <div
+    class="fixed top-[0.0rem] bottom-0 right-[max(0px,calc(50%-36rem))] w-[18.5rem] overflow-y-auto hidden lg:block  bg-transparent py-5 px-2">
+        <app-search-users></app-search-users>
+        <app-recent-media [postMedia]="postMediaRecent"></app-recent-media>
+        <div *ngIf="!currentUser">
+            <app-main-suscription *ngIf="user && !join" [user]="user" [membership]="membership"></app-main-suscription>
+        </div>
+    </div>
+  
+  </div>

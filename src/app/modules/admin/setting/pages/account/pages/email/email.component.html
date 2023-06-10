@@ -1,0 +1,42 @@
+<div class="pt-2">
+    <h1 class="text-center font-light text-3xl my-10">
+        {{'Cambiar correo electronico' | translate}}
+    </h1>
+    
+    <form [formGroup]="myform" novalidate class="px-2 sm:px-0">
+        <fieldset class="w-full rounded-xl border border-slate-100 p-2 sm:p-4 shadow-xl shadow-white/0 bg-other-background2">
+    
+            <div class="mb-4 grid grid-cols-1 gap-4">
+            <div class="flex flex-col">
+                <label for="email" class="mb-2 font-semibold">Correo electronico actual</label>
+                <div class="relative w-full">
+                <input formControlName="email" id="text" 
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['email'].valid && (myform.controls['email'].dirty || myform.controls['email'].touched),
+                    'bg-red-50 border-red-400': myform.controls['email'].invalid && (myform.controls['email'].dirty || myform.controls['email'].touched)
+                }"
+                class="w-full rounded-lg border border-slate-300 px-2 py-2 pl-1 hover:border-slate-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40"/>
+                <div *ngIf="exist" class="flex absolute inset-y-0 right-0 items-center pr-2 pointer-events-none">
+                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                </div>
+                </div>
+            </div>
+                <span class="text-secondary-100 text-xs">
+                    El correo electronico {{myform.value.email}}
+                    no esta verificado
+                </span>
+            </div>
+            
+        </fieldset>
+    
+        <div class="flex justify-center my-10">
+            <button
+            (click)="onSubmit()"
+            [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+            class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full" 
+            [disabled]="myform.status == 'VALID' ? false: true">
+            Actualizar correo
+            </button>
+        </div>
+    </form>
+</div>

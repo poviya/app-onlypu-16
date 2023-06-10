@@ -1,0 +1,8 @@
+<div class="dropdown">
+    <button class="dropdown-toggle flex justify-between items-center -mt-5" type="button" (click)="toggleMenu()">
+        <span class=" material-icons-outlined notranslate">more_horiz</span>
+    </button>
+    <div class="dropdown-menu w-fit truncate border border-1 border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-background-dark rounded-md" [ngClass]="{'show': showMenu}" [@menuAnimation]="showMenu ? 'visible' : 'hidden'">
+      <ng-content></ng-content>
+    </div>
+  </div>

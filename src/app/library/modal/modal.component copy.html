@@ -1,0 +1,12 @@
+<aside class="hello-modal {{ id == 'menu' ? 'jw-modal-menu' : id == 'delete' ? 'jw-modal-center' : id == 'viewPost' ? 'jw-modal-post' : id == 'search' ? 'jw-modal' : 'jw-modal-center'}}"  @animation2>
+    <!-- <div 
+        class="jw-modal-body "
+        [@animation] = "{value: 'visible'}"
+        (@animation.done) = onAnimationEnd($event)
+        >
+       
+    </div> -->
+    <ng-content></ng-content>
+</aside>
+
+<div class="jw-modal-background hello-modal"></div>

@@ -1,0 +1,77 @@
+<fieldset class="w-full break-inside  rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200  p-2 sm:p-4 shadow-xl">
+    <div *ngIf="!edit else formEdit">
+        <div class="flex justify-between">
+            <h4 class="text-lg font-semibold">{{'phoneNumber' | translate}}</h4>
+            <div (click)="onChangeEdit()" class=" cursor-pointer">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+        </div>
+        <div *ngIf="this.user">
+            <ul  class="mt-2 ">
+                <li class="flex divide-y divide-zinc-100 dark:divide-zinc-700 py-2">
+                    <span class="">{{this.user.phonePrefix}} {{this.user.phone}}</span>
+                </li>
+            </ul>
+            <div class="flex justify-center mt-5">
+                <button
+                (click)="onChangeEdit()"
+                class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full font-semibold text-sm" 
+                    >
+                {{'change' | translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #formEdit>
+        <div class="flex justify-between">
+            <h4 class="text-lg font-semibold">{{'changePhone' | translate}}</h4>
+            <div (click)="onCancel()" class=" cursor-pointer">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+        </div>
+        <form [formGroup]="myform" novalidate class="px-2 sm:px-0 mt-4">
+            <div class="mb-4 grid grid-cols-2 gap-4">
+                <div class="flex flex-col">
+                    <label for="phonePrefix" class="mb-2 font-semibold">{{myform.value.phonePrefix}}</label>
+                    <div class="relative">
+        
+                        <select formControlName="phonePrefix"
+                        [ngClass]="{
+                            'dark:bg-zinc-700 border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                            myform.controls['phonePrefix'].valid && (myform.controls['phonePrefix'].dirty || myform.controls['phonePrefix'].touched),
+                            ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                            myform.controls['phonePrefix'].invalid && (myform.controls['phonePrefix'].dirty || myform.controls['phonePrefix'].touched),
+                            'w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                        }"
+                        >
+                            <option *ngFor="let item of countries" value="{{item.phonePrefix}}">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <label for="phone" class="mb-2 font-semibold">{{'phone' | translate}}</label>
+                    <input formControlName="phone" id="text" 
+                    [ngClass]="{
+                        'dark:bg-zinc-700 border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                        myform.controls['phone'].valid && (myform.controls['phone'].dirty || myform.controls['phone'].touched),
+                        ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                        myform.controls['phone'].invalid && (myform.controls['phone'].dirty || myform.controls['phone'].touched),
+                        'w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                    }"
+                    />
+                </div>
+            </div>
+        
+            <div class="flex justify-center mt-5">
+                <button
+                    (click)="onSubmit()"
+                    [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+                    class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full font-semibold text-sm" 
+                    [disabled]="myform.status == 'VALID' ? false: true">
+                    {{'save' | translate}}
+                </button>
+            </div>
+        </form>
+    </ng-template>
+</fieldset>

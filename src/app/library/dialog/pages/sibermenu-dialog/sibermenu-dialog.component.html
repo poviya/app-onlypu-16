@@ -1,0 +1,8 @@
+<div class="modal-background" [@fade]="modalState" (click)="closeModal()">
+    <div class="max-w-6xl mx-auto float-right md:float-none" >
+      <div class="mt-16 md:mt-16 mb-10 w-64 bg-background-light dark:bg-background-dark rounded-lg shadow-xl border border-zinc-600 dark:border-zinc-800 " (click)="($event.stopPropagation())">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+  

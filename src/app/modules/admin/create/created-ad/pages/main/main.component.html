@@ -1,0 +1,9 @@
+<div *ngIf="isBrowser" class="border border-t-0 border-zinc-200 dark:border-zinc-800">
+    <app-header></app-header>
+    <div>
+        <app-menu-create></app-menu-create>
+    </div>
+    <main class="mx-4 lg:mx-40 my-4">
+        <app-details [idPost]="idPost" [snapshotName] = "snapshotImageName" [downloadImageType]= "snapshotImageType"></app-details>
+    </main>
+</div>

@@ -1,0 +1,26 @@
+<div *ngIf="this.isBrowser" class="lg:mr-[18.5rem]">
+   <div class="border border-t-0 dark:border-zinc-800">
+      <app-header></app-header>
+      <app-menu></app-menu>
+      <div class="mx-2 md:mx-4">
+         <div *ngIf="search" class="my-5 font-semibold">
+            {{'resultsFor' | translate}}: {{search}}
+         </div>
+         <main class="px-0">
+            <router-outlet></router-outlet>
+         </main>
+      </div>
+      <!-- footer -->
+      <app-footer-one [width]="width"></app-footer-one>
+   </div>
+   <div
+      class="fixed top-[0.0rem] bottom-0 right-[max(0px,calc(50%-36rem))] w-[18.5rem] overflow-y-auto hidden lg:block  bg-transparent py-5 px-2 space-y-8">
+      <div>
+         <app-sugestions></app-sugestions>
+      </div>
+      <div>
+         <app-term-links></app-term-links>
+      </div>
+   </div>
+
+</div>

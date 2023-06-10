@@ -1,0 +1,105 @@
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { Post, User } from 'src/app/interfaces';
+import { DialogService } from 'src/app/library/dialog/dialog.service';
+import { ModalService } from 'src/app/library/modal/modal.service';
+import { ToastService } from 'src/app/library/toast/toast.service';
+import { PostService, TipService } from 'src/app/services';
+
+@Component({
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
+})
+export class ListComponent implements OnInit {
+
+  data: object;
+  dataTip: any;
+
+  @Input() posts: Post[] = [];
+
+  @Input() loading: boolean;
+
+  observer: any;
+  @ViewChildren('theLastList', { read: ElementRef })
+  theLastList: QueryList<ElementRef>;
+  @Output() findAllPostsInfiniteEvent = new EventEmitter<string>();
+
+  postLoading: string[] = ["hola", "que", "tal"];
+
+  showModalTip = false;
+  isBrowser: boolean;
+  isServer: boolean;
+
+  constructor(
+    private dialogService: DialogService,
+    private tipService: TipService,
+    private readonly postService: PostService,
+    private toastService: ToastService) { }
+
+  ngOnInit(): void {
+
+    this.intersectionObserver();
+  }
+
+
+  intersectionObserver() {
+    let options = {
+      root: null,//document.querySelector('#scrollArea'),
+      rootMargin: '0px',
+      threshold: 0.5//1.0
+    }
+   
+    this.observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) { console.log(111)
+        this.findAllPostsInfiniteEvent.emit();
+      }
+    }, options);
+  }
+
+  prinImages(images: any) {
+    return images[0]['url'];
+  };
+
+  get modalTip() {
+    return this.dialogService.modalTip;
+  }
+
+  closeModalTip() {
+    this.dialogService.toogleTip();
+  }
+
+  async openModalTip(post: Post) {
+    console.log(1);
+    this.dialogService.toogleTip();
+    this.data = {
+      type: 'tip_post',
+      post: post,
+      user: post.User
+    };
+
+    this.tipService.create(this.dataTip);
+  }
+
+  /************** tip */
+  onTipDialog(post: Post) {
+    this.dialogService.toogleTip();
+    this.dataTip = {
+      type: 'tip_post',
+      post: post,
+      user: post.User
+    };
+  }
+
+  copyText(post: Post) {
+    const textToCopy = " https://onlypu.com/pu/" + post.slug;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      this.toastService.start('copied_link');
+      setTimeout(() => this.toastService.close(), 2000);
+      console.log('El texto ha sido copiado al portapapeles');
+    }, (err) => {
+      console.error('Error al copiar el texto al portapapeles: ', err);
+    });
+  }
+}

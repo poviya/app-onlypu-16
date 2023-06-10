@@ -1,0 +1,196 @@
+<!-- <div class="flex flex-wrap px-2 sm:px-0">
+  <h1 class="text-center text-secondary-50 font-light text-3xl mt-4 mb-6">
+      Tus anuncios {{bodyText}}
+  </h1>
+  <div  *ngIf="isBrowser" class="w-full">
+    <ul class="flex mb-0 list-none flex-wrap pt-3 pb-0 flex-row">
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a 
+            class="text-xs font-bold uppercase px-5 py-3 shadow-lg block leading-normal cursor-pointer space-x-1" 
+            (click)="toggleTabs(1)" 
+            [ngClass]="{' bg-secondary-800': openTab !== 1, ' bg-secondary-700 border-b-2 border-b-tertiary-500': openTab === 1}">
+            <span>Activos</span>
+            <span *ngIf="this.adCount">({{this.adCount?.active}})</span>
+        </a>
+      </li>
+      <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <a 
+            class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer space-x-1" 
+            (click)="toggleTabs(2)" 
+            [ngClass]="{' bg-secondary-800': openTab !== 2, ' bg-secondary-700 border-b-2 border-b-tertiary-500': openTab === 2}">
+            <span>Suspendidos</span>
+            <span *ngIf="this.adCount">({{this.adCount?.inactive}})</span>
+        </a>
+      </li>
+     
+    </ul>
+    <div *ngIf="this.posts.length > 0; else loadingTemplate" class="space-y-5 mt-6">
+        <figure *ngFor="let item of this.posts" >
+            <div  #theLastList class="sm:flex border bg-secondary-700 text-slate-100   rounded-lg {{item.plan == 1? 'border-blue-600' : item.plan == 2 ? 'border-purple-500' : 'border-secondary-600'}} bg-secondary-700 shadow-lg relative hover:shadow-xl transition duration-500">
+                <div *ngIf="item.PostMedia.length > 0" class="flex flex-col items-center "> 
+                  <div class="h-52 w-full md:w-48 md:h-52">
+                    <img src="{{prinImages(item.PostMedia)}}" 
+                      class="h-52 w-full md:w-48 md:h-full rounded-t-lg md:rounded-tr-none md:rounded-l-lg mx-auto object-cover " alt="">
+                  </div>
+                  <div class="absolute left-1 top-1 px-1 rounded text-xs opacity-50 bg-secondary-700 space-x-1">
+                    <i class="fas fa-camera"></i>
+                    <span>{{item.PostMedia?.length}}</span>
+                  </div>
+                </div>
+              
+                <div class="p-2 sm:p-3 md:p-4 text-left space-y-4 w-full flex-shrink">
+                  <blockquote>
+                    <a *ngIf="item.published; else noLink" routerLink="/pu/{{item.slug}}" class="truncate-title font-normal text-lg text-primary-600">
+                        {{item.title}}
+                    </a>
+                    <ng-template #noLink>
+                      <div class="truncate-title font-normal text-lg text-primary-600">
+                        {{item.title}}
+                      </div>
+                    </ng-template>
+                    <div class="text-xs space-x-1 truncate text-secondary-100 my-1">
+                      <span class="font-semibold text-purple-100">{{item.age}} años</span>
+                      <span>|</span>
+                      <span class="font-semibold">{{item.AdCategory!.name}}</span>
+                      <span>|</span>
+                      <span>{{item.StateCity!.name}}</span>
+                    </div>
+                  </blockquote> 
+                  <figcaption>
+                      
+                      <div class="flex flex-wrap items-center space-x-2 text-secondary-100 text-xs">
+                        <div class="flex space-x-2 items-center">
+                          <span>Creado</span>
+                          <span>{{item.createdAt | date}}</span>
+                        </div>
+                        <div *ngIf="item.expirationDate" class="flex items-center space-x-2">
+                          <div>
+                            |
+                          </div>
+                          <div  class="flex space-x-2 items-center">
+                            <span>Promoción expira</span>
+                            <span>{{item.expirationDate | date}}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="my-5 flex justify-between">
+                        <div class=" flex items-center space-x-4 text-secondary-100 text-sm">
+                          <button 
+                            *ngIf="item.status == 'ACTIVE'" 
+                            type="button" 
+                            (click)="togglePublished(item)" 
+                            class="flex space-x-2 py-1 px-2 rounded-md items-center bg-secondary-600">
+                            <span *ngIf="item.published"><i class="fas fa-eye"></i></span>
+                            <span *ngIf="!item.published"><i class="fas fa-eye-slash"></i></span>
+                            <span>{{item.published == true? 'Visible': 'No visible'}}</span>
+                          </button>
+                          <div class="flex space-x-2 items-center">
+                            <span><i class="fas fa-heart"></i></span>
+                            <span class="text-xs">{{item.likes}}</span>
+                          </div>
+                        </div>
+                        <div>
+                          <button
+                              *ngIf="item.PostMedia.length > 0 && item.status == 'ACTIVE'"
+                              (click)="onPromote(item._id!)" 
+                              class="py-1 px-2 space-x-1 flex text-secondary-50 items-center border border-lime-700 shadow-lime-400 bg-lime-800 rounded-lg uppercase font-light text-sm cursor-pointer">
+                              <i class="fas fa-share"></i>
+                              <span>Promocionar</span>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      <p class="flex flex-grow justify-between  space-x-2 pr-1 ">
+                        <button
+                            *ngIf="item.status == 'ACTIVE'"
+                            (click)="onEdit(item._id!)" 
+                            class="py-1 px-2 space-x-1 flex items-center border-secondary-600 shadow-secondary-500 bg-secondary-600 rounded-lg font-light text-sm cursor-pointer">
+                            <span><i class="far fa-edit"></i></span>
+                            <span>Editar</span>
+                        </button>
+                        
+                        <button
+                            *ngIf="item.status == 'ACTIVE'"
+                            (click)="onPhotos(item._id!)" 
+                            class="py-1 px-2 space-x-1 flex items-center border-secondary-600 shadow-secondary-500 bg-secondary-600 rounded-lg font-light text-sm cursor-pointer">
+                            <i class="far fa-images"></i>
+                            <span>Fotos</span>
+                        </button>
+                        <button
+                            *ngIf="item.status == 'ACTIVE'"
+                            (click)="openModalDelete(item._id)"
+                            class="py-1 px-2 space-x-1 flex items-center  border-secondary-600 shadow-secondary-500 bg-secondary-600 text-white rounded-lg font-light text-sm cursor-pointer">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>Eliminar</span>
+                        </button>
+                      </p>
+                  </figcaption>
+                </div>
+        
+                <div>
+                  <span *ngIf="item.plan == 1 || item.plan ==2" class="absolute py-1 text-sm text-white -top-1 right-4 rounded-full transform translate-x-2 -translate-y-3">
+                    <div *ngIf="item.plan == 2" class="text-xs bg-purple-800  text-white px-2 rounded-full">
+                      <i class="fas fa-share"></i>
+                      <span class="font-bold">Top</span><span> premium</span>
+                    </div>
+                    <div *ngIf="item.plan == 1" class="text-xs bg-blue-800  text-white px-2 rounded-full">
+                      <i class="fas fa-share"></i>
+                      <span class="font-bold">Top</span>
+                    </div>
+                  </span>
+                </div>
+            </div>
+            
+        </figure>
+    </div>
+    <ng-template #loadingTemplate>
+        <div class="my-36">
+          <div *ngIf="loading; else noData" class="flex flex-col items-center justify-center">
+            <span class="flex justify-center items-center h-10 w-10">
+                <span class="animate-ping absolute inline-flex h-16 w-16 rounded-full bg-purple-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-purple-500"></span>
+            </span>
+          </div>
+          <ng-template #noData>
+            <div class=" text-center font-light text-3xl">
+              No hay datos
+            </div>
+          </ng-template>
+        </div>
+    </ng-template>
+
+    <button  (click)="onScrollTop()" class="button rounded-full bg-secondary-600 w-8 h-8"> 
+        <i class="fas fa-chevron-up"></i>
+    </button>
+  </div>
+</div>
+
+<jw-modal id="delete">
+  <div *ngIf="!loading; else change" class="bg-secondary-700 p-5 rounded-md shadow-lg border border-secondary-600 ">
+    <h1 class="text-center my-10 text-3xl flex items-center space-x-2 font-light">
+      <span><i class="fas fa-exclamation-circle text-yellow-500 text-2xl"></i></span>
+      <span>Quieres eliminar?</span>
+    </h1>
+    <div class="flex justify-between items-center">
+      <button
+        class="bg-secondary-600 border border-secondary-500 py-1 px-4 rounded-md" 
+        (click)="closeModal('delete')">No</button>
+      <button 
+        class="bg-tertiary-500 py-1 px-4 rounded-md"
+        (click)="onDelete();">Si</button>
+    </div>
+
+  </div>
+  <ng-template #change>
+    <div  class="flex items-center justify-center space-x-1">
+      <div class="flex justify-center items-center h-10 w-10">
+          <span class="animate-ping absolute inline-flex h-8 w-8 rounded-full bg-purple-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-4 w-4 bg-purple-500"></span>
+      </div>
+      <div>
+        Eliminando ...
+      </div>
+    </div>
+  </ng-template>
+</jw-modal> -->

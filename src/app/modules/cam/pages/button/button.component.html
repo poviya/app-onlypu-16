@@ -1,0 +1,26 @@
+<div
+*ngIf="this.authService.user && this.cam" 
+ class="floating-button flex flex-col space-y-5 top-16 left-3 md:top-20 md:left-5 lg:top-20 lg:left-6">
+    <button (click)="goBack()"
+        class="bg-transparent shadow font-semibold rounded-lg p-2 text-zinc-400 space-x-1 flex justify-center items-center w-8 h-8"
+        style="background-color: rgba(0, 0, 0, 0.3); color: #ffffff;">
+        <span class="material-icons-outlined">arrow_back</span>
+    </button>
+    <button
+    *ngIf="this.authService.user._id != this.cam.User?._id"
+    (click)="onTipDialog()"
+        class="bg-tertiary-500 shadow font-semibold rounded-lg p-2 text-white space-x-1 flex justify-center items-center w-8 h-8">
+        <span class="material-icons-outlined notranslate">paid</span>
+    </button>
+
+    <button
+    *ngIf="this.authService.user._id == this.cam.User?._id"
+    (click)="onTipCollectionDialog()"
+        class="bg-tertiary-500 shadow font-semibold rounded-lg p-2 text-white space-x-1 flex justify-center items-center w-8 h-8">
+        <span class="material-icons-outlined notranslate">account_balance</span>
+    </button>
+</div>
+
+<app-center-dialog *ngIf="modalTipCollection" (onClose)="closeModalTipCollection()">
+    <app-income></app-income>
+</app-center-dialog>

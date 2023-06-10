@@ -1,0 +1,17 @@
+    <!-- component -->
+    <div class="my-0 flex justify-center mt-4">
+        <nav class="flex justify-center flex-row text-zinc-600 dark:text-zinc-400 bg-white dark:bg-zinc-800 px-10 py-1  rounded-full shadow-md">
+            <a  [routerLink]="['/panel/create-post/details']" 
+                routerLinkActive="hover:text-primary-600 border-primary-600 text-primary-600 border-b-2" 
+                [routerLinkActiveOptions]="{exact: false}"
+                class="   py-2 px-6 block  focus:outline-none font-medium space-x-2">
+                <span>{{'post' | translate}}</span>
+            </a>
+            <!-- <a routerLink="/panel/create-ad/details" 
+                routerLinkActive="hover:text-primary-600 border-primary-600 text-primary-600 border-b-2" 
+                [routerLinkActiveOptions]="{exact: false}"
+                class="    py-2 px-6 block  focus:outline-none font-medium space-x-2">
+                <span>{{'ad' | translate}}</span>
+            </a> -->
+        </nav>
+    </div>

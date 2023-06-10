@@ -1,0 +1,31 @@
+<div *ngIf="this.isBrowser" class="lg:mr-[18.5rem]"> 
+   <div class="border border-t-0 dark:border-zinc-800 ">
+      <app-header [countryCode]="countryCode" ></app-header>
+      <div class="px-4 relative">
+         <app-search-dialog  *ngIf="modalSearch" (onClose)="closeModalSearch()">
+            <app-search-center [searchModal] = "search" [countryCode] = "countryCode" [categorySlug] = "categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-search-center>
+         </app-search-dialog>
+      </div>
+      <main class="">
+         <!-- <app-list-ads [loading]="loading" [postStories]="postStories" [dataSearchSlug]="dataSearchSlug" [postName]="postName" [posts]="posts"  (findAllAdsInfiniteEvent)="findAllAdsInfinite()"></app-list-ads> -->
+         <div class="mt-5">
+            <app-nav [posts]="posts" [postName]="postName" [dataSearchSlug]="dataSearchSlug"></app-nav>
+         </div>
+         <div class="mt-5">
+            <app-post-list [posts]="posts" [loading]="loading" [user]="user" (findAllPostsInfiniteEvent)="findAllPostsInfinite()"></app-post-list>
+         </div>
+      </main>
+      <!-- footer -->
+      <app-footer-one [width] = "width"></app-footer-one>
+   </div>
+   <div
+      class="fixed top-[0.0rem] bottom-0 right-[max(0px,calc(50%-36rem))] w-[18.5rem] overflow-y-auto hidden lg:block  bg-transparent space-y-8">
+      <div>
+         <app-search-rigth [searchModal] = "search" [countryCode] = "countryCode" [categorySlug] = "categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-search-rigth>
+      </div>
+      <div>
+         <app-term-links></app-term-links>
+       </div>
+   </div>
+
+</div>

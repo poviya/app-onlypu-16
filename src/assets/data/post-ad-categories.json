@@ -1,0 +1,44 @@
+[
+    {
+        "_id": "62f64e476cc1b332fafa9ae8",
+        "Country": "62f64915c8b3b7529a9d9f93",
+        "name": "Girls",
+        "slug": "girls",
+        "type": "GIRLS",
+        "active": true,
+        "edit": true,
+        "delete": true,
+        "createdAt": "2022-08-12T12:57:43.325Z",
+        "__v": 0,
+        "updatedAt": "2023-03-29T23:56:16.845Z",
+        "icon": "./assets/icon/icons8-bra-51.png"
+    },
+    {
+        "_id": "62f64ec5b2d97bbe905e62e3",
+        "Country": "62f64915c8b3b7529a9d9f93",
+        "name": "Trans",
+        "slug": "trans",
+        "type": "TRANS",
+        "active": false,
+        "edit": true,
+        "delete": true,
+        "createdAt": "2022-08-12T12:59:49.657Z",
+        "__v": 0,
+        "updatedAt": "2022-08-12T13:01:04.892Z",
+        "icon": "./assets/icon/icons8-lgbtq-30.png"
+    },
+    {
+        "_id": "62f64f801393fa87dd12d6bf",
+        "Country": "62f64915c8b3b7529a9d9f93",
+        "name": "Guys",
+        "slug": "guys",
+        "type": "GUYS",
+        "active": true,
+        "edit": true,
+        "delete": true,
+        "createdAt": "2022-08-12T13:02:56.448Z",
+        "__v": 0,
+        "updatedAt": "2022-08-12T13:04:37.333Z",
+        "icon": "./assets/icon/icons8-baton-51.png"
+    }
+]

@@ -1,0 +1,24 @@
+<div class="text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2">
+    <div class="grid grid-cols-6 col-span-2   gap-2  ">
+        <div *ngFor="let item of (postMedia); let i = index" 
+            class=" overflow-hidden rounded-xl {{i == 0 ? 'col-span-3' : 'col-span-2'}}  {{ i == 0 ? 'max-h-[14rem]' : 'max-h-[10rem]'}}">
+            {{i}}
+            <img class="h-full w-full object-cover " src="{{item.url}}" alt="">
+        </div>
+        <!-- <div class=" overflow-hidden rounded-xl col-span-3 max-h-[14rem]">
+            <img class="h-full w-full object-cover  " src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1399&amp;q=80" alt="">
+        </div>
+        <div class=" overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
+            <img class="h-full w-full object-cover " src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1470&amp;q=80" alt="">
+        </div>
+        <div class=" overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
+            <img class="h-full w-full object-cover " src="https://images.unsplash.com/photo-1503602642458-232111445657?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=687&amp;q=80" alt="">
+        </div>
+        <div class="relative overflow-hidden rounded-xl col-span-2 max-h-[10rem]">
+            <div class="text-white text-xl absolute inset-0  bg-slate-900/80 flex justify-center items-center">
+            + 23
+            </div>
+            <img class="h-full w-full object-cover " src="https://images.unsplash.com/photo-1560393464-5c69a73c5770?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=765&amp;q=80" alt="">
+        </div> -->
+    </div>
+</div>

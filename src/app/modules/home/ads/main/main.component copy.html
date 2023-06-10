@@ -1,0 +1,18 @@
+<div class="lg:mr-[16.5rem]">
+   <div class="border border-t-0 dark:border-zinc-800">
+      <app-header [countryCode]="countryCode" ></app-header>
+      <div class="px-4">
+         <app-search-center [searchModal] = "search" [countryCode] = "countryCode" [categorySlug] = "categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-search-center>
+      </div>
+      <div class="">
+         <app-list-ads [search]="search" [countryCode]="countryCode" [categorySlug]="categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-list-ads>
+      </div>
+      <!-- footer -->
+      <app-footer-one [width] = "width"></app-footer-one>
+   </div>
+   <div
+      class="fixed top-[0.0rem] bottom-0 right-[max(0px,calc(50%-30rem))] w-[16.5rem] overflow-y-auto hidden lg:block  bg-red-500">
+      <app-search-rigth [searchModal] = "search" [countryCode] = "countryCode" [categorySlug] = "categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-search-rigth>
+   </div>
+
+</div>

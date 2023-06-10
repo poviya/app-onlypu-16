@@ -1,0 +1,41 @@
+<div *ngIf="post"
+  class="sticky top-0 left-0  w-full py-2 px-3 text-xs bg-background-light dark:bg-background-dark dark:text-zinc-200 z-50 border-b border-r border-zinc-200 dark:border-zinc-800">
+  <div *ngIf="post.type == 'AD'" class="flex justify-between items-center h-10">
+    <div *ngIf="post?.CityZone; else stateCity ">
+      <div class="flex items-center uppercase font-bold cursor-pointer space-x-2">
+        <a routerLink="/{{post.Country!.code}}/{{post.PostAdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}"
+          class="text-xs flex justify-center items-center">
+          <span class=" material-icons-outlined notranslate">arrow_back</span>
+        </a>
+        <a class="text-sm"
+          routerLink="/{{post.Country!.code}}/{{post.PostAdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+          {{'back_to_search' | translate}}
+        </a>
+      </div>
+    </div>
+    <ng-template #stateCity>
+      <div class="flex items-center uppercase font-bold cursor-pointer space-x-2">
+        <a routerLink="/{{post.Country!.code}}/{{post.PostAdCategory!.slug}}/{{post.StateCity!.slug}}" class=" text-xs">
+          <span class=" material-icons-outlined notranslate">arrow_back</span>
+        </a>
+        <a class="text-sm" routerLink="/{{post.Country!.code}}/{{post.PostAdCategory!.slug}}/{{post.StateCity!.slug}}">
+          {{'back_to_search' | translate}}
+        </a>
+      </div>
+    </ng-template>
+  </div>
+
+  <div *ngIf="post.type == 'POST'" class="flex justify-between items-center h-10">
+    <div class="flex justify-between items-center space-x-5">
+      <button (click)="goBack()">
+        <span class=" material-icons-outlined notranslate">arrow_back</span>
+      </button>
+      <button (click)="onScrollTop()"
+        class="flex flex-col items-center cursor-pointer uppercase text-base font-semibold">
+        <span>{{'return' | translate}}</span>
+      </button>
+    </div>
+
+  </div>
+
+</div>

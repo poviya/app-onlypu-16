@@ -1,0 +1,15 @@
+ 
+<div>
+   <router-outlet></router-outlet>
+   <app-header [countryCode]="countryCode" ></app-header>
+   <div class="px-4">
+      <app-show-search [searchModal] = "search" [countryCode] = "countryCode" [categorySlug] = "categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-show-search>
+   </div>
+   <div class="px-4">
+      <app-list-ads [search]="search" [countryCode]="countryCode" [categorySlug]="categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-list-ads>
+   </div>
+   <!-- footer -->
+   <app-footer-one [width] = "width"></app-footer-one>
+ </div>
+
+

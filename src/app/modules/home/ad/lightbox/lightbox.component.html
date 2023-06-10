@@ -1,0 +1,15 @@
+<div *ngIf="post" class="gallery-lightbox-container">
+    <div *ngFor="let item of post.PostMedia; let i = index">
+      <div class="gallery">
+        <div class="gallery-img">
+          <img (click)="onPreviewImage(item.url!)" src="{{ item.url }}" alt="Imagen">
+        </div>
+      </div>
+      <div *ngIf="showMask" class="lightbox" (click)="onClosePreview()">
+        <div *ngIf="previewImage" class="lightbox-content">
+          <img src="{{ item.url }}" alt="Imagen">
+        </div>
+      </div>
+    </div>
+  </div>
+  

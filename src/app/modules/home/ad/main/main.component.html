@@ -1,0 +1,8 @@
+<div *ngIf="isBrowser" >
+    <div class="border border-t-0 dark:border-zinc-800">
+        <app-header [post]="post"></app-header>
+        <main>
+            <app-view-ad [post]="post" [bookmark] = "bookmark"></app-view-ad>
+        </main>
+    </div>
+</div>

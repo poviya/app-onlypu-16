@@ -1,0 +1,615 @@
+import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, HostListener, Inject, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService, PostAdService, ToolsService } from 'src/app/services';
+
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AdCategory } from 'src/app/interfaces/adCategory';
+import { CountryState } from 'src/app/interfaces/countryState';
+import { StateCity } from 'src/app/interfaces/stateCity';
+import { AdCategoryService } from 'src/app/services/ad-category.service';
+import { CountryStateService } from 'src/app/services/country-state.service';
+import { StateCityService } from 'src/app/services/state-city.service';
+import { CityZone } from 'src/app/interfaces/cityZone';
+import { CityZoneService } from 'src/app/services/city-zone.service';
+import { Tools } from 'src/app/common/tools';
+import { ModalService } from '../../../../library/modal';
+import { metaTags, Post } from 'src/app/interfaces';
+
+@Component({
+  selector: 'app-show-home',
+  templateUrl: './show-home.component.html',
+  styleUrls: ['./show-home.component.scss']
+})
+export class ShowHomeComponent implements OnInit, AfterViewInit {
+  dataStory: any;
+  dataPost: Post;
+
+  loading = false;
+  @ViewChildren('theLastList', {read: ElementRef})
+  theLastList: QueryList<ElementRef>;
+
+  alSub: any;
+
+  showButton = false;
+  scrollHeight = 400;
+
+  date: any;
+  isBrowser: boolean;
+  isServer: boolean;
+
+  countrySlug:any;
+  categorySlug: any;
+  countryStateSlug: any;
+  stateCitySlug: any;
+  cityZoneSlug: any;
+  search: any;
+  dataSearch: any;
+
+  data: any;
+  postName: any;
+  posts: any = [];
+  postStories: any = [];
+  totalPages: any;
+  currentPage = 0;
+  limitPage = 2;
+  observer: any;
+
+  registroFormGroup: FormGroup;
+  adCategories: AdCategory[];
+  countryStates: CountryState[];
+  
+  stateCitiesAll: StateCity[]; 
+  stateCitiesOnly: StateCity[]; 
+  stateCitiesRest: StateCity[]; 
+  swStateCitiesOnly = false;
+
+  cityZones: CityZone[];
+  swCityZones = true;
+
+  bodyText: string;
+  metaTags: metaTags;
+
+  constructor(
+    private meta: Meta,
+    private title: Title,
+    public router: Router,
+    private toolsService: ToolsService,
+    @Inject(PLATFORM_ID) private platformId: object,
+    private activeRoute: ActivatedRoute,
+    private postAdService: PostAdService,
+    private fb: FormBuilder,
+    private adCategoryService: AdCategoryService,
+    private countryStateService: CountryStateService,
+    private stateCityService: StateCityService,
+    private cityZoneService: CityZoneService,
+    @Inject(DOCUMENT) private document: Document,
+    private modalService: ModalService,
+    private appService: AppService
+  ) { 
+    this.date = new Date();
+  }
+
+  ngOnInit(): void {
+
+    this.search = this.activeRoute.snapshot.queryParamMap.get('search');
+    //this.isBrowser = isPlatformBrowser(platformId);
+    //this.isServer = isPlatformServer(this.platformId);
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.isBrowser = true;
+      this.intersectionObserver();
+    }
+
+    if (isPlatformServer(this.platformId)) {
+      
+    }
+    this.countrySlug =  this.router.url.split('/')[1];
+    this.categorySlug = this.activeRoute.snapshot.paramMap.get('categorySlug'); //this.router.url.split('/')[2]; 
+    this.countryStateSlug = this.activeRoute.snapshot.paramMap.get('countryStateSlug');
+    this.stateCitySlug = this.activeRoute.snapshot.paramMap.get('stateCitySlug');
+    this.cityZoneSlug = this.activeRoute.snapshot.paramMap.get('cityZoneSlug');
+
+    if(this.countrySlug || this.toolsService.country)
+    {
+      this.findAllAds();
+      this.updatePlan();
+    } else {
+      this.headPage();
+    }
+
+    //this.appCountries();
+  }
+
+  ngAfterViewInit() : void
+  {
+    this.theLastList.changes.subscribe((d) => {
+      if(d.last) this.observer.observe(d.last.nativeElement);
+    });
+  }
+
+  categoriesCountry()
+  {
+    const data = {
+      Country: this.toolsService.country._id,
+    };
+    this.adCategoryService.findAllCountry(data).subscribe(res => {
+      this.adCategories = res;  //console.log(res);
+    });
+  }
+
+  async findAllAds()
+  {
+  
+    const dataCountries = await this.appService.appCountryfindAll().toPromise();
+    const resCountry = dataCountries!.find( country => country.slug === this.countrySlug ? this.countrySlug :  this.toolsService.country._id);
+    console.log(resCountry);
+
+    const dataAdCategories = await this.appService.appAdCategoriesfindAll().toPromise();
+    const resAdCategory = dataAdCategories!.find( category => category.slug === this.categorySlug  && category.Country === resCountry?._id );
+    console.log(resAdCategory)
+
+    const dataStateCities = await this.appService.appStateCitiesfindAll().toPromise();
+    const resStateCity = dataStateCities!.find( stateCity => stateCity.slug === this.stateCitySlug && stateCity.Country === resCountry?._id );
+    console.log(resStateCity)
+
+    this.data = {
+      Country: resCountry!._id,
+    }
+
+    if(resAdCategory)
+    {
+      this.data.AdCategory = resAdCategory!._id
+    }
+
+    if(resStateCity)
+    {
+      this.data.StateCity = resStateCity!._id
+    }
+
+    console.log(this.data)
+    //++++++++++++++++++
+    this.loading = true;
+    if(this.countrySlug)
+    {
+      this.data = {
+        countrySlug: this.countrySlug,
+      }
+    }
+    else if(this.toolsService.country)
+    {
+      this.data = {
+        Country: this.toolsService.country._id,
+      }
+    }
+
+    if(this.categorySlug )
+    {
+      this.data.categorySlug = this.categorySlug;
+    }
+
+    if(this.stateCitySlug)
+    {
+      this.data.stateCitySlug = this.stateCitySlug;
+    }
+    
+    if(this.cityZoneSlug)
+    {
+      this.data.cityZoneSlug = this.cityZoneSlug;
+    }
+
+    if(this.search)
+    {
+      this.data.search = this.search;
+    }
+    
+    this.alSub = this.postAdService.findAllSearch(this.data, this.limitPage, this.currentPage).subscribe(res => {
+        this.postName = res.name;
+        //this.posts = res.data;  
+        this.postStories = res.dataStories; //console.log(this.postStories)
+        this.totalPages = res.totalPages;
+        this.dataSearch = res.dataSearch;
+        this.headPageCountry(this.postName);
+        res.data.forEach((element: any) => {
+          this.posts.push(element);
+        });
+        this.loading = false;
+        
+    });
+  }
+
+  findAllAdsInfinite()
+  {
+    if(this.search)
+    {
+      this.data.search = this.search;
+    }
+    this.data.dataSearch = this.dataSearch;
+    this.alSub = this.postAdService.findAllSearchInfinite(this.data, this.limitPage, this.currentPage).subscribe(res => {
+        res.data.forEach((element: any) => {
+          this.posts.push(element);
+        });
+    });
+  }
+
+  findAllQueryCategories()
+  {
+    const data = {
+      categorySlug: this.categorySlug  
+    };
+
+    this.adCategoryService.findAllCountry(data).subscribe(res => {
+      this.adCategories = res;
+    });
+  }
+
+  findAllQueryCountryState()
+  {
+    this.countryStateService.findAllCountry('').subscribe(res => {
+      this.countryStates = res;  //console.log(res);
+    });
+  }
+
+  // showing all the cites of the country
+  findAllCountryCity()
+  {
+    const data = {
+      Country: this.toolsService.country()._id,
+    };
+    this.stateCityService.findAllCountry(data).subscribe(res => {
+      this.stateCitiesAll = res;  //console.log(res);
+      this.defaultStateCity();
+    });
+  }
+
+  // showing all te cihtes of the country
+  findAllStateCity(data: any)
+  {
+    this.cityZoneService.findAllStateCity(data).subscribe(res => {
+      this.cityZones = res;  //console.log(res);
+      if(this.cityZones.length > 0) {
+        this.swCityZones = false;
+      } else {
+        this.swCityZones = true;
+        this.registroFormGroup.patchValue({
+          cityZoneSlug: ''
+        });
+      }
+    });
+  }
+
+  onCountryState(e:any): void {
+
+    if(this.registroFormGroup.value.countryStateSlug !== '')
+    {
+      let CountryState;
+
+      for(let item of  this.countryStates)
+      {
+        if(item.slug == e.target.value)
+        {
+          CountryState = item._id;
+        }
+      }
+
+      const data = {
+        CountryState: CountryState
+      };
+      this.stateCityService.findAllCountryState(data).subscribe(res => {
+        this.stateCitiesOnly = res;
+        
+        if(this.stateCitiesOnly.length == 1)
+        {
+          this.swStateCitiesOnly = false;
+          this.registroFormGroup.patchValue({
+            stateCitySlug: this.stateCitiesOnly[0].slug
+          });
+        } else {
+          this.swStateCitiesOnly = true;
+          this.registroFormGroup.patchValue({
+            stateCitySlug: ''
+          });
+        }
+
+        this.stateCitiesRest = this.stateCitiesAll;
+
+        for(let item of  this.stateCitiesOnly)
+        {
+          this.stateCitiesRest =  this.stateCitiesRest.filter((item2) => item2._id !== item._id);
+        }
+      });
+    } else {
+      this.registroFormGroup.patchValue({
+        stateCitySlug: ''
+      });
+    }
+  }
+
+  defaultStateCity()
+  {
+    if(this.stateCitySlug)
+    {
+      this.queryStetecity(this.stateCitySlug);
+    }
+  }
+
+  onStateCity(e:any): void {
+    if(this.registroFormGroup.value.stateCitySlug !== '')
+    {
+        this.queryStetecity(e.target.value);
+    } else {
+      this.registroFormGroup.patchValue({
+        stateCitySlug: ""
+      });
+    }
+  }
+
+  queryStetecity(slug: any)
+  {
+    let StateCity;
+    
+    for(let item of  this.stateCitiesAll)
+    {
+      if(item.slug == slug)
+      {
+        StateCity = item._id;
+      }
+    }
+    const data = {
+      StateCity: StateCity
+    };
+    
+    this.stateCityService.findOne(StateCity).subscribe(res => {
+      this.registroFormGroup.patchValue({
+        countryStateSlug: res.CountryState?.slug
+      });
+    });
+    this.findAllStateCity(data);
+    
+   //console.log( this.stateCitiesAll);
+  }
+
+  onSubmit(): void {
+    if(this.registroFormGroup.value.stateCitySlug && !this.registroFormGroup.value.cityZoneSlug) 
+    {
+      this.router.navigate([this.registroFormGroup.value.categorySlug + '/' + 
+                            this.registroFormGroup.value.stateCitySlug]);
+    } else if(this.registroFormGroup.value.stateCitySlug && this.registroFormGroup.value.cityZoneSlug) 
+    {
+      this.router.navigate([this.registroFormGroup.value.categorySlug + '/' + 
+                            this.registroFormGroup.value.stateCitySlug + '/' + 
+                            this.registroFormGroup.value.cityZoneSlug]);
+    } else if(!this.registroFormGroup.value.stateCitySlug && !this.registroFormGroup.value.cityZoneSlug) 
+    {
+      this.router.navigate([this.registroFormGroup.value.categorySlug]);
+    }
+    this.findAllAds();
+    //console.log(this.registroFormGroup.value);
+  }
+  
+
+  toggleBookmark(post: Post) {
+    
+    const data = {
+      Bookmark: !post.Bookmark
+    }
+    post.published = !post.published;
+    this.postAdService.update(post._id!, data, {}).subscribe(res => {
+    });
+  } 
+ 
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+      this.modalService.close(id);
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+   const yOffset = window.pageYOffset;
+   const scrollTop = this.document.documentElement.scrollTop;
+   this.showButton = (yOffset || scrollTop) > this.scrollHeight;
+
+  }
+
+  onScrollTop() : void {
+    this.document.documentElement.scrollTop = 0;
+  }
+
+  onScrollDown(): void {
+    //console.log('Down')
+  }
+
+  intersectionObserver() {
+    let options = {
+      root: null,//document.querySelector('#scrollArea'),
+      rootMargin: '0px',
+      threshold: 0.5//1.0
+    }
+
+    this.observer = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+          if(this.currentPage < this.totalPages) {
+            this.currentPage = this.currentPage + this.limitPage;
+            this.findAllAdsInfinite();
+          }
+        }
+    }, options);
+  }
+
+  cropTitle(text: string)
+  { 
+    return Tools.cropText(text!, 72) + '...';
+  }
+
+  prinImages(images: any) 
+  { 
+    return images[0]['url'];
+  };
+
+  textMessage(item: Post)
+  {
+    // quiero hacerte darte en cuatro
+    // quiero besarte toda
+    // quiero hacerte genir rico
+    // quiero penetrarte rico
+    // estoy caliente quiero hacerte rico
+    // me gustaría hacer le delicioso contigo
+    return "Hola, acabo de ver tu anuncio en Onlypu.com, "
+            + Tools.cropText(item.title!, 25) + '(...)' + 
+            ", quiero hacertelo rico."
+            + " https://onlypu.com/pu/" + item.slug;
+  }
+
+  /************************ SEO  *****************/
+  headPage()
+  {
+    const data = {
+      title: `Free erotic classifieds ` +`- Onlypu`,
+      description: "Search and publish free erotic ads, escort and whore classifieds, gay escort ads, swingers and transvestites in Onlypu.com",
+      url: "https://onlypu.com/",
+      image: 'https://onlypu.com/assets/logo/seo.jpg'
+    }
+    this.title.setTitle(data.title);
+    
+    this.meta.updateTag({name: "title", content: data.title!});
+    this.meta.updateTag({name: "description", content: data.description!});
+
+    this.meta.updateTag({property: "og:type", content: "website"});
+    this.meta.updateTag({property: "og:url", content: data.url});
+    this.meta.updateTag({property: "og:title", content: data.title!});
+    this.meta.updateTag({property: "og:description", content: data.description!});
+    this.meta.updateTag({property: 'og:image', content: data.image});
+
+    this.meta.updateTag({property: 'twitter:card', content: 'summary'});
+    this.meta.updateTag({property: 'twitter:url', content: data.url});
+    //this.meta.addTag({property: 'twitter:site', content: '@AngularUniv'});
+    this.meta.updateTag({property: 'twitter:title', content: data.title!});
+    this.meta.updateTag({property: 'twitter:description', content: data.description!});
+    this.meta.updateTag({property: 'twitter:image', content: data.image});
+    
+  }
+
+  headPageCountry(postName: any)
+  {
+    //console.log(postName);
+ 
+    if(postName.Country && !postName.AdCategory && !postName.StateCity && !postName.CityZone)
+    {
+      this.metaTags = {
+        keyworks: 'Anuncios calientes para gente que busca placer ' + postName.Country + ' - Onlypu, putas, jovencitas, buscando sexo, 18 años, 19 años, 20 años, prostitutas, damas de compañia, escorts, gay, swingers y travestis, masajes, videollamadas, sexo, desnuada total, follame, trato de enamorados, besos, sexo duro, sexo suave, en cuatro, citas, trato de enamorados ',
+        title: 'Anuncios calientes para gente que busca placer ' + postName.Country + ' - Onlypu',
+        description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
+        url: `https://onlypu.com/${this.countrySlug}`,
+        image: 'https://onlypu.com/assets/logo/seo.jpg'
+      }
+    } 
+    else  if(postName.Country && postName.AdCategory && !postName.StateCity && !postName.CityZone)
+    {
+      this.metaTags = {
+        title: `Anuncios calientes para gente que busca placer ${postName.AdCategory} en ${postName.Country} - Onlypu`,
+        description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
+        url: `https://onlypu.com/${this.countrySlug}/${this.categorySlug}`,
+        image: 'https://onlypu.com/assets/logo/seo.jpg'
+      }
+    }
+    else  if(postName.Country && postName.AdCategory && postName.StateCity && !postName.CityZone)
+    {
+      this.metaTags = {
+        title: `Anuncios calientes para gente que busca placer ${postName.AdCategory} en ${postName.Country} ${postName.StateCity} - Onlypu`,
+        description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
+        url: `https://onlypu.com/${this.countrySlug}/${this.categorySlug}/${this.stateCitySlug}`,
+        image: 'https://onlypu.com/assets/logo/seo.jpg'
+      }
+    }
+    else if(postName.Country && postName.AdCategory && postName.StateCity && postName.CityZone)
+    {
+      this.metaTags = {
+        title: `Anuncios calientes para gente que busca placer  ${postName.AdCategory} en ${postName.Country} ${postName.CityZone} zona ${postName.StateCity} - Onlypu`,
+        description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
+        url: `https://onlypu.com/${this.countrySlug}/${this.categorySlug}/${this.stateCitySlug}/${this.cityZoneSlug}`,
+        image: 'https://onlypu.com/assets/logo/seo.jpg'
+      }
+    } else {
+      this.headPage();
+    }
+
+    this.title.setTitle(this.metaTags.title!);
+    
+    this.meta.updateTag({name: "keyworks", content: this.metaTags.keyworks!});
+    this.meta.updateTag({name: "title", content: this.metaTags.title!});
+    this.meta.updateTag({name: "description", content: this.metaTags.description!});
+
+    this.meta.updateTag({property: "og:type", content: "website"});
+    this.meta.updateTag({property: "og:url", content: this.metaTags.url!});
+    this.meta.updateTag({property: "og:title", content: this.metaTags.title!});
+    this.meta.updateTag({property: "og:description", content: this.metaTags.description!});
+    this.meta.updateTag({property: 'og:image', content: this.metaTags.image!});
+
+    this.meta.updateTag({property: 'twitter:card', content: 'summary'});
+    this.meta.updateTag({property: 'twitter:url', content: this.metaTags.url!});
+    //this.meta.addTag({property: 'twitter:site', content: '@AngularUniv'});
+    this.meta.updateTag({property: 'twitter:title', content: this.metaTags.title!});
+    this.meta.updateTag({property: 'twitter:description', content: this.metaTags.description!});
+    this.meta.updateTag({property: 'twitter:image', content: this.metaTags.image!});
+    
+  }
+
+  innerText(text: any)
+  {
+    return Tools.innerText(text);
+  }
+
+  onStory(item: Post)
+  {
+    //this.dataStory = item; 
+    this.dataPost = item; 
+    this.modalService.open('story');
+  }
+
+  onViewPost(item: Post)
+  {
+    this.dataPost = item; 
+    this.modalService.open('viewPost');
+  }
+
+  postMedia(item: any) 
+  {
+    return item.slice(0, 3);
+  }
+
+  /********* UPDATE PLAN */
+  updatePlan()
+  {
+    this.postAdService.updatePlan(null).subscribe(res => {
+      
+    });
+  }
+
+  async appCountries()
+  {
+    const dataCountries = await this.appService.appCountryfindAll().toPromise();
+    const resCountry = dataCountries!.find( country => country.slug === this.countrySlug );
+    console.log(resCountry);
+
+    const dataAdCategories = await this.appService.appAdCategoriesfindAll().toPromise();
+    const resAdCategory = dataAdCategories!.find( category => category.slug === this.categorySlug  && category.Country === resCountry?._id );
+    console.log(resAdCategory)
+
+    const dataStateCities = await this.appService.appStateCitiesfindAll().toPromise();
+    const resStateCity = dataStateCities!.find( stateCity => stateCity.slug === this.stateCitySlug && stateCity.Country === resCountry?._id );
+    console.log(resStateCity)
+
+    /*
+    return this.appService.appCountryfindAll().subscribe(data => {
+     
+      const res = data.find( country => country.slug === 'bolivia' );
+      //console.log(res);
+      return res;
+    });*/
+  }
+
+}

@@ -1,0 +1,17 @@
+<div *ngIf="count"  class="flex justify-start items-center space-x-5 text-sm font-semibold">
+    <a routerLink="/panel/incomes/active"
+        [routerLinkActiveOptions]="{exact: false}"
+        routerLinkActive="bg-primary-700 dark:bg-primary-700 text-white"
+        class="bg-zinc-50 dark:bg-zinc-800  rounded-full px-4 py-1 space-x-2 shadow-md">
+        <span>{{'accepted' | translate}}</span>
+        <span>0</span>
+    </a>
+
+    <a routerLink="/panel/incomes/suspended"
+        [routerLinkActiveOptions]="{exact: false}"
+        routerLinkActive="bg-primary-700 dark:bg-primary-700 text-white"
+        class="bg-zinc-50 dark:bg-zinc-800  rounded-full px-4 py-1 space-x-2 shadow-md">
+        <span>{{'suspended' | translate}}</span>
+        <span>0</span>
+    </a>
+</div>

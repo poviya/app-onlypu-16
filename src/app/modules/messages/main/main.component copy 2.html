@@ -1,0 +1,9 @@
+<div *ngIf="isBrowser">
+    <div class="max-w-4xl mx-auto">
+        <div class="mt-0 mb-0">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <app-menu-two [countrySlug] = "countrySlug"></app-menu-two>
+</div>
+

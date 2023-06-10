@@ -1,0 +1,60 @@
+<div *ngIf="search" class="{{width}} mt-5 -z-50">
+    <form *ngIf="registroFormGroup" [formGroup]="registroFormGroup" class="space-y-4">
+        <div class="sm:flex sm:space-x-2 space-y-4 sm:space-y-0 items-center">
+            <div class="sm:w-3/6">
+                <select class="w-full rounded-lg border left-5 border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800"  formControlName="categorySlug">
+                    <option *ngFor="let item of adCategories" value="{{item.slug}}">{{item.name! | translate}}</option>
+                </select>
+            </div>
+            <div class="sm:w-3/6">
+                <input type="text" placeholder="{{'search.search_here' | translate}}" formControlName="q" 
+                    class="w-full rounded-lg border left-5 border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+            </div>
+        </div>
+        <div class="sm:flex sm:space-x-2 space-y-4 sm:space-y-0 items-center">
+  
+            <div class="sm:w-5/12">
+                <select 
+                    class="w-full rounded-lg border left-5 border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="countryStateSlug" 
+                    (change)="onCountryState($event)">
+                    <option value="">{{'search.all_the_states' | translate}}</option>
+                    <option *ngFor="let item of countryStates" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+
+            <div class="sm:w-5/12">
+                <select 
+                    class="w-full rounded-lg border left-5 border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="stateCitySlug"
+                    (change)="onStateCity($event)">
+                    <option value="">{{'search.all_cities' | translate}}</option>
+                    <option *ngFor="let item of stateCitiesAll" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+  
+            <div class="sm:w-5/12 hidden">
+                <select 
+                    *ngIf="swCityZones" 
+                    class="w-full rounded-lg border left-5 border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="cityZoneSlug" [attr.disabled]="true" >
+                    <option value="">{{'search.all_areas' | translate}}</option>
+                </select>
+                <select 
+                    *ngIf="!swCityZones" 
+                    class="w-full rounded-lg border left-5 border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-secondary-500/40 active:ring active:ring-secondary-500/40 dark:bg-zinc-700 dark:border-zinc-800" 
+                    formControlName="cityZoneSlug" >
+                    <option value="">{{'search.all_areas' | translate}}</option>
+                    <option *ngFor="let item of cityZones" value="{{item.slug}}">{{item.name}}</option>
+                </select>
+            </div>
+            
+            <div class="w-full sm:w-fit flex justify-end">
+                <button (click)="onSubmit()" type="submit" class="flex w-full sm:w-fitt items- justify-center rounded-full sm:rounded-lg space-x-1 uppercase text-white border border-primary-600 bg-primary-600 p-2">
+                    <span class=" material-icons-outlined notranslate text-base">search</span>
+                    <span class="text-sm">{{'Search' | translate}}</span>
+                </button>
+            </div>
+        </div>
+    </form>
+  </div>

@@ -1,0 +1,85 @@
+<header class=" w-full fixed top-0 z-50 bg-secondary-800"> <!-- style="background-color: #222020;" -->
+  <div class="max-w-4xl mx-auto flex flex-row justify-between items-center py-2 px-2 ">
+    <div class="">
+       <a routerLink="/">
+        <img class="h-6" src="./assets/logo/logo.png" alt="">
+       </a>
+       <div class="text-xs ml-2 -pt-2 font-semibold">
+          {{this.countryData.name}}
+       </div>
+    </div>
+
+    <div>
+      <div *ngIf="!userData; else user">
+        <ul class="flex  space-x-2">
+          <li>
+            <button routerLink="/panel/create/details" class=" border-primary-600 text-secondary-50 flex justify-center items-center shadow-sm p-1 w-10 h-10 rounded-full">
+              <span class=" material-icons-outlined notranslate">add</span>
+            </button>
+          </li>
+          <li>
+            <a routerLink="/auth/login" class=" border-primary-600 text-secondary-50 flex justify-center items-center shadow-sm p-1 w-10 h-10 rounded-full ">
+              <span class=" material-icons-outlined notranslate">login</span>
+            </a>
+          </li>
+          <li class="hidden"><a routerLink="/auth/register">Registrate</a></li>
+        </ul>
+      </div>
+      
+      <ng-template #user>
+        <div class="flex items-center space-x-2">
+
+          <button routerLink="/panel/create/details" class=" border-primary-600 text-secondary-50 flex justify-center items-center shadow-sm p-1 w-10 h-10 rounded-full ">
+            <i class="fas fa-plus"></i>
+          </button>
+        
+          <div class="dropdown inline-block relative">
+            <button class=" border-primary-600 text-secondary-50 flex justify-center items-center shadow-sm p-1 w-10 h-10 rounded-full ">
+              <i class="fas fa-bars"></i>
+            </button>
+            <ul class="dropdown-menu right-0 absolute hidden z-50  pt-1 text-secondary-50 bg-secondary-700 w-48 shadow-md border border-secondary-800 rounded-md ">
+              <li class="hidden">
+                <a routerLink="/panel/dasboard" class="rounded-t  space-x-2 hover:bg-secondary-600 py-2 px-4 block whitespace-no-wrap">
+                  Pantalla de inicio
+                </a>
+              </li>
+              <li class="">
+                <a routerLink="/panel/your-ads" class=" space-x-2 hover:bg-secondary-600 py-2 px-4 block whitespace-no-wrap" href="#">
+                  <span><i class="fas fa-ad"></i></span>
+                  <span>Tus anuncios</span>
+                </a>
+              </li>
+              <li class="">
+                <a routerLink="/panel/bookmarks" class=" space-x-2 hover:bg-secondary-600 py-2 px-4 block whitespace-no-wrap" href="#">
+                  <span><i class="fas fa-heart"></i></span>
+                  <span>Favoritos</span>
+                </a>
+              </li>
+              <li class="hidden">
+                <a class="rounded-b space-x-2  hover:bg-secondary-600 py-2 px-4 block whitespace-no-wrap" href="#">
+                  <span><i class="fas fa-user-circle"></i></span>
+                  <span> Editar perfil</span>
+                </a>
+              </li>
+              <li class="">
+                <a routerLink="/panel/setting" class="rounded-b  space-x-2 hover:bg-secondary-600 py-2 px-4 block whitespace-no-wrap" href="#">
+                  <span><i class="fas fa-user-cog"></i></span>
+                  <span>Configuracion</span>
+                </a>
+              </li>
+              <li class="">
+                <div (click)="logout()" class="rounded-b space-x-2 cursor-pointer  hover:bg-secondary-600 py-2 px-4 block whitespace-no-wrap w-full float-left">
+                  <span><i class="fas fa-sign-out-alt"></i></span>
+                  <span>Cerrar sesión</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+      </ng-template>
+    </div>
+
+  </div>
+
+

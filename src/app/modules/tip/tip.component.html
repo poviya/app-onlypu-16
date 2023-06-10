@@ -1,0 +1,76 @@
+<app-center-dialog *ngIf="modalTip" (onClose)="closeModalTip()">
+    <div *ngIf="dataTip" class="p-5 bg-white dark:bg-zinc-900 rounded-lg">  
+        <div class="text-center mb-5 text-lg flex items-center space-x-2 font-bold uppercase">
+            <span>{{'sendTip' | translate}}</span>
+        </div>
+        <div class="flex space-x-2">
+            <div> 
+                <img *ngIf="dataTip.user.Profile!.length > 0" 
+                    class="h-14 w-14 rounded-full" 
+                    src="{{dataTip.user.Profile!.length > 0 ? this.prinImages(dataTip.user.Profile) : ''}}" alt="{{dataTip.user.username}}">
+                <div *ngIf="dataTip.user.Profile?.length == 0" class="h-14 w-14 rounded-full object-cover bg-zinc-200 dark:bg-zinc-700"></div>
+            </div>
+            <div>
+                <div>{{dataTip.user.name}}</div>
+                <div class="text-zinc-400 dark:text-zinc-500">@{{dataTip.user.username}}</div>
+            </div>
+        </div>
+        <form [formGroup]="myform" novalidate class="px-2 sm:px-0 mt-4">
+            <div class="mb-4 grid grid-cols-1 gap-4">
+                
+                <div class="flex flex-col">
+                    <label for="amount" class="mb-2 font-semibold">{{'amount' | translate}}</label>
+                    <div class="relative">
+                        <div class="flex absolute left-0 top-2/4 -mt-3 items-center">
+                            <span class=" material-icons-outlined notranslate">attach_money</span>
+                        </div>
+                        <input formControlName="amount" id="text" 
+                            [ngClass]="{
+                                'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                                myform.controls['amount'].valid && (myform.controls['amount'].dirty || myform.controls['amount'].touched),
+                                ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                                myform.controls['amount'].invalid && (myform.controls['amount'].dirty || myform.controls['amount'].touched),
+                                'pl-6 w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                            }">
+                    </div>
+                    <div class="mt-1 text-xs text-zinc-600 dark:text-zinc-200">
+                        <span>{{'minimumAmount' | translate:{'number': '0.5'} }}</span>
+                    </div>
+                </div>
+                    
+            </div>
+        
+            <div class="mb-4 grid grid-cols-1 gap-4">
+                
+                <div class="flex flex-col">
+                    <label for="amount" class="mb-2 font-semibold">{{'message' | translate}}</label>
+                    <textarea formControlName="message" id="text" placeholder="{{'messageOptional' | translate}}"
+                    [ngClass]="{
+                        'dark:bg-zinc-700 border border-green-500 dark:border-green-600  focus:ring-green-100 active:ring-green-100': 
+                        myform.controls['message'].valid && (myform.controls['message'].dirty || myform.controls['message'].touched),
+                        ' dark:bg-zinc-700 border-red-500 dark:border-red-600 focus:ring-red-100 active:ring-red-100': 
+                        myform.controls['message'].invalid && (myform.controls['message'].dirty || myform.controls['message'].touched),
+                        'w-full rounded-lg py-2 px-2 focus:outline-none focus:ring dark:bg-zinc-700 border dark:border-zinc-700 focus:ring-zinc-200 active:ring-zinc-200  focus:dark:ring-zinc-700 active:ring  active:dark:ring-zinc-700 ': true
+                    }">
+                    </textarea>
+                </div>
+            </div>
+    
+            <div class="flex justify-center mt-5 space-x-5">
+                <button
+                class="bg-zinc-200 hover:bg-zinc-300 dark:bg-zinc-800 hover:dark:bg-zinc-700 border border-zinc-300 dark:border-zinc-700 py-1 px-8 rounded-full text-zinc-800 dark:text-zinc-50 shadow-md" 
+                (click)="closeModal()">{{'cancel' | translate}}
+                </button>
+                <button
+                    (click)="onSubmit()"
+                    [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+                    class=" py-1 px-5 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 text-white rounded-full" 
+                    [disabled]="myform.status == 'VALID' ? false: true">
+                    {{'sendTip' | translate}}
+                </button>
+            </div>
+        </form>
+    </div>
+    
+    
+</app-center-dialog>

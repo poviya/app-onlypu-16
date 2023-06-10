@@ -1,0 +1,29 @@
+<!-- <div class="px-2 sm:px-0">
+    <h1 class="text-center  font-light text-3xl pt-6 mb-6">
+        Tus anuncios
+    </h1>
+    <div  *ngIf="isBrowser" class="w-full">
+      <ul class="flex mb-0 list-none flex-wrap pt-3 pb-0 flex-row">
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <a 
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg block leading-normal cursor-pointer space-x-1" 
+              (click)="toggleTabs(1)" 
+              [ngClass]="{'bg-slate-50 ': openTab !== 1, '  bg-other-background2 border-b-2 border-b-primary-600': openTab === 1}">
+              <span>Activos</span>
+              <span *ngIf="this.adCount">({{this.adCount?.active}})</span>
+          </a>
+        </li>
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <a 
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal cursor-pointer space-x-1" 
+              (click)="toggleTabs(2)" 
+              [ngClass]="{'bg-slate-50': openTab !== 2, '  bg-other-background2  border-b-2 border-b-primary-600': openTab === 2}">
+              <span>Suspendidos</span>
+              <span *ngIf="this.adCount">({{this.adCount?.inactive}})</span>
+          </a>
+        </li>
+       
+      </ul>
+      <app-list [openTab] ="openTab"></app-list>
+    </div>
+</div>  -->

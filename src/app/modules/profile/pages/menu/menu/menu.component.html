@@ -1,0 +1,30 @@
+<!-- component -->
+<div *ngIf="count"
+    class="my-0  border-t border-b border-zinc-100 dark:border-zinc-800  bg-zinc-50 dark:bg-background-dark shadow-sm">
+    <nav class=" flex flex-grow text-zinc-600 dark:text-zinc-400">
+        <a [routerLink]="['/', slug]"
+            routerLinkActive="hover:text-primary-600 border-primary-600 text-primary-600 border-b-2"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="   py-4 px-3 block  focus:outline-none font-medium space-x-1 w-full text-center">
+            <span>{{count.countPost}}</span>
+            <span>{{'posts' | translate}}</span>
+
+        </a>
+        <a routerLink="/{{slug}}/photos"
+            routerLinkActive="hover:text-primary-600 border-primary-600 text-primary-600 border-b-2"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="    py-4 px-3 block  focus:outline-none font-medium space-x-1 w-full text-center">
+            <span>{{count.countPhotos}}</span>
+            <span>{{'photos' | translate}}</span>
+
+        </a>
+        <a routerLink="/{{slug}}/videos"
+            routerLinkActive="hover:text-primary-600 border-primary-600 text-primary-600 border-b-2"
+            [routerLinkActiveOptions]="{exact: true}"
+            class="    py-4 px-3 block  focus:outline-none font-medium space-x-1 w-full text-center">
+            <span>{{count.countVideos}}</span>
+            <span>{{'Videos' | translate}}</span>
+
+        </a>
+    </nav>
+</div>

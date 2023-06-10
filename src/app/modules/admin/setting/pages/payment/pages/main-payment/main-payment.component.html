@@ -1,0 +1,11 @@
+
+<div class="mx-4 space-y-5">
+    <section>
+        <app-paypal *ngIf="!paypal" [userTransfer]="paypal" (createPaypalEvent)="onCreatePaypal($event)"></app-paypal>
+        <app-paypal *ngIf="paypal" [userTransfer]="paypal" (updatePaypalEvent)="onUpdatePaypal($event)"></app-paypal>
+    </section>
+    <section>
+        <app-link-pay *ngIf="!linkPay" [userTransfer]="linkPay"></app-link-pay>
+        <app-link-pay *ngIf="linkPay" [userTransfer]="linkPay"></app-link-pay>
+    </section>
+</div>

@@ -1,0 +1,32 @@
+<div *ngIf="post" class="sticky top-0 left-0  w-full py-2 px-3 text-xs bg-zinc-50 dark:bg-zinc-900 dark:text-zinc-200 z-50 border-b border-zinc-200 dark:border-zinc-800">
+    <div class="flex justify-between items-center h-10">
+        <div *ngIf="post?.CityZone; else stateCity ">
+          <div class="flex items-center uppercase font-bold cursor-pointer space-x-2">
+              <div class="text-xs flex justify-center items-center"> 
+                  <i class="fas fa-chevron-left"></i>
+              </div>
+              <a
+              class="text-sm" 
+              routerLink="/{{post.Country!.code}}/{{post.PostAdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+                  Volver a la búsqueda
+              </a>
+          </div>
+        </div>
+        <ng-template #stateCity>
+            <div class="flex items-center uppercase font-bold cursor-pointer space-x-2">
+                <div class=" text-xs"> 
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <a 
+                class="text-sm" 
+                routerLink="/{{post.Country!.code}}/{{post.PostAdCategory!.slug}}/{{post.StateCity!.slug}}">
+                    Volver a la búsqueda
+                </a>
+            </div>
+        </ng-template>
+
+        <button (click)="onSearch()"  class="items-center">
+          <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">search</i>
+        </button>
+    </div>
+</div>

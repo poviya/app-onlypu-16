@@ -1,0 +1,166 @@
+/* MODAL STYLES
+-------------------------------*/
+jw-modal {
+    /* modals are hidden by default */
+    display: none;
+
+    .jw-modal {
+        /* modal container fixed across whole screen */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        /* z-index must be higher than .jw-modal-background */
+        z-index: 1000;
+        
+        /* enables scrolling for tall modals */
+        overflow: auto;
+
+        .jw-modal-body {
+            padding: 0px;
+
+            /* margin exposes part of the modal background */
+            margin: 0px;
+        }
+    }
+
+    .jw-modal-center {
+       /* modal container fixed across whole screen */
+       position: fixed;
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-color: rgba(0, 0, 0, 0.6);
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       z-index: 9999;
+       /* z-index must be higher than .jw-modal-background */
+       z-index: 1000;
+               
+       /* enables scrolling for tall modals */
+       overflow: auto;
+
+        .jw-modal-body {
+            //padding: 0px;
+
+            /* margin exposes part of the modal background */
+            //margin: 0px;
+        }
+    }
+
+    .jw-modal-post {
+        /* modal container fixed across whole screen */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        /* z-index must be higher than .jw-modal-background */
+        z-index: 1000;
+        max-width: 42rem;
+        margin: 0 auto;
+        /* enables scrolling for tall modals */
+        overflow: auto;
+
+        .jw-modal-body {
+            padding: 0px;
+            border-radius: 0.375rem; /* 6px */
+            /*background-color: #0a0a0a;
+            opacity: 0.95;*/
+            /* margin exposes part of the modal background */
+            /*margin-top: 5px;
+            margin-bottom: 5px;*/
+        }
+    }
+
+    .jw-modal-menu {
+        // /* modal container fixed across whole screen */
+        //display: flex;
+        //align-items: center;
+        //justify-content: start;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        //height: 100%;
+        /* z-index must be higher than .jw-modal-background */
+        z-index: 1000;
+                
+        /* enables scrolling for tall modals */
+        overflow: auto;
+        
+        .jw-modal-body {
+            //background-color: #000;
+            padding: 0px;
+            max-width: 72rem/* 1024px */;
+            /* margin exposes part of the modal background */
+            //margin: 0px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: height 0.4s ease;
+        }
+
+        /* modal container fixed across whole screen */
+        // position: fixed;
+        // //align-items:start;
+        // //justify-content: center;
+        // top: 0;
+        // //left: 0;
+        // width: 100%;
+        // //max-width: 64rem/* 1024px */;
+        // //height: 100%;
+        // //right: 0;
+        // //bottom: 0;
+        // //left: 0;
+        // //width: 20rem;
+        // border-radius: 0.375rem 0.375rem 0.375rem 0.375rem/* 6px */;
+       
+        // //margin-left: auto;
+        // //margin-right: auto;
+       
+        // //margin-top: 1rem;
+        // ///margin-left: 1rem;
+        // //margin-bottom: 1rem;
+        // /* z-index must be higher than .jw-modal-background */
+        // z-index: 1000;
+        
+        // /* enables scrolling for tall modals */
+        // overflow: auto;
+
+        // .jw-modal-body {
+        //     //padding: 0px;
+        //     //height: 100%;
+        //     border-radius: 0.375rem 0.375rem 0.375rem 0.375rem/* 6px */;
+        //     /* margin exposes part of the modal background */
+        //     //max-width: 64rem/* 1024px */;
+        //     //margin: 0px;
+        // }
+    }
+
+    .jw-modal-background {
+        /* modal background fixed across whole screen */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        /* semi-transparent black  */
+        background-color: #000;
+        opacity: 0.45;
+        
+        /* z-index must be below .jw-modal and above everything else  */
+        z-index: 900;
+    }
+}

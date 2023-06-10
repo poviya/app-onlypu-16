@@ -1,0 +1,109 @@
+
+    <section *ngIf="user">
+        <form [formGroup]="myformCover" novalidate>
+        <div *ngIf="user.Cover!.length > 0; else formCover">
+            <div style="background-image: url('{{user.Cover![0].url}}');" class="bg-cover flex justify-end items-end px-6 pt-5 pb-6  h-44 md:h-64 w-full object-cover -z-10 ">
+                <div class="space-y-1 text-center">
+                <div class="flex justify-center items-center space-x-2 text-sm">
+                    <button 
+                    (click)="deleteFileCover(user.Cover![0])"
+                    class="text-center w-9 h-9 text-white leading-5  transition-colors duration-200 transform bg-primary-600 rounded-full hover:bg-primary-600 focus:outline-none focus:bg-gray-600">
+                    <i class="fas fa-trash"></i> 
+                    </button>
+                </div>
+                </div>
+            </div>
+        </div>
+            
+        <ng-template #formCover>
+            <div  *ngFor='let item of imagesCover; let first = first;'>
+                <div  style="background-image: url('{{item.url}}');" class="bg-cover flex justify-center items-center px-6 pt-5 pb-6  h-44 md:h-64 w-full -z-10">
+                <div  class="space-y-1 text-center">
+                    <div class="flex justify-center items-center space-x-2 text-sm">
+                    <button 
+                        (click)="onSubmitCover()"
+                        class="px-6 py-2 text-white leading-5  transition-colors duration-200 transform bg-primary-600 rounded-full hover:bg-primary-600 focus:outline-none focus:bg-gray-600">
+                        {{'save' | translate}} 
+                    </button>
+                    <button 
+                        (click)="deleteImageCover(item)"
+                        class="text-center w-9 h-9 text-white leading-5  transition-colors duration-200 transform bg-primary-600 rounded-full hover:bg-primary-600 focus:outline-none focus:bg-gray-600">
+                        <i class="fas fa-trash"></i> 
+                    </button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <div *ngIf="this.imagesCover.length  === 0" class="flex justify-end items-end px-6 pt-5 pb-6  h-44 md:h-64 bg-zinc-200 dark:bg-zinc-800">
+                <div class="space-y-1 text-center">
+                <div class="flex text-sm text-gray-600">
+                    <label for="file-upload" class="relative cursor-pointer px-6 py-2 rounded-full bg-primary-600 hover:bg-primary-600 font-medium text-white hover:text-white focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-primary-600">
+                    <span class="">{{'uploadCover' | translate}}</span>
+                    <input 
+                        id="file-upload" 
+                        name="file-upload"  
+                        type="file"
+                        multiple=""
+                        formControlName="file"
+                        accept="image/gif, image/png, image/jpg, image/jpeg"
+                        (change)="onFileCoverChange($event)" 
+                        class="sr-only">
+                    </label>
+                </div>
+                </div>
+            </div>
+
+        </ng-template>        
+    
+        </form>
+
+        <form [formGroup]="myformProfile" novalidate class="-mt-20">
+        <div *ngIf="user.Profile!.length > 0; else formProfile">
+            <div style="background-image: url('{{user.Profile![0].url}}');" class="ml-5 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-36 md:h-36 bg-white z-10">
+                <div class="flex justify-end items-end text-center">
+                <button 
+                    (click)="deleteFileProfile(user.Profile![0])"
+                    class="text-center w-9 h-9 text-white leading-5  transition-colors duration-200 transform bg-primary-600 rounded-full hover:bg-primary-600 focus:outline-none focus:bg-gray-600">
+                    <i class="fas fa-trash"></i> 
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ng-template #formProfile>
+            <div *ngFor='let item of imagesProfile; let first = first;'>
+                <div style="background-image: url('{{item.url}}');" class="ml-5 flex bg-cover justify-center items-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-36 md:h-36 bg-white z-10">
+                <div  class="flex justify-center items-center text-center space-x-1">
+                    <button 
+                        (click)="onSubmitProfile()"
+                        class="px-6 py-2 text-white leading-5  transition-colors duration-200 transform bg-primary-600 rounded-full hover:bg-primary-600 focus:outline-none focus:bg-gray-600">
+                        {{'save' | translate}} 
+                    </button>
+                    <button 
+                        (click)="deleteImageProfile(item)"
+                        class="text-center w-9 h-9 text-white leading-5  transition-colors duration-200 transform bg-primary-600 rounded-full hover:bg-primary-600 focus:outline-none focus:bg-gray-600">
+                        <i class="fas fa-trash"></i> 
+                    </button>
+                </div>
+                </div>
+            </div>
+            <div *ngIf="this.imagesProfile.length  === 0" class="ml-5 flex justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-36 md:h-36 bg-zinc-300 dark:bg-zinc-700 z-10">
+            <div class="flex justify-center items-center text-center">
+                <label for="file-upload-profile" class="relative flex justify-center items-center text-zinc-800 dark:text-zinc-400 cursor-pointer px-6 py-2 rounded-full w-12 h-12 font-medium hover:text-primary-600 focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-primary-600">
+                <span class=""><i class="fa-solid fa-camera text-2xl"></i></span>
+                <input 
+                    id="file-upload-profile" 
+                    name="file-upload-profile"  
+                    type="file"
+                    multiple=""
+                    formControlName="file"
+                    accept="image/gif, image/png, image/jpg, image/jpeg"
+                    (change)="onFileProfileChange($event)" 
+                    class="sr-only">
+                </label>
+            </div>
+        </div>
+        </ng-template>
+            
+        </form>
+    </section>

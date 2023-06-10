@@ -1,0 +1,69 @@
+
+<div
+  class="min-h-screen flex flex-col items-center justify-center"
+    >
+    <div
+      class="
+        flex flex-col
+        bg-other-background2
+        shadow-md
+        px-4
+        sm:px-4
+        md:px-4
+        lg:px-6
+        py-8
+        rounded-lg
+        w-full
+        max-w-xl
+      "
+    >
+      <div class="font-light self-center text-xl sm:text-2xl">
+        Por favor, lee el siguiente aviso antes de continuar 
+      </div>
+
+      <div class="mt-10 text-sm font-light">
+        <ul class="space-y-3">
+          <li class="font-normal">
+            <i class="fas fa-caret-right text-primary-600"></i> Tengo más de 18 años.
+          </li>
+          <li class="font-normal">
+            <i class="fas fa-caret-right text-primary-600"></i> No se permite adjuntar imágenes pornográficas que muestren órganos genitales explícitamente.
+          </li>
+          <li class="font-normal">
+            <i class="fas fa-caret-right text-primary-600"></i> La inserción de material pedófilo, incluidos todos los datos de acceso, se comunicará inmediatamente a las autoridades competentes a fin de llegar a los responsables implicados.
+          </li>
+          <li>
+            <i class="fas fa-caret-right text-primary-600"></i> Al publicar un anuncio en Onlypu, <span class="font-normal"> el Usuario certifica que puede acceder al contenido con todos los derechos </span> y también declara que cualquier persona representada en las imágenes cargadas es mayor de edad (más de 18 años), y que ha dado su consentimiento para publicarlas en Onlypu.
+          </li>
+        </ul>
+      </div>
+      <div class="mt-5 text-sm font-light">
+        <div>
+          Al hacer clic en el botón "Aceptar", el Usuario declara ser <span class="font-normal">mayor de 18 años</span> y <span class="font-normal">exime de toda responsabilidad a los proveedores de estos servicios, propietarios y creadores de skokka.com sobre los contenidos y sobre el uso que se haga de la sección. </span> Asimismo, al hacer clic en el botón "Aceptar", el Usuario declara conocer y aceptar expresamente la <a href="" class="font-normal text-primary-600">"Política de Privacidad"</a> del sitio, relativa al tratamiento de sus datos personales. 
+        </div>
+      </div>
+      <div class="flex space-x-5 mt-8">
+
+        <button
+          id="button"
+          type="submit"
+          (click)="decline()"
+
+              class="w-full px-6 py-2 text-lg text-primary-600 transition-all duration-150 ease-linear rounded-full shadow outline-none border border-primary-600 hover:border-primary-600 hover:shadow-lg focus:outline-none"
+          >
+          Renuncio
+        </button>
+
+        <button
+          id="button"
+          type="submit"
+          (click)="accept()"
+
+              class="w-full px-6 py-2 text-lg text-white transition-all duration-150 ease-linear rounded-full shadow outline-none bg-primary-600 hover:bg-primary-600 hover:shadow-lg focus:outline-none"
+          >
+          Acceder
+        </button>
+      </div>
+    </div>
+</div>
+ 

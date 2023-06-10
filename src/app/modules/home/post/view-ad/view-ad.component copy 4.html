@@ -1,0 +1,361 @@
+<div *ngIf="isBrowser" >
+    <app-menu-two *ngIf="countrySlug" [countrySlug] = "countrySlug" [fixed]=false></app-menu-two>
+    <div *ngIf="this.post; else loadingTemplate" class="max-w-4xl mx-auto mt-0 px-2 md:px-0">
+        <div class="mt-6 mb-6">
+            <div class="grid grid-cols-5 gap-4">
+                <div class="col-span-5 sm:col-span-4 space-y-2">
+                    <div>
+                        <div *ngIf="post?.CityZone; else stateCity ">
+                            <div class="flex justify-start items-center space-x-1 text-primary-600 font-semibold text-xs">
+                                <div class="text-xs flex justify-center items-center"> 
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <a
+                                class="text-sm" 
+                                href="/{{post.Country!.slug}}/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+                                    Volver a la búsqueda
+                                </a>
+                            </div>
+                        </div>
+                        <ng-template #stateCity>
+                            <div class="flex justify-start items-center space-x-1 text-primary-600 font-semibold text-xs">
+                                <div class=" text-xs"> 
+                                    <i class="fas fa-chevron-left"></i>
+                                </div>
+                                <a 
+                                class="text-sm" 
+                                href="/{{post.Country!.slug}}/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}">
+                                    Volver a la búsqueda
+                                </a>
+                            </div>
+                        </ng-template>
+                        <div class="flex space-x-2 items-center mt-4 flex-wrap uppercase text-primary-600 text-xs">
+                            <a routerLink="/" class="w-8 h-8 flex justify-center items-center rounded-md border border-primary-600 py-1 px-1 text-xs  ">
+                                <i class="fas fa-home"></i>
+                            </a>
+        
+                            <div class="flex space-x-2"> 
+                                <div class="flex justify-center items-center text-xs"> 
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <a 
+                                class="flex justify-center items-center rounded border border-primary-600 py-1 px-2  text-primary-600 " 
+                                routerLink="/{{post.Country!.slug}}/{{post.AdCategory!.slug}}">
+                                    {{post.AdCategory!.name}}
+                                </a>
+                            </div>
+                            
+                            <div class="flex space-x-2"> 
+                                <div class="flex justify-center items-center text-xs"> 
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <a 
+                                class="flex justify-center items-center rounded border border-primary-600 py-1 px-2 text-primary-550 " 
+                                routerLink="/{{post.Country!.slug}}/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}">
+                                    {{post.StateCity!.name}}
+                                </a>
+                            </div>
+        
+                            <div *ngIf="post?.CityZone" class="flex space-x-2"> 
+                                <div class="flex justify-center items-center text-xs"> 
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <a
+                                class="flex justify-center items-center rounded border border-primary-600 py-1 px-2 text-sm text-primary-550 "   
+                                routerLink="/{{post.Country!.slug}}/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+                                    {{post.CityZone!.name}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-5 pt-6 sm:pt-8">
+                        <div class="text-sm text-slate-500 italic">
+                            <span *ngIf="post.publishedAt; else createdAt">
+                                {{post.planAt | date}}
+                            </span>
+                            <ng-template #createdAt>
+                                {{post.createdAt | date}}
+                            </ng-template>
+                        </div>
+                        <div>
+                            <div *ngIf="post.plan == 2" class="text-xs bg-gradient-to-r from-primary-600 via-purple-800 to-secondary-600  text-white px-2 rounded-full">
+                                <i class="fas fa-share"></i>
+                                <span class="font-bold">Super</span><span> top</span>
+                            </div>
+                            <div *ngIf="post.plan == 1" class="text-xs bg-blue-800  text-white px-2 rounded-full">
+                                <i class="fas fa-share"></i>
+                                <span class="font-bold">Top</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <button 
+                                class="bg-primary-50 text-primary-600 rounded-full p-1 w-8 h-8"
+                                *ngIf="!postBookmarkStatus" 
+                                (click)="addPostBookmark()">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button 
+                                class="bg-primary-50  text-primary-600 rounded-full p-1 w-8 h-8"
+                                *ngIf="postBookmarkStatus" 
+                                (click)="deletePostBookmark()">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <span class="text-xs hidden">{{post.likes}}</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap space-x-2 text-sm">
+                        <div class="font-semibold">
+                            {{post.age}} años 
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div>|</div>
+                            <div>
+                                {{post.AdCategory!.name}}
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div>|</div>
+                            <div class="flex items-center space-x-1 font-semibold">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{post.StateCity!.name}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="post.CityZone" class="flex items-center space-x-2">
+                            <div>|</div>
+                            <div class="flex items-center space-x-2 font-semibold">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{post.CityZone!.name}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="post.address" class="flex items-center space-x-2">
+                            <div>|</div>
+                            <div class="flex items-center space-x-2">
+                                <span>{{post.address}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-x-2 text-xs text-secondary-100">
+                        <span>ID del anuncio:</span>
+                        <span class="text-xs">{{post.code}}</span>
+                    </div>
+                    <h1 class="text-2xl font-semibold pt-4 ">
+                        {{post.title}}
+                    </h1>
+                    <p class="pt-6" [innerHtml] = "innerText(post.description)"></p>
+        
+                </div>
+                <div class="hidden sm:block">
+                    <div class="flex flex-col space-y-5 mt-16">
+                        <a
+                        *ngIf="post.phone"
+                        (click)="onUpdateClick(post._id!, 'phone')"
+                        class="border flex justify-center items-center space-x-2 text-xs uppercase border-primary-600 bg-primary-600 hover:bg-primary-600 text-secondary-50 rounded-md p-3"   
+                        href="tel:{{post.phonePrefix}} {{post.phone}}">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>Telefono</span>
+                        </a>
+                        <a
+                        *ngIf="post.whatsapp && post.phone"
+                        (click)="onUpdateClick(post._id!, 'whatsapp')"
+                        class="border flex justify-center items-center space-x-2 text-xs uppercase border-other-whatsapp1 bg-other-whatsapp1 hover:bg-other-whatsapp2 text-secondary-50 rounded-md p-3"  
+                        href="https://wa.me/{{post.phonePrefix}}{{post.phone}}/?text={{textMessage()}}" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                        <a 
+                        *ngIf="post.telegram"
+                        (click)="onUpdateClick(post._id!, 'telegram')"
+                        class="border flex justify-center items-center space-x-2 text-xs uppercase border-sky-600 bg-sky-600 hover:bg-sky-700 text-secondary-50 rounded-md p-3"  
+                        href="https://t.me/{{post.telegram}}" target="_blank">
+                            <i class="fab fa-telegram"></i>
+                            <span>Telegram</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <div  class="gallery-lightbox-container mt-10 z-50">
+                <div class="gallery">
+                    <div  *ngFor="let item of post.PostMedia; let i = index" class="gallery-img">
+                        <img (click)="onPreviewImage(i)" src="{{item.url}}" alt="{{i}}">
+                    </div>
+                </div>
+                <div *ngIf="showMask" class="lightbox" @animation2>
+                    <div *ngIf="showCount" class="count space-x-1">
+                        <span>{{currentIndex + 1}}</span> 
+                        <span>/</span> 
+                        <span>{{totalImageCount}}</span>
+                    </div>
+                    <button *ngIf="previewImage" class="close-btn" (click)="onClosePreview()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button *ngIf="controls" class="btn-lightbox-carousel btn-prev" (click)="next()">
+                        <i class="fas fa-arrow-circle-left icon-lightbox-carousel icon-prev"></i>
+                    </button>
+                    <button *ngIf="controls" class="btn-lightbox-carousel btn-next" (click)="prev()">
+                        <i class="fas fa-arrow-circle-right icon-lightbox-carousel icon-next"></i>
+                    </button>
+                    <div 
+                        *ngIf="previewImage" 
+                        [@animation] = "{value: 'visible'}"
+                        (@animation.done) = onAnimationEnd($event)
+                        class="lightbox-img">
+                        <img src="{{currentLinghtboxImage.url}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div *ngIf="post" class=" w-full fixed bottom-0 z-50 block sm:hidden"> <!-- style="background-color: #222020;" -->
+            
+            <div *ngIf="!post.whatsapp && !post.telegram && post.phone" class="flex flex-row justify-between items-center space-x-2 mr-4 mb-1">
+                
+                <div class="w-full">
+                  <a
+                  (click)="onUpdateClick(post._id!, 'phone')"
+                  class="border flex justify-center items-center space-x-2 text-sm uppercase border-primary-600 bg-primary-600 hover:bg-primary-700 text-secondary-50 rounded-md p-3"   
+                  href="tel:{{post.phonePrefix}} {{post.phone}}">
+                      <i class="fas fa-phone-alt"></i>
+                      <span>Telefono</span>
+                  </a>
+                </div>
+                
+            </div>
+
+            <div *ngIf="post.phone && post.whatsapp && !post.telegram" class="flex flex-row justify-between items-center space-x-2 mr-4 mb-1">
+              <div class="w-3/6">
+                <a
+                (click)="onUpdateClick(post._id!, 'whatsapp')"
+                class="border flex justify-center items-center space-x-2 text-sm uppercase border-emerald-500 bg-emerald-500 hover:bg-emerald-700 text-secondary-50 rounded-md p-3"  
+                href="https://wa.me/{{post.phonePrefix}}{{post.phone}}/?text={{textMessage()}}" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+              </div>
+          
+              <div class="w-3/6">
+                <a
+                (click)="onUpdateClick(post._id!, 'phone')"
+                class="border flex justify-center items-center space-x-2 text-sm uppercase border-primary-600 bg-primary-600 hover:bg-primary-700 text-secondary-50 rounded-md p-3"   
+                href="tel:{{post.phonePrefix}} {{post.phone}}">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Telefono</span>
+                </a>
+              </div>
+              
+            </div>
+           
+            <div *ngIf="post.phone && post.whatsapp && post.telegram" class="flex flex-row justify-between items-center space-x-2 mr-4 mb-1">
+                <div class="w-2/6">
+                  <a
+                  (click)="onUpdateClick(post._id!, 'whatsapp')"
+                  class="border flex justify-center items-center space-x-1 text-sm uppercase border-other-whatsapp1 bg-other-whatsapp1 hover:bg-other-whatsapp2 text-secondary-50 rounded-md p-2"  
+                  href="https://wa.me/{{post.phonePrefix}}{{post.phone}}/?text={{textMessage()}}" target="_blank">
+                      <i class="fab fa-whatsapp"></i>
+                      <span>WhatsApp</span>
+                  </a>
+                </div>
+            
+                <div class="w-2/6">
+                  <a
+                  (click)="onUpdateClick(post._id!, 'phone')"
+                  class="border flex justify-center items-center space-x-1 text-sm uppercase border-primary-600 bg-primary-600 hover:bg-primary-700 text-secondary-50 rounded-md p-2"   
+                  href="tel:{{post.phonePrefix}} {{post.phone}}">
+                      <i class="fas fa-phone-alt"></i>
+                      <span>Telefono</span>
+                  </a>
+                </div>
+                
+                <div class="w-2/6">
+                    <a
+                    (click)="onUpdateClick(post._id!, 'telegram')"
+                    class="border flex  justify-center items-center space-x-1 text-sm uppercase border-sky-600 bg-sky-600 hover:bg-sky-700 text-secondary-50 rounded-md p-2"  
+                    href="https://t.me/{{post.telegram}}" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        <span>Telegram</span>
+                    </a>
+                  </div>
+            </div>
+            
+            <div *ngIf="!post.phone && post.telegram" class="flex flex-row justify-between items-center space-x-2 mr-4 mb-1">
+                
+                <div class="w-full">
+                  <a
+                  (click)="onUpdateClick(post._id!, 'telegram')"
+                  class="border flex justify-center items-center space-x-2 text-sm uppercase border-sky-600 bg-sky-600 hover:bg-sky-700 text-secondary-50 rounded-md p-3"   
+                  href="https://t.me/{{post.telegram}}">
+                      <i class="fas fa-phone-alt"></i>
+                      <span>Telegram</span>
+                  </a>
+                </div>
+                
+            </div>
+
+            <div *ngIf="post.phone && !post.whatsapp && post.telegram" class="flex flex-row justify-between items-center space-x-2 mr-4 mb-1">
+                <div class="w-3/6">
+                    <a
+                    (click)="onUpdateClick(post._id!, 'telegram')"
+                    class="border flex justify-center items-center space-x-2 text-sm uppercase border-sky-600 bg-sky-600 hover:bg-sky-700 text-secondary-50 rounded-md p-3"   
+                    href="https://t.me/{{post.telegram}}">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Telegram</span>
+                    </a>
+                </div>
+            
+                <div class="w-3/6">
+                    <a
+                    (click)="onUpdateClick(post._id!, 'phone')"
+                    class="border flex justify-center items-center space-x-2 text-sm uppercase border-primary-600 bg-primary-600 hover:bg-primary-700 text-secondary-50 rounded-md p-3"   
+                    href="tel:{{post.phonePrefix}} {{post.phone}}">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Telefono</span>
+                    </a>
+                </div>
+                
+              </div>
+
+        </div>
+
+        <!-- shared -->
+
+        <div class="border-t border-t-slate-200 py-10">
+            <div class="text-center text-lg font-semibold">
+                Compartir anuncio
+            </div>
+            <div class="flex justify-center space-x-5 mt-6 text-2xl text-primary-600">
+                <a href="https://twitter.com/intent/tweet?text={{post.title}} https://onlypu.com/pu/{{post.slug}}" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://onlypu.com/pu/{{post.slug}}&src=sdkpreparse" target="_blank">
+                    <i class="fab fa-facebook-square"></i>
+                </a>
+                <a href="https://wa.me/?text=https://onlypu.com/pu/{{post.slug}}" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://t.me/share/url?url=https://onlypu.com/pu/{{post.slug}}&text={{post.title}}" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="mailto:?subject={{post.title}}  :  onlypu.com&amp;body=https://onlypu.com/pu/{{post.slug}}">
+                    <i class="fas fa-envelope-open"></i>
+                </a>
+            </div>
+        </div>
+        <!-- suggestions-->
+    </div>
+
+    <ng-template #loadingTemplate>
+        <div class="my-56">
+          <div *ngIf="loading; else noData" class="flex flex-col items-center justify-center">
+            <app-loading></app-loading>
+          </div>
+          <ng-template #noData>
+            <div class=" text-center font-light text-3xl">
+              No hay datos
+            </div>
+          </ng-template>
+        </div>
+    </ng-template>
+
+    <app-footer-one></app-footer-one>
+    
+</div>

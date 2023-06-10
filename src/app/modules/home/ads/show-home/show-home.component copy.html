@@ -1,0 +1,90 @@
+
+<div *ngIf="isBrowser">
+  <app-menu-one [countrySlug] = "countrySlug" [categorySlug] = "categorySlug" [fixed] = true></app-menu-one>
+  <div class="max-w-5xl mx-auto mt-16 mb-10">
+    <div class="space-y-5">    
+      <div class="pt-5">
+          <div *ngIf="this.categorySlug && postName; else title" class=" px-2 sm:px-0">
+            <div class="flex space-x-2 overflow-x-hidden">
+              <a routerLink="/" class="w-8 h-8 flex justify-center items-center rounded-md border border-secondary-500 py-1 px-1 text-xs text-secondary-50 bg-secondary-600">
+                <i class="fas fa-home"></i>
+              </a>
+              
+              <div *ngIf="postName.AdCategory" class="flex space-x-2">
+                <div class="flex justify-center items-center text-xs"> 
+                  <i class="fas fa-chevron-right"></i>
+                </div>
+                <a
+                  class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600" 
+                  routerLink="/{{countrySlug}}/{{categorySlug}}">
+                  {{this.postName.AdCategory}}
+                </a>
+              </div>
+              <div *ngIf="postName.StateCity" class="flex space-x-2">
+                <div class="flex justify-center items-center text-xs"> 
+                  <i class="fas fa-chevron-right"></i>
+                </div>
+                <a
+                class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600"  
+                  routerLink="/{{countrySlug}}/{{categorySlug}}/{{stateCitySlug}}">
+                  {{this.postName.StateCity}}
+                </a>
+              </div>
+              <div *ngIf="postName.CityZone" class="flex space-x-2">
+                <div class="flex justify-center items-center text-xs">
+                  <i class="fas fa-chevron-right"></i> 
+                </div>
+                <a
+                class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600"  
+                  routerLink="/{{countrySlug}}/{{categorySlug}}/{{stateCitySlug}}/{{cityZoneSlug}}">
+                  {{this.postName.CityZone}}
+                </a>
+              </div>
+            </div>
+
+            <h1 class="flex space-x-1 text-xs text-secondary-100 mt-5">
+                <span *ngIf="postName.AdCategory">
+                  {{this.postName.AdCategory}}
+                </span>
+                <span class=" lowercase">
+                    {{'in' | translate}}
+                </span>
+                <span *ngIf="postName.Country && !postName.StateCity && !postName.CityZone">
+                  {{this.postName.Country}}
+                </span>
+
+                <span *ngIf="postName.Country && postName.StateCity && !postName.CityZone">
+                  {{this.postName.StateCity}}
+                </span>
+
+                <span *ngIf="postName.Country && postName.StateCity && postName.CityZone">
+                  {{this.postName.CityZone}}
+                </span>
+              </h1>
+        </div>
+        <ng-template #title>
+          <h1 class=" text-secondary-50 font-light text-center">
+            <span class="text-3xl md:text-5xl">Sexo sudor y placer</span> 
+          </h1>
+          <h1 class=" text-secondary-100 font-light text-center">
+            <span class="text-md">Encuentra tu pareja para hacer el delicioso 😋</span>
+          </h1>
+        </ng-template>
+        <div class="uppercase text-xs px-2 mt-5 mb-6">
+          {{date | date}}
+        </div>
+        
+        <div
+          infiniteScroll
+          (scrolled)="onScrollDown()"
+          >
+          <app-list-ads  *ngIf="isBrowser" [posts] = "posts" [categorySlug] = "categorySlug"></app-list-ads>
+          <button *ngIf="showButton" (click)="onScrollTop()" class="button">
+            hola
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

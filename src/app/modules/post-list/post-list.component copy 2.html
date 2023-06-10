@@ -1,0 +1,35 @@
+
+<div class="video-list">
+    <div *ngFor="let video of videos; let i = index" class="video">
+      <video #videoElement [src]="video" [muted]="true"></video>
+      <button (click)="selectVideo(i)">Seleccionar</button>
+    </div>
+  </div>
+
+<!-- <div class="video-container">
+    <video #videoPlayer [src]="currentVideoUrl" (ended)="playNextVideo()" autoplay [muted]="true" 
+        class="h-96 sm:h-112 md:h-112 w-fit flex justify-center">
+    </video>
+    <div class="controls">
+        <button (click)="togglePlay()">Play/Pause</button>
+        <button (click)="likeVideo()">Like</button>
+        <button (click)="shareVideo()">Share</button>
+    </div>
+</div> -->
+
+<!-- <div #videoContainer class="video-container" (swiperight)="swipeUp()" (swipeleft)="swipeDown()">
+    <video #videoPlayer [src]="currentVideoUrl" (ended)="playNextVideo()" autoplay  [muted]="true" ></video>
+    <div class="controls">
+        <button (click)="togglePlay()">Play/Pause</button>
+        <button (click)="likeVideo()">Like</button>
+        <button (click)="shareVideo()">Share</button>
+    </div>
+</div>
+
+<div class="video-list">
+    <ul>
+        <li *ngFor="let video of videos; let i = index" [class.active]="i === currentVideoIndex">
+            
+        </li>
+    </ul>
+</div> -->

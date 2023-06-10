@@ -1,0 +1,84 @@
+<div class="mx-auto xl:max-w-none xl:ml-0 xl:mr-[16.0rem]">
+   
+   <div class="border-r dark:border-zinc-800">
+      <app-header [countryCode]="countryCode" ></app-header>
+      <div class="px-4">
+         <app-show-search [searchModal] = "search" [countryCode] = "countryCode" [categorySlug] = "categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-show-search>
+      </div>
+      <div class="px-4">
+         <app-list-ads [search]="search" [countryCode]="countryCode" [categorySlug]="categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"></app-list-ads>
+      </div>
+      <!-- footer -->
+      <app-footer-one [width] = "width"></app-footer-one>
+   </div>
+   <div
+      class="fixed top-[0.0rem] bottom-0 right-[max(0px,calc(50%-40rem))] w-64 overflow-y-auto hidden xl:block ">
+      <div class="px-0">
+         <h5 class="text-slate-900 font-semibold mb-4 text-sm leading-6 dark:text-slate-100">On this page</h5>
+         <ul class="text-slate-700 text-sm leading-6">
+            <li><a href="#class-reference"
+                  class="block py-1 font-medium font-medium text-sky-500 dark:text-sky-400">Quick reference</a></li>
+            <li><a href="#basic-usage"
+                  class="block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">Basic
+                  usage</a></li>
+            <li class="ml-4"><a href="#placing-a-positioned-element"
+                  class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"><svg
+                     width="3" height="24" viewBox="0 -9 3 24"
+                     class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                     <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                     </path>
+                  </svg>Placing a positioned element</a></li>
+            <li class="ml-4"><a href="#using-negative-values"
+                  class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"><svg
+                     width="3" height="24" viewBox="0 -9 3 24"
+                     class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                     <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                     </path>
+                  </svg>Using negative values</a></li>
+            <li class="ml-4"><a href="#using-logical-properties"
+                  class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"><svg
+                     width="3" height="24" viewBox="0 -9 3 24"
+                     class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                     <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                     </path>
+                  </svg>Using logical properties</a></li>
+            <li><a href="#applying-conditionally"
+                  class="block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">Applying
+                  conditionally</a></li>
+            <li class="ml-4"><a href="#hover-focus-and-other-states"
+                  class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"><svg
+                     width="3" height="24" viewBox="0 -9 3 24"
+                     class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                     <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                     </path>
+                  </svg>Hover, focus, and other states</a></li>
+            <li class="ml-4"><a href="#breakpoints-and-media-queries"
+                  class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"><svg
+                     width="3" height="24" viewBox="0 -9 3 24"
+                     class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                     <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                     </path>
+                  </svg>Breakpoints and media queries</a></li>
+            <li><a href="#using-custom-values"
+                  class="block py-1 font-medium hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300">Using
+                  custom values</a></li>
+            <li class="ml-4"><a href="#customizing-your-theme"
+                  class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"><svg
+                     width="3" height="24" viewBox="0 -9 3 24"
+                     class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                     <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                     </path>
+                  </svg>Customizing your theme</a></li>
+            <li class="ml-4"><a href="#arbitrary-values"
+                  class="group flex items-start py-1 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"><svg
+                     width="3" height="24" viewBox="0 -9 3 24"
+                     class="mr-2 text-slate-400 overflow-visible group-hover:text-slate-600 dark:text-slate-600 dark:group-hover:text-slate-500">
+                     <path d="M0 0L3 3L0 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                     </path>
+                  </svg>Arbitrary values</a></li>
+         </ul>
+      </div>
+
+   </div>
+
+</div>

@@ -1,0 +1,17 @@
+<div *ngIf="isBrowser">
+    <div class="border border-t-0 dark:border-zinc-800 ">
+        <app-header></app-header>
+        <main class="p-4 space-y-5">
+            <div>
+                <app-search [search]="search"></app-search>
+            </div>
+            <div>
+                <app-menu [count]="count"></app-menu>
+            </div>
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+    </div>
+   
+</div>

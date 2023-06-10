@@ -1,0 +1,30 @@
+<div  class="ad-lightbox-container mt-10 z-50">
+    <div class="ad">
+        <div  *ngFor="let item of post.PostMedia; let i = index" class="ad-img">
+            <img (click)="onPreviewImage(i)" src="{{item.url}}" alt="{{i}}">
+        </div>
+    </div>
+    <div *ngIf="showMask" class="lightbox" @animation2>
+        <div *ngIf="showCount" class="count space-x-1">
+            <span>{{currentIndex + 1}}</span> 
+            <span>/</span> 
+            <span>{{totalImageCount}}</span>
+        </div>
+        <button *ngIf="previewImage" class="close-btn" (click)="onClosePreview()">
+            <i class="fas fa-times"></i>
+        </button>
+        <button *ngIf="controls" class="btn-lightbox-carousel btn-prev" (click)="next()">
+            <i class="fas fa-arrow-circle-left icon-lightbox-carousel icon-prev"></i>
+        </button>
+        <button *ngIf="controls" class="btn-lightbox-carousel btn-next" (click)="prev()">
+            <i class="fas fa-arrow-circle-right icon-lightbox-carousel icon-next"></i>
+        </button>
+        <div 
+            *ngIf="previewImage" 
+            [@animation] = "{value: 'visible'}"
+            (@animation.done) = onAnimationEnd($event)
+            class="lightbox-img">
+            <img src="{{currentLinghtboxImage.url}}" alt="">
+        </div>
+    </div>
+</div>

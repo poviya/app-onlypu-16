@@ -1,0 +1,112 @@
+
+<h1 class="text-center  font-light text-3xl sm:text-4xl pt-5 mb-4">
+	Pomociona tu anuncio
+</h1>
+
+<div class="px-4 sm:px-0 mt-10">
+
+    <div *ngIf="this.productAdCredit.length > 0; else loadingTemplate" class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        
+        <div *ngFor="let item of productAdCredit" class="rounded-lg shadow-lg bg-zinc-100 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700">
+            <div class="flex flex-col items-center p-5 bg-zinc-200 dark:bg-zinc-700  rounded-t-lg">
+				<div *ngIf="item.type == 2" class="text-xs  bg-purple-800  text-white px-2 rounded-full">
+					<i class="fas fa-share"></i>
+					<span class="font-bold">Gold</span>
+				</div>
+				<div *ngIf="item.type == 1" class="text-xs bg-blue-800  px-2 rounded-full text-white">
+					<i class="fas fa-share"></i>
+					<span class="font-bold">Top</span>
+				</div>
+				<div class="flex items-center space-x-2">
+					<span class="text-2xl">$</span>
+					<span class="text-4xl font-bold">{{item.price}}</span>
+					<span class="text-xl">/ {{item.days}} {{item.days == 1? 'día': 'dias'}}</span>
+				</div>
+			</div> 
+            <div class="p-5">
+				<ul *ngIf="item.type == 1">
+					<li  class="flex items-start"> <!--*ngFor="let object of item.descriptions | keyvalue" {{object.value}}-->
+						<svg class="w-5 h-5 text-green-600 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+						</svg>
+						<span class="ml-2">Subidas ilimitados</span>
+					</li>
+					<li  class="flex items-start"> 
+						<svg class="w-5 h-5 text-green-600 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+						</svg>
+						<span class="ml-2">Una foto visualizacion previa</span>
+					</li>
+				</ul>
+				<ul *ngIf="item.type == 2">
+					<li  class="flex items-start"> <!--*ngFor="let object of item.descriptions | keyvalue" {{object.value}}-->
+						<svg class="w-5 h-5 text-green-600 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+						</svg>
+						<span class="ml-2">Subidas ilimitados</span>
+					</li>
+					<li  class="flex items-start"> 
+						<svg class="w-5 h-5 text-green-600 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+						</svg>
+						<span class="ml-2">3 fotos visualización previa</span>
+					</li>
+					<li  class="flex items-start"> 
+						<svg class="w-5 h-5 text-green-600 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+							<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+						</svg>
+						<span class="ml-2">Visualización de contacto</span>
+					</li>
+				</ul>
+			</div>
+            <div class="flex px-10 sm:px-6 pb-10 justfy-center">
+				<button 
+					[disabled]="loading"
+					(click) = "onProduct(item)"
+					class="text-white space-x-2 flex items-center justify-center w-full h-12 px-6 text-sm uppercase  bg-primary-600 hover:bg-primary-600  rounded-full">
+					<span>Promocionar</span>
+				</button>
+			</div>
+        </div>
+
+    </div>
+
+	<ng-template #loadingTemplate>
+		<div class="my-10">
+		  <div *ngIf="loading; else noData" class="space-y-2">
+	
+			<div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+				<div *ngFor="let item of postLoading" class="rounded-lg shadow-lg bg-zinc-200 dark:bg-zinc-800 border border-zinc-100 dark:border-zinc-700">
+					<div class="flex flex-col items-center p-5 bg-zinc-200 dark:bg-zinc-700  rounded-t-lg h-20 animate-pulse">
+			
+					</div> 
+					<div class="p-5">
+						<ul class="space-y-3">
+							<li  class="flex items-start animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded"> <!--*ngFor="let object of item.descriptions | keyvalue" {{object.value}}-->
+								
+							</li>
+							<li  class="flex items-start animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded"> 
+			
+							</li>
+			
+							<li  class="flex items-start animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded"> 
+			
+							</li>
+						</ul>
+					
+					</div>
+					<div class="flex px-10 sm:px-6 pb-10 justfy-center">
+						
+					</div>
+				</div>
+			</div>			
+	
+		  </div>
+		  <ng-template #noData>
+			<div class=" text-center font-light text-3xl">
+			  {{'there_is_no_data' | translate}}
+			</div>
+		  </ng-template>
+		</div>
+	  </ng-template>
+</div>

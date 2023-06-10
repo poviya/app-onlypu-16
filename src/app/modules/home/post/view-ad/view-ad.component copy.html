@@ -1,0 +1,93 @@
+<div *ngIf="post || isBrowser"  class="mt-10">
+    <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-2 space-y-2">
+            <div>
+                <div *ngIf="post?.CityZone; else stateCity ">
+                    <a routerLink="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+                        Volver a la búsqueda
+                    </a>
+                </div>
+                <ng-template #stateCity>
+                    <a routerLink="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}">
+                        Volver a la búsqueda
+                    </a>
+                </ng-template>
+                <div class="flex space-x-2 items-center uppercase text-xs">
+                    <a routerLink="/">
+                        <span class=" material-icons-outlined notranslate">home</span>
+                    </a>
+                    <div> > </div>
+                    <a routerLink="/{{post.AdCategory!.slug}}">
+                        {{post.AdCategory!.name}}
+                    </a>
+                    <div> > </div>
+                    <a routerLink="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}">
+                        {{post.StateCity!.name}}
+                    </a>
+                    <div *ngIf="post?.CityZone"> > </div>
+                    <a *ngIf="post?.CityZone" routerLink="/{{post.AdCategory!.slug}}/{{post.StateCity!.slug}}/{{post.CityZone!.slug}}">
+                        {{post.CityZone!.name}}
+                    </a>
+                </div>
+            </div>
+            <div class="flex items-center space-x-5">
+                <div class="text-sm text-gray-600">
+                    {{post.createdAt | date}}
+                </div>
+                <div>
+                    {{post.plan}}
+                </div>
+            </div>
+            <div class="flex space-x-2">
+                <div>
+                    {{post.age}} años 
+                </div>
+                <div>|</div>
+                <div>
+                    {{post.AdCategory!.name}}
+                </div>
+                <div>|</div>
+                <div>
+                    {{post.StateCity!.name}}
+                </div>
+            </div>
+            <div class="space-x-2">
+                <span>ID del anuncio:</span>
+                <span class="text-xs">{{post.code}}</span>
+            </div>
+            <div class="font-semibold text-xl text-gray-800">
+                {{post.title}}
+            </div>
+            <p class="pt-6" [innerHtml] = "innerText(post.description)"></p>
+
+           
+        </div>
+        <div class="...">
+            <div class="flex flex-col space-y-5">
+                <a href="tel:{{post.phonePrefix}} {{post.phone}}">
+                    Telefono
+                </a>
+                <a href="https://wa.me/{{post.phonePrefix}}{{post.phone}}/?text={{textMessage()}}" target="_blank">
+                    WhatsApp
+                </a>
+                <a href="https://t.me/+59165540614/?text={{textMessage()}}" target="_blank">
+                    Telegram
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div  class="masonry mt-10">
+        <div  *ngFor="let item of post.PostMedia" class="masonry-item">
+            <img src="{{item.url}}" alt="">
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+  
+  

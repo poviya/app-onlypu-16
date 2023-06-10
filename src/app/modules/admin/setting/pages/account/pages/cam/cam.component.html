@@ -1,0 +1,30 @@
+<fieldset class="w-full break-inside  rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200  p-2 sm:p-4 shadow-xl">
+    <div *ngIf="!cam else active">
+        <div class="flex justify-between">
+            <h4 class="text-lg font-semibold">{{'videoCalls' | translate}}</h4>
+        </div>
+        <div class="flex justify-center mt-5">
+            <button
+            (click)="onCreate()"
+            class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full" 
+                >
+                {{'enableVideoCalls' | translate}}
+            </button>
+        </div>
+    </div>
+    
+    <ng-template #active>
+        <div class="flex justify-between">
+            <h4 class="text-lg font-semibold">{{'videoCallStatus' | translate}}</h4>
+        </div>
+        <div class="flex justify-center mt-5">
+            <button 
+                
+                (click)="onStatus()"
+                class=" py-3 px-20 shadow-sm bg-primary-600 hover:bg-primary-700 border-primary-700 uppercase text-white rounded-full font-semibold text-sm" >
+                <span *ngIf="cam.active">{{'deactivate' | translate}}</span>
+                <span *ngIf="!cam.active">{{'activate' | translate}}</span>
+            </button>
+        </div>
+    </ng-template>
+</fieldset>

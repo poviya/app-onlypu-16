@@ -1,0 +1,351 @@
+<div>
+  <div *ngIf="this.posts.length > 0; else loadingTemplate" class="space-y-5 pt-0">
+    <nav *ngIf="postName" itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList" id="bc1">
+      <ol class="mt-5 space-x-2 overflow-x-hidden flex items-center">
+
+        <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem">
+          <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+            routerLink="/{{countryCode}}"
+            class="w-8 h-8 flex justify-center items-center rounded-sm border-none border-primary-600 py-1 px-1 text-xs text-zinc-600 dark:text-zinc-300">
+            <i class="fas fa-home"></i>
+          </a>
+          <meta itemprop="position" content="1">
+        </li>
+
+        <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"
+          *ngIf="postName.PostAdCategory" class="space-x-2 flex">
+          <div class="flex justify-center items-center text-xs text-primary-600">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+            class="flex justify-center font-semibold text-xs items-center rounded border-none border-primary-600 py-1 px-2  text-zinc-600 dark:text-zinc-300 "
+            routerLink="/{{countryCode}}/{{categorySlug}}">
+            {{this.postName.PostAdCategory | translate}}
+          </a>
+          <meta itemprop="position" content="2">
+        </li>
+
+        <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"
+          *ngIf="postName.StateCity" class="flex space-x-2">
+          <div class="flex justify-center items-center text-xs text-primary-600">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+            class="flex justify-center font-semibold items-center rounded border-none border-primary-600 py-1 px-2 text-xs text-zinc-600 dark:text-zinc-300 "
+            routerLink="/{{countryCode}}/{{categorySlug}}/{{stateCitySlug}}">
+            {{this.postName.StateCity}}
+          </a>
+          <meta itemprop="position" content="3">
+        </li>
+        <li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"
+          *ngIf="postName.CityZone" class="flex space-x-2">
+          <div class="flex justify-center items-center text-xs text-primary-600">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <a itemscope="itemscope" id="https://onlypu.com/" itemtype="http://schema.org/Service" itemprop="item"
+            class="flex justify-center font-semibold  items-center rounded border-none border-primary-600 py-1 px-2 text-sm text-zinc-600 dark:text-zinc-300"
+            routerLink="/{{countryCode}}/{{categorySlug}}/{{stateCitySlug}}/{{cityZoneSlug}}">
+            {{this.postName.CityZone}}
+          </a>
+          <meta itemprop="position" content="4">
+        </li>
+      </ol>
+
+    </nav>
+
+    <div *ngIf="postName" class=" pt-0">
+      <h1 class="flex space-x-1 text-xs">
+        <span *ngIf="postName.PostAdCategory">
+          {{this.postName.PostAdCategory | translate}}
+        </span>
+        <span class=" lowercase" *ngIf="postName.PostAdCategory">
+          {{'en' | translate}}
+        </span>
+        <span *ngIf="postName.Country && !postName.StateCity && !postName.CityZone">
+          {{this.postName.Country}}
+        </span>
+
+        <span *ngIf="postName.Country && postName.StateCity && !postName.CityZone">
+          {{this.postName.StateCity}}
+        </span>
+
+        <span *ngIf="postName.Country && postName.StateCity && postName.CityZone">
+          {{this.postName.CityZone}}
+        </span>
+      </h1>
+      <span class="uppercase text-xs px-0 mt-0 mb-0 text-zinc-600 dark:text-zinc-400">
+        {{date | date}}
+      </span>
+    </div>
+
+    <div class="hidden">
+      <div class="hidden flex-shrink-0">
+        <div
+          class="flex flex-shrink-0 text-xs bg-gradient-to-r space-x-1 from-primary-600 via-purple-800 to-zinc-600  text-white px-2 rounded-full">
+          <i class="fas fa-share"></i>
+          <span class="font-bold text-xs">Super</span><span> Top</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hidden">
+      <div *ngIf="this.postStories" class="flex stories  space-x-8 w-full ">
+        <div class="flex justify-center space-x-2 md:space-x-5 ">
+          <figure *ngFor="let item of this.postStories; let i = index">
+            <a *ngIf="item.PostMedia?.length > 0" routerLink="/pu/{{item.slug}}" target="_blank"
+              class="relative cursor-pointer flex w-28 h-44 md:w-36 md:h-52 justify-center overflow-hidden rounded-lg transform transition-transform duration-300 ease-in-out hover:-translate-y-1">
+              <!-- (click)="onViewPost(item)" -->
+              <div>
+                <img src="{{prinImages(item.PostMedia)}}"
+                  class="w-28 h-44 md:w-36 md:h-52 rounded-lg mx-auto object-cover " alt="{{item.title}}">
+              </div>
+              <div class="absolute bottom-0 left-2 mb-2 flex">
+                <p class="flex items-center font-medium text-white shadow-sm text-xs">
+                  <i class="fa fa-camera mr-2 text-white"></i>
+                  <span>{{item.PostMedia.length}}</span>
+                </p>
+              </div>
+              <div class="absolute bottom-0 right-5 mb-3 hidden">
+                <p class="flex items-center font-medium text-gray-800">
+                  <i class="fa fa-heart mr-2 text-sm text-white"></i>
+                </p>
+              </div>
+
+              <figcaption
+                class="absolute top-0 right-2 z-10 mt-2 ml-2 inline-flex select-none rounded-sm px-0 text-xs font-semibold text-white truncate-story">
+                {{item.title}}
+              </figcaption>
+              <!-- 
+                <span class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#1f93ff] px-2 py-1 text-xs font-semibold text-white"> Residential </span>
+                <span class="absolute top-0 left-0 z-10 mt-3 ml-3 inline-flex select-none rounded-lg bg-transparent px-3 py-2 text-lg font-medium text-white"> <i class="fa fa-star"></i> </span>
+              -->
+            </a>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <main class="space-y-5 px-0 mt-2">
+      <!-- -->
+      <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
+
+        <div *ngFor="let item of this.posts" class="space-y-5">
+          <article  #theLastList
+          class="my-2 break-inside  bg-zinc-50 dark:bg-background-dark dark:text-zinc-200 flex flex-col bg-clip-border w-full shadow-sm">
+          <div class="flex p-4 items-center justify-between">
+            <div class="flex">
+              <a class="inline-block mr-4" routerLink="/{{item.User!.username}}">
+                <img *ngIf="item.User!.Profile!.length > 0" class="rounded-full max-w-none w-12 h-12 object-cover"
+                  src="{{item.User!.Profile!.length > 0 ? this.prinImages(item.User!.Profile!) : ''}}" />
+                <div *ngIf="item.User!.Profile?.length == 0"
+                  class="rounded-full max-w-none w-12 h-12 object-cover bg-zinc-200 dark:bg-zinc-700"></div>
+              </a>
+              <div class="flex flex-col">
+                <div>
+                  <a class="inline-block text-lg font-bold dark:text-white "
+                    routerLink="/{{item.User!.username}}">{{item.User!.name ? item.User!.name : item.User!.username}}</a>
+                </div>
+                <div class="text-zinc-500 dark:text-zinc-400 text-xs">
+                  {{item.createdAt | dateAgo}}
+                </div>
+              </div>
+            </div>
+            <div>
+             
+            </div>
+          </div>
+
+          <p>
+            <a routerLink="/pu/{{item.slug}}"
+              class="overflow-x-auto truncate-title font-medium text-base sm:text-lg text-primary-600 cursor-pointer">
+              {{item.title}}
+            </a>
+          </p>
+
+          <p class="px-4 text-sm truncate-description ">
+            {{item.description}}
+          </p>
+          <!-- <h2 class="text-3xl font-extrabold dark:text-white">
+                Web Design templates Selection
+              </h2> -->
+          <div class="py-4">
+            <app-post-media *ngIf="item.PostMedia!.length > 0 " [postMedia]="item.PostMedia"></app-post-media>
+          </div>
+          <!-- <p class="dark:text-zinc-200">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </p> -->
+          <div class="px-4  pb-4 flex space-x-3">
+            <a class="inline-flex items-center" href="#">
+              <span class="mr-2">
+                <svg class="fill-rose-600 dark:fill-rose-400" style="width: 24px; height: 24px;" viewBox="0 0 24 24">
+                  <path
+                    d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z">
+                  </path>
+                </svg>
+              </span>
+              <span class="text-xs font-bold">34</span>
+            </a>
+            <button class="flex items-center space-x-1">
+              <span class=" material-icons-outlined notranslate">paid</span>
+              <span class="text-xs">SEND TIP</span>
+            </button>
+          </div>
+          <div class="relative" class="relative hidden">
+            <input
+              class="pt-2 pb-2 pl-3 w-full h-11 bg-zinc-100 dark:bg-zinc-600 rounded-lg placeholder:text-zinc-600 dark:placeholder:text-zinc-300 font-medium pr-20"
+              type="text" placeholder="Write a comment" />
+            <span class="flex absolute right-3 top-2/4 -mt-3 items-center">
+              <svg class="mr-2" style="width: 26px; height: 26px;" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12M22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12M10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8C9.3,8 10,8.7 10,9.5M17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8C16.3,8 17,8.7 17,9.5M12,17.23C10.25,17.23 8.71,16.5 7.81,15.42L9.23,14C9.68,14.72 10.75,15.23 12,15.23C13.25,15.23 14.32,14.72 14.77,14L16.19,15.42C15.29,16.5 13.75,17.23 12,17.23Z">
+                </path>
+              </svg>
+              <svg class="fill-primary-600 dark:fill-zinc-50" style="width: 24px; height: 24px;" viewBox="0 0 24 24">
+                <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z"></path>
+              </svg>
+            </span>
+          </div>
+          <!-- Comments content -->
+          <div class="pt-6 hidden">
+            <!-- Comment row -->
+            <div class="media flex pb-4">
+              <a class="mr-4" href="#">
+                <img class="rounded-full max-w-none w-12 h-12" src="https://randomuser.me/api/portraits/men/82.jpg" />
+              </a>
+              <div class="media-body">
+                <div>
+                  <a class="inline-block text-base font-bold mr-2" href="#">Leslie Alexander</a>
+                  <span class="text-zinc-500 dark:text-zinc-300">25 minutes ago</span>
+                </div>
+                <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                <div class="mt-2 flex items-center">
+                  <a class="inline-flex items-center py-2 mr-3" href="#">
+                    <span class="mr-2">
+                      <svg class="fill-rose-600 dark:fill-rose-400" style="width: 22px; height: 22px;" viewBox="0 0 24 24">
+                        <path
+                          d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z">
+                        </path>
+                      </svg>
+                    </span>
+                    <span class="text-base font-bold">12</span>
+                  </a>
+                  <button class="py-2 px-4 font-medium hover:bg-zinc-50 dark:hover:bg-zinc-700 rounded-lg">
+                    Repply
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- End comments row -->
+            <!-- comments row -->
+            <div class="media flex pb-4">
+              <a class="inline-block mr-4" href="#">
+                <img class="rounded-full max-w-none w-12 h-12" src="https://randomuser.me/api/portraits/women/76.jpg" />
+              </a>
+              <div class="media-body">
+                <div>
+                  <a class="inline-block text-base font-bold mr-2" href="#">Tina Mills</a>
+                  <span class="text-zinc-500 dark:text-zinc-300">3 minutes ago</span>
+                </div>
+                <p>Dolor sit ameteiusmod consectetur adipiscing elit.</p>
+                <div class="mt-2 flex items-center">
+                  <a class="inline-flex items-center py-2 mr-3" href="#">
+                    <span class="mr-2">
+                      <svg class="fill-rose-600 dark:fill-rose-400" style="width: 22px; height: 22px;" viewBox="0 0 24 24">
+                        <path
+                          d="M12.1 18.55L12 18.65L11.89 18.55C7.14 14.24 4 11.39 4 8.5C4 6.5 5.5 5 7.5 5C9.04 5 10.54 6 11.07 7.36H12.93C13.46 6 14.96 5 16.5 5C18.5 5 20 6.5 20 8.5C20 11.39 16.86 14.24 12.1 18.55M16.5 3C14.76 3 13.09 3.81 12 5.08C10.91 3.81 9.24 3 7.5 3C4.42 3 2 5.41 2 8.5C2 12.27 5.4 15.36 10.55 20.03L12 21.35L13.45 20.03C18.6 15.36 22 12.27 22 8.5C22 5.41 19.58 3 16.5 3Z">
+                        </path>
+                      </svg>
+                    </span>
+                    <span class="text-base font-bold">0</span>
+                  </a>
+                  <button class="py-2 px-4 font-medium hover:bg-zinc-50 dark:hover:bg-zinc-700 rounded-lg">
+                    Repply
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- End comments row -->
+            <!-- More comments -->
+            <div class="w-full">
+              <a href="#"
+                class="py-3 px-4 w-full block bg-zinc-100 dark:bg-zinc-700 text-center rounded-lg font-medium hover:bg-zinc-200 dark:hover:bg-zinc-600 transition ease-in-out delay-75">Show
+                more comments</a>
+            </div>
+            <!-- End More comments -->
+          </div>
+          <!-- End Comments content -->
+        </article>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <ng-template #loadingTemplate>
+    <div class="my-10">
+      <div *ngIf="loading; else noData">
+        <section class="space-y-5">
+          <figure *ngFor="let item of this.postLoading">
+            <div
+              class="flex brder border-zinc-200 dark:border-zinc-700  text-zinc-800   rounded-lg  break-inside bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200 bg-clip-border  shadow-lg relative hover:shadow-xl transition duration-500">
+              <div class="flex flex-col items-center ">
+
+                <div
+                  class=" w-28 h-52 md:w-48 md:h-60 rounded-l-lg md:rounded-tr-none md:rounded-l-lg mx-auto object-cove animate-pulse bg-zinc-200 dark:bg-zinc-800">
+                </div>
+              </div>
+
+              <div class="p-2 sm:p-3 md:p-6 text-left space-y-4 w-full flex-shrink overflow-x-auto">
+                <blockquote>
+
+                  <div
+                    class="overflow-x-auto truncate-title font-medium text-base sm:text-lg text-primary-600 cursor-pointer animate-pulse  h-5 bg-zinc-200 dark:bg-zinc-700 rounded w-full">
+                  </div>
+
+                </blockquote>
+                <figcaption>
+                  <p>
+                    <span
+                      class="text-sm tracking-tight font-normal leading-6 truncate-description overflow-x-auto animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-full">
+
+                    </span>
+                    <span
+                      class="mt-2 text-sm tracking-tight font-normal leading-6 truncate-description overflow-x-auto animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-full">
+
+                    </span>
+                    <cite
+                      class="flex text-xs space-x-1 truncate-zone  my-2 animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-16">
+                    </cite>
+                  </p>
+
+                  <div class=" mt-4 flex items-center justify-end mx-0 text-lg space-x-0 sm:space-x-0">
+
+                    <div class="flex flex-wrap space-x-2 items-center">
+                      <div class="animate-pulse h-6 bg-zinc-200 dark:bg-zinc-700 rounded w-20 md:w-28">
+                      </div>
+                      <div class="animate-pulse h-6 bg-zinc-200 dark:bg-zinc-700 rounded w-20 md:w-28">
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </figcaption>
+              </div>
+
+            </div>
+
+          </figure>
+        </section>
+
+      </div>
+      <ng-template #noData>
+        <div class=" text-center font-light text-3xl">
+          No hay datos
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+
+</div>

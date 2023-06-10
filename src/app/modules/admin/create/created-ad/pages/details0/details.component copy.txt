@@ -1,0 +1,372 @@
+<!-- component -->
+<h1 class="text-center  font-light text-3xl sm:text-4xl pt-5 mb-4">
+  {{'¡Publica gratis en solo unos pocos pasos!' | translate}}
+</h1>
+
+<form [formGroup]="myform" novalidate class="px-2 sm:px-0">
+    <div class="flex justify-between items-center">
+        <h1 class="text-xl font-semibold  my-6">Ubicación</h1>
+        <div class="text-xs text-zinc-400 dark:text-zinc-500">* Campos obligatorio</div>
+    </div>
+  
+    <fieldset class="w-full rounded-xl border border-zinc-200 dark:border-zinc-700 p-2 sm:p-4 shadow-xl shadow-white/0 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200">
+        
+        <div class="mb-4 flex flex-col">
+          <label for="Country" class="mb-2 font-semibold ">*  Seleccionar pais</label>
+          <div class="relative">
+              <select 
+              formControlName="Country" 
+              (change)="onCountry($event)" 
+              [attr.disabled]="idPost? true: null"  
+              [ngClass]="{
+                  'bg-green-50 border-green-400': myform.controls['Country'].valid && (myform.controls['Country'].dirty || myform.controls['Country'].touched),
+                  'bg-red-50 border-red-400bg-red-50 border-red-400': myform.controls['Country'].invalid && (myform.controls['Country'].dirty || myform.controls['Country'].touched)
+                }"
+              class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+                  <option value="">Seleccionar pais</option>
+                  <option *ngFor="let item of countries" value="{{item._id}}">{{item.name}}</option>
+              </select>
+
+          </div>
+        </div>
+
+        <div class="mb-4 flex flex-col">
+            <label for="StateCity" class="mb-2 font-semibold ">*  Seleccionar ciudad</label>
+            <div class="relative">
+
+                <select 
+                formControlName="StateCity" 
+                (change)="onStateCity($event)"
+                [attr.disabled]="idPost? true: null"  
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['StateCity'].valid && (myform.controls['StateCity'].dirty || myform.controls['StateCity'].touched),
+                    'bg-red-50 border-red-400': myform.controls['StateCity'].invalid && (myform.controls['StateCity'].dirty || myform.controls['StateCity'].touched)
+                  }"
+                class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+                    <option value="">Seleccionar ciudad</option>
+                    <option *ngFor="let item of stateCitiesAll" value="{{item._id}}">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-4 flex flex-col">
+            <label for="CityZone" class="mb-2 font-semibold ">*  Seleccionar distrito</label>
+            <div class="relative">
+
+                <select 
+                formControlName="CityZone"
+                [attr.disabled]="idPost? true: null"  
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['CityZone'].valid && (myform.controls['CityZone'].dirty || myform.controls['CityZone'].touched),
+                    'bg-red-50 border-red-400': myform.controls['CityZone'].invalid && (myform.controls['CityZone'].dirty || myform.controls['CityZone'].touched)
+                  }"
+                class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+                    <option value="">Seleccionar distrito</option>
+                    <option *ngFor="let item of cityZones" value="{{item._id}}">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-4 flex space-x-4">
+            <div class="w-3/6 flex flex-col">
+                <label for="address" class="mb-2 font-semibold ">Dirección </label>
+                <div class="relative">
+                        <input formControlName="address" type="text" id="text"
+                        [ngClass]="{
+                            'bg-green-50 border-green-400': myform.controls['address'].valid && (myform.controls['address'].dirty || myform.controls['address'].touched),
+                            'bg-red-50 border-red-400': myform.controls['address'].invalid && (myform.controls['address'].dirty || myform.controls['address'].touched)
+                        }"
+                        class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800"/>
+                    
+                </div>
+            </div>
+            <div class="w-3/6 hidden flex-col">
+                <label for="postalCode" class="mb-2 font-semibold ">Código postal</label>
+                <div class="relative">
+                <input formControlName="postalCode" type="text" id="text"
+                    [ngClass]="{
+                        'bg-green-50 border-green-400': myform.controls['postalCode'].valid && (myform.controls['postalCode'].dirty || myform.controls['postalCode'].touched),
+                        'bg-red-50 border-red-400': myform.controls['postalCode'].invalid && (myform.controls['postalCode'].dirty || myform.controls['postalCode'].touched)
+                    }"
+                    class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-4 hidden flex-col">
+            <label for="zone" class="mb-2 font-semibold ">Zona/distrito/barrio</label>
+            <div class="relative">
+                <input formControlName="zone" id="text" 
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['zone'].valid && (myform.controls['zone'].dirty || myform.controls['zone'].touched),
+                    'bg-red-50 border-red-400': myform.controls['zone'].invalid && (myform.controls['zone'].dirty || myform.controls['zone'].touched)
+                  }"
+                class="w-3/6 rounded-lg border border-slate-300 px-2 py-2 pl-1 hover:border-slate-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40"/>
+            </div>
+        </div>
+
+    </fieldset>
+
+    <div class="flex justify-between items-center">
+      <h1 class="text-xl font-bold my-6 ">Categoria</h1>
+      <div class="text-xs text-zinc-700">* Campos obligatorio</div>
+    </div>
+
+    <fieldset class="w-full rounded-xl border border-zinc-200 dark:border-zinc-700  p-2 sm:p-4 shadow-xl shadow-white/0 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200">
+        <div class="mb-4 flex flex-col">
+          <label for="PostAdCategory" class="mb-2 font-semibold">* Categoria de anuncio</label>
+          <div class="relative">
+
+              <select 
+              [attr.disabled]="idPost? true: null"
+              formControlName="PostAdCategory"
+              [ngClass]="{
+                  'bg-green-50 border-green-400': myform.controls['PostAdCategory'].valid && (myform.controls['PostAdCategory'].dirty || myform.controls['PostAdCategory'].touched),
+                  'bg-red-50 border-red-400': myform.controls['PostAdCategory'].invalid && (myform.controls['PostAdCategory'].dirty || myform.controls['PostAdCategory'].touched)
+                }"
+              class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+                  <option value="">Seleccionar categoría</option>
+                  <option *ngFor="let item of adCategories" value="{{item._id}}">{{item.name}}</option>
+              </select>
+          </div>
+      </div>
+
+    </fieldset>
+    
+    <div class="flex justify-between items-center">
+        <h1 class="text-xl font-bold my-6 ">Tus datos</h1>
+        <div class="text-xs text-zinc-700">* Campos obligatorio</div>
+    </div>
+    
+    <fieldset class="w-full rounded-xl border border-zinc-200 dark:border-zinc-700  p-2 sm:p-4 shadow-xl shadow-white/0 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200">
+
+        <div class="mb-4 flex flex-col">
+            <label for="email" class="mb-2 font-semibold ">* Edad</label>
+            <div class="relative">
+                <input formControlName="age" id="text" 
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['age'].valid && (myform.controls['age'].dirty || myform.controls['age'].touched),
+                    'bg-red-50 border-red-400': myform.controls['age'].invalid && (myform.controls['age'].dirty || myform.controls['age'].touched)
+                  }"
+                class="w-3/6 rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800"/>
+            </div>
+        </div>
+
+        <div class="mb-4 flex flex-col">
+            <div class="flex justify-between">
+              <label for="email" class="mb-2 font-semibold ">* Titulo</label>
+              <span class="text-xs font-light text-zinc-200">Se necesitan 5 caracteres</span>
+            </div>
+            <div class="relative">
+                <textarea formControlName="title" id="text" 
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['title'].valid && (myform.controls['title'].dirty || myform.controls['title'].touched),
+                    'bg-red-50 border-red-400': myform.controls['title'].invalid && (myform.controls['title'].dirty || myform.controls['title'].touched)
+                  }"
+                class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+                </textarea>
+               
+            </div>
+        </div>
+
+        <div class="mb-4 flex flex-col">
+            <div class="flex justify-between">
+              <label for="email" class="mb-2 font-semibold ">* Texto</label>
+              <span class="text-xs font-light text-zinc-700">Se necesitan 20 caracteres</span>
+            </div>
+            <div class="relative">
+                <textarea formControlName="description" id="text" rows="7"
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['description'].valid && (myform.controls['description'].dirty || myform.controls['description'].touched),
+                    'bg-red-50 border-red-400': myform.controls['description'].invalid && (myform.controls['description'].dirty || myform.controls['description'].touched)
+                  }"
+                class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+                </textarea>
+            </div>
+        </div>
+        
+        <div class="mb-4 grid grid-cols-2 gap-4">
+          <div class="flex flex-col">
+            <label for="phonePrefix" class="mb-2 font-semibold">{{myform.value.phonePrefix}}</label>
+            <div class="relative">
+
+                <select formControlName="phonePrefix"
+                [ngClass]="{
+                    'bg-green-50 border-green-400': myform.controls['phonePrefix'].valid && (myform.controls['phonePrefix'].dirty || myform.controls['phonePrefix'].touched),
+                    'bg-red-600bg-red-600 border-red-400': myform.controls['phonePrefix'].invalid && (myform.controls['phonePrefix'].dirty || myform.controls['phonePrefix'].touched)
+                  }"
+                class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800">
+                    <option *ngFor="let item of countries" value="{{item.phonePrefix}}">{{item.name}}</option>
+                </select>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label for="phone" class="mb-2 font-semibold ">Número de teléfono</label>
+            <input formControlName="phone" id="text" 
+            [ngClass]="{
+                'bg-green-50 border-green-400': myform.controls['phone'].valid && (myform.controls['phone'].dirty || myform.controls['phone'].touched),
+                'bg-red-50 border-red-400': myform.controls['phone'].invalid && (myform.controls['phone'].dirty || myform.controls['phone'].touched)
+              }"
+              class="w-full rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800"/>
+          </div>
+        </div>
+        
+        <div class="mb-4 flex space-x-5">
+          <label 
+              for="toogleA"
+              class="flex items-center cursor-pointer"
+            >
+             
+              <div class="relative">
+              
+                <input id="toogleA" formControlName="whatsapp" type="checkbox" class="sr-only" />
+
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+               
+                <div class="dot absolute w-6 h-6 bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-200 rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              
+              <div class="ml-3  font-medium">
+                WhatsApp
+              </div>
+            </label>
+
+          <label 
+              for="toogleB"
+              class="hidden items-center cursor-pointer"
+            >
+
+              <div class="relative">
+               
+                <input id="toogleB" formControlName="telegram" type="checkbox" class="sr-only" />
+                
+                <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+
+                <div class="dot absolute w-6 h-6 bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200 rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+              
+              <div class="ml-3 font-medium">
+                Telegram
+              </div>
+          </label>
+
+        </div>
+
+        <div class="mb-4 flex flex-col">
+          <label for="telegram" class="mb-2 font-semibold ">Telegram</label>
+          <div class="relative">
+              <input formControlName="telegram" id="text" placeholder="username" 
+              [ngClass]="{
+                  'bg-green-50 border-green-400': myform.controls['telegram'].valid && (myform.controls['telegram'].dirty || myform.controls['telegram'].touched),
+                  'bg-red-50 border-red-400': myform.controls['telegram'].invalid && (myform.controls['telegram'].dirty || myform.controls['telegram'].touched)
+                }"
+              class="pl-8 w-3/6 rounded-lg border  border-zinc-300 px-2 py-2  hover:border-zinc-300 focus:outline-none focus:ring focus:ring-zinc-500/40 active:ring active:ring-zinc-500/40 dark:bg-zinc-700 dark:border-zinc-800"/>
+              <div class="flex justify-center items-center absolute inset-y-0 left-0 pl-2 pointer-events-none">
+                <span>@</span>
+              </div>
+            </div> 
+            <div class="text-xs text-zinc-700 mt-1">
+              Ej: @username
+            </div>
+      </div>
+
+    </fieldset>
+
+     <fieldset class="w-full mt-6 rounded-xl bg-transparent p-2 sm:p-4 shadow-2xl shadow-white/0 bg-zinz-100 dark:bg-zinc-900 ">
+        <div class="mb-4 flex space-x-5">
+          <label 
+              for="toogleC"
+              class="flex items-center cursor-pointer"
+            >
+              <div class="relative">
+
+                <input id="toogleC" formControlName="terms" type="checkbox" class="sr-only bg-pink-800" />
+   
+                <div class="w-10 h-4 bg-zinc-400 rounded-full shadow-inner"></div>
+      
+                <div class="dot absolute w-6 h-6 bg-zinc-50 dark:bg-zinc-700 dark:text-zinc-200 rounded-full shadow -left-1 -top-1 transition"></div>
+              </div>
+            </label>
+            <div class="ml-3  font-light text-sm">
+              He leído los Términos y Condiciones de uso y la Política de Privacidad y doy mi consentimiento para el tratamiento de mis datos personales, para los fines relacionados con la prestación del servicio web. 
+            </div>
+        </div>
+
+    </fieldset>
+    
+    <fieldset class="w-full mt-6 rounded-xl bg-transparent p-2 sm:p-4 shadow-2xl shadow-white/0 font-light hidden">
+      <div>
+        NO ESTÁ PERMITIDO:
+      </div>
+      <ul class="text-xs">
+        <li>
+          - Anunciar servicios de escort ni similares.
+        </li>
+        <li>
+          - Aludir a servicios sexuales de pago.
+        </li>
+        <li>
+          - Insertar enlaces en los anuncios (clicables o no).
+        </li>
+        <li>
+          - Insertar textos o imágenes ofensivos y vulgares.
+        </li>
+        <li>
+          - El usuario confirma que es mayor de edad en su jurisdicción y que no ha creado este perfil bajo coacción
+        </li>
+        <li>
+          - El usuario confirma que no ofrecerá ningún servicio que infrinja la legislación local
+        </li>
+      </ul>
+    </fieldset>
+
+   <div class="flex justify-center my-10">
+      <button
+        (click)="onSubmit()"
+        [ngClass]="myform.status == 'VALID' ? '' : 'opacity-50'" 
+        class=" py-3 px-20 shadow-sm bg-primary-600 uppercase text-white rounded-full font-semibold hover:bg-primary-700" 
+        [disabled]="myform.status == 'VALID' ? false: true">
+        Continuar
+      </button>
+   </div>
+</form>
+
+<pre class="hidden">{{myform.value | json}}</pre>
+<pre class="hidden">Form status: {{ myform.status }}</pre>
+
+<!-- 
+
+    <div class="container">
+    <form novalidate
+        [formGroup]="myform">
+  
+    <fieldset>
+      <div class="form-group"
+           [ngClass]="{
+          'bg-red-600': firstName.invalid && (firstName.dirty || firstName.touched),
+          'bg-green-600': firstName.valid && (firstName.dirty || firstName.touched)
+        }">
+        <label>First Name</label>
+        <input type="text"
+               class="form-control"
+               formControlName="firstName"
+               required>
+        <div class="form-control-feedback"
+             *ngIf="firstName.errors && (firstName.dirty || firstName.touched)">
+          <p *ngIf="firstName.errors">First Name is required</p>
+        </div>
+  
+        <!--
+          <pre>Valid? {{ myform.controls.name.controls.firstName.valid }}</pre>
+          <pre>Dirty? {{ myform.controls.name.controls.firstName.dirty }}</pre>
+        
+    </div>
+  
+
+</fieldset>
+
+
+<pre>{{myform.value | json}}</pre>
+</form>
+</div>
+-->

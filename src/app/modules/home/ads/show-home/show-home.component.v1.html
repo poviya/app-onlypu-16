@@ -1,0 +1,222 @@
+
+<div *ngIf="isBrowser">
+  <app-menu-one [countrySlug] = "countrySlug" [categorySlug] = "categorySlug" [stateCitySlug]="stateCitySlug" [cityZoneSlug]="cityZoneSlug"  [fixed] = true></app-menu-one>
+
+  <div class="max-w-4xl mx-auto mt-16 mb-10">
+    <div *ngIf="this.posts.length > 0; else loadingTemplate" class="space-y-5 pt-5">    
+        <div *ngIf="this.categorySlug && postName ; else title" class=" px-2 sm:px-0">
+          <div class="flex space-x-2 overflow-x-hidden">
+            <a routerLink="/" class="w-8 h-8 flex justify-center items-center rounded-md border border-secondary-500 py-1 px-1 text-xs text-secondary-50 bg-secondary-600">
+              <i class="fas fa-home"></i>
+            </a>
+            
+            <div *ngIf="postName.AdCategory" class="flex space-x-2">
+              <div class="flex justify-center items-center text-xs"> 
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <a
+                class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600" 
+                routerLink="/{{countrySlug}}/{{categorySlug}}">
+                {{this.postName.AdCategory}}
+              </a>
+            </div>
+            <div *ngIf="postName.StateCity" class="flex space-x-2">
+              <div class="flex justify-center items-center text-xs"> 
+                <i class="fas fa-chevron-right"></i>
+              </div>
+              <a
+              class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600"  
+                routerLink="/{{countrySlug}}/{{categorySlug}}/{{stateCitySlug}}">
+                {{this.postName.StateCity}}
+              </a>
+            </div>
+            <div *ngIf="postName.CityZone" class="flex space-x-2">
+              <div class="flex justify-center items-center text-xs">
+                <i class="fas fa-chevron-right"></i> 
+              </div>
+              <a
+              class="flex justify-center items-center rounded-md border border-secondary-500 py-1 px-2 text-sm text-secondary-50 bg-secondary-600"  
+                routerLink="/{{countrySlug}}/{{categorySlug}}/{{stateCitySlug}}/{{cityZoneSlug}}">
+                {{this.postName.CityZone}}
+              </a>
+            </div>
+          </div>
+
+          <h1 class="flex space-x-1 text-xs text-secondary-100 mt-5">
+              <span *ngIf="postName.AdCategory">
+                {{this.postName.AdCategory}}
+              </span>
+              <span class=" lowercase">
+                  {{'en' | translate}}
+              </span>
+              <span *ngIf="postName.Country && !postName.StateCity && !postName.CityZone">
+                {{this.postName.Country}}
+              </span>
+
+              <span *ngIf="postName.Country && postName.StateCity && !postName.CityZone">
+                {{this.postName.StateCity}}
+              </span>
+
+              <span *ngIf="postName.Country && postName.StateCity && postName.CityZone">
+                {{this.postName.CityZone}}
+              </span>
+            </h1>
+      </div>
+
+      <ng-template #title>
+        <h1 class=" text-secondary-50 font-light text-center">
+          <span class="text-3xl md:text-5xl">Sexo sudor y placer</span> 
+        </h1>
+        <h1 class=" text-secondary-100 font-light text-center">
+          <span class="text-md">Encuentra tu pareja para hacer el delicioso 😋</span>
+        </h1>
+      </ng-template>
+      
+      <div *ngIf="this.postStories" class="flex overflow-x-auto  space-x-8 w-full  px-2">
+        <div  class="flex justify-center space-x-2 md:space-x-5 ">
+          <figure *ngFor="let item of this.postStories; let i = index">
+            <a routerLink="/pu/{{item.slug}}" class="relative flex w-36 h-52 justify-center overflow-hidden rounded-lg transform transition-transform duration-300 ease-in-out hover:-translate-y-1">
+              <div>
+                <img src="{{prinImages(item.PostMedia)}}" 
+                  class="w-36 h-52 rounded-lg mx-auto object-cover " alt="">
+              </div>
+              <div class="absolute bottom-0 left-2 mb-2 flex">
+                <p class="flex items-center font-medium text-white shadow-sm text-xs">
+                  <i class="fa fa-camera mr-2 text-white"></i>
+                  <span>{{item.PostMedia.length}}</span>
+                </p>
+              </div>
+              <div class="absolute bottom-0 right-5 mb-3 hidden">
+                <p class="flex items-center font-medium text-gray-800">
+                  <i class="fa fa-heart mr-2 text-sm text-white"></i>
+                </p>
+              </div>
+              
+              <span class="absolute top-0 right-2 z-10 mt-2 ml-2 inline-flex select-none rounded-sm px-0 text-xs font-semibold text-white truncate-story">{{item.title}}</span>
+              <!-- 
+                <span class="absolute top-0 right-2 z-10 mt-3 ml-3 inline-flex select-none rounded-sm bg-[#1f93ff] px-2 py-1 text-xs font-semibold text-white"> Residential </span>
+                <span class="absolute top-0 left-0 z-10 mt-3 ml-3 inline-flex select-none rounded-lg bg-transparent px-3 py-2 text-lg font-medium text-white"> <i class="fa fa-star"></i> </span>
+              -->
+            </a>                
+          </figure>
+        </div>
+      </div>
+      
+      <div class="uppercase text-xs px-2 mt-5 mb-6">
+        {{date | date}}
+      </div>
+
+      <!-- -->
+      <div class="space-y-5 px-2 mt-2">
+        <figure *ngFor="let item of this.posts" >
+          <div  #theLastList class="sm:flex border bg-secondary-700 text-slate-100   rounded-lg {{item.plan == 1? 'border-blue-600' : item.plan == 2 ? 'border-purple-500' : 'border-secondary-600'}} bg-secondary-700 shadow-lg relative hover:shadow-xl transition duration-500">
+              <div class="flex flex-col items-center "> 
+                
+                <carousel *ngIf="item.plan == 2" class="  h-52 w-full md:w-48 md:h-56 rounded-t-lg flex justify-center">
+                  <ng-container *ngFor="let image of item.PostMedia; let i = index">
+                    <ng-container *carouselItem>
+                      <img class="h-52 w-[calc(100vw-1.15rem)] md:w-48 md:h-56 rounded-t-lg md:rounded-tr-none md:rounded-l-lg mx-auto object-cover" src="{{image.url}}"/>
+                    </ng-container>
+                  </ng-container>
+                </carousel> 
+                <div *ngIf="item.plan == 1" class=" h-52 w-full md:w-48 md:h-48">
+                  <img src="{{prinImages(item.PostMedia)}}" 
+                    class="w-full h-52 md:w-48 md:h-48 rounded-t-lg md:rounded-tr-none md:rounded-l-lg mx-auto object-cover " alt="">
+                </div>
+
+                <div  *ngIf="item.plan == 1 || item.plan ==2" class="absolute top-0 left-2 mt-2 flex">
+                  <p class="flex items-center font-medium text-white shadow-sm text-xs">
+                    <i class="fa fa-camera mr-2 text-white"></i>
+                    <span>{{item.PostMedia.length}}</span>
+                  </p>
+                </div>
+
+                
+              </div>
+            
+              <div class="p-2 sm:p-3 md:p-6 text-left space-y-4 w-full flex-shrink">
+                <blockquote>
+                  <a routerLink="/pu/{{item.slug}}" class="truncate-title font-normal text-lg text-primary-600">
+                      {{item.title}}
+                  </a>
+                </blockquote>
+                <figcaption>
+                    <a routerLink="/pu/{{item.slug}}" class="text-sm tracking-tight font-normal leading-6 truncate-description">
+                      {{item.description}}
+                    </a>
+                    <div class="text-xs space-x-1 truncate text-secondary-100 my-2">
+                      <span class="font-semibold text-purple-100">{{item.age}} años</span>
+                      <span>|</span>
+                      <span class="font-semibold">{{item.AdCategory!.name}}</span>
+                      <span>|</span>
+                      <span>{{item.StateCity!.name}}</span>
+                    </div>
+                    <div *ngIf="item.plan == 2" class=" mt-4 flex items-center justify-end mx-0 text-lg space-x-2 sm:space-x-4">
+                      <div class="hidden">
+                        <button type="button" (click)="toggleBookmark(item)" class="flex space-x-2 px-2 rounded-md items-center bg-secondary-600">
+                          <span *ngIf="item.published"><i class="fas fa-eye"></i></span>
+                          <span *ngIf="!item.published"><i class="fas fa-eye-slash"></i></span>
+                          <span>{{item.published == true? 'Visible': 'No visible'}}</span>
+                        </button>
+                      </div>
+                      <div class="flex space-x-2 items-center">
+                        <a
+                          class="border flex justify-between items-center space-x-1 text-xs uppercase border-secondary-600 bg-secondary-600 text-secondary-50 rounded-md p-2"  
+                          href="https://wa.me/{{item.phonePrefix}}{{item.phone}}/?text={{textMessage(item)}}" target="_blank">
+                          <i class="fab fa-whatsapp"></i>
+                          <span>WhatsApp</span>
+                        </a>
+                        <a
+                          class="border flex justify-between items-center space-x-1 text-xs uppercase border-secondary-600 bg-secondary-600 text-secondary-50 rounded-md p-2"   
+                          href="tel:{{item.phonePrefix}} {{item.phone}}">
+                          <i class="fas fa-phone-alt"></i>
+                          <span>Telefono</span>
+                        </a>
+                      </div>
+                    </div>
+                </figcaption>
+              </div>
+
+              <div>
+                <span *ngIf="item.plan == 1 || item.plan ==2" class="absolute py-1 text-sm text-white -top-1 right-4 rounded-full transform translate-x-2 -translate-y-3">
+                  <div *ngIf="item.plan == 2" class="text-xs bg-purple-800  text-white px-2 rounded-full">
+                    <i class="fas fa-share"></i>
+                    <span class="font-bold">Super</span><span> top</span>
+                  </div>
+                  <div *ngIf="item.plan == 1" class="text-xs bg-blue-800  text-white px-2 rounded-full">
+                    <i class="fas fa-share"></i>
+                    <span class="font-bold">Top</span>
+                  </div>
+                </span>
+              </div>
+          </div>
+        
+        </figure>
+        
+      </div>
+      <!-- end touchstart-->
+      <button  (click)="onScrollTop()" class="button rounded-full bg-secondary-600 w-8 h-8"> <!-- *ngIf="showButton" -->
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+    <ng-template #loadingTemplate>
+      <div class="my-56">
+        <div *ngIf="loading; else noData" class="flex flex-col items-center justify-center">
+          <span class="flex justify-center items-center h-10 w-10">
+              <span class="animate-ping absolute inline-flex h-16 w-16 rounded-full bg-purple-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-4 w-4 bg-purple-500"></span>
+          </span>
+        </div>
+        <ng-template #noData>
+          <div class=" text-center font-light text-3xl">
+            No hay datos
+          </div>
+        </ng-template>
+      </div>
+  </ng-template>
+
+  </div>
+
+  <app-footer-one></app-footer-one>
+  
+</div>

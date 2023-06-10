@@ -1,0 +1,84 @@
+<div>
+    <div *ngIf="this.posts.length > 0; else loadingTemplate" class="space-y-4 pt-0">
+
+        <div class="space-y-0 mt-2 px-0 md:px-0">
+            <!-- -->
+            <div class="gallery-lightbox-container mt-10 z-50">
+                <div class="gallery">
+                    <div *ngFor="let item of posts; let i = index" class="gallery-img">
+                        <figure #theLastList>
+                            <img (click)="onPreviewImage(i)" src="{{item.url}}" alt="{{i}}">
+                        </figure>
+                    </div>
+                </div>
+                <div *ngIf="showMask" class="lightbox" @animation2>
+                    <div *ngIf="showCount" class="count space-x-1">
+                        <span>{{currentIndex + 1}}</span>
+                        <span>/</span>
+                        <span>{{totalImageCount}}</span>
+                    </div>
+                    
+                    <button type="button" *ngIf="controls" (click)="onClosePreview()" class="close-btn">
+                        <span
+                            class="text-zinc-500 inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+                            <i class="fas fa-times"></i>
+                        </span>
+                    </button>
+
+                    <button type="button" *ngIf="controls" (click)="next()" class="btn-lightbox-carousel btn-prev">
+                        <span
+                            class="inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-zinc-500  sm:w-4 sm:h-4 dark:text-zinc-50" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <button type="button" *ngIf="controls" (click)="prev()" class="btn-lightbox-carousel btn-next">
+                        <span
+                            class="inline-flex justify-center items-center w-5 h-5 rounded-full sm:w-7 sm:h-7 bg-zinc-200 dark:bg-zinc-200/30  dark:group-hover:bg-zinc-200/60 group-focus:ring-2 group-focus:ring-white dark:group-focus:ring-zinc-200/70 group-focus:outline-none">
+                            <svg class="w-4 h-4 text-zinc-500 sm:w-4 sm:h-4 dark:text-zinc-50" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <div *ngIf="previewImage" [@animation]="{value: 'visible'}" (@animation.done)=onAnimationEnd($event)
+                        class="lightbox-img">
+                        <img src="{{currentLinghtboxImage.url}}" #lightboxContainer alt="">
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template #loadingTemplate>
+        <div class="my-10">
+            <div *ngIf="loading; else noData">
+
+                <div *ngFor="let item of this.postLoading"
+                    class="bg-zinc-50 dark:bg-zinc-800  p-4 w-full mx-auto space-y-2 shadow-sm grid grid-cold-3 gap-5">
+
+                    <div class=" animate-pulse h-20 bg-zinc-200 dark:bg-zinc-700 rounded ">
+
+                    </div>
+
+                </div>
+
+            </div>
+            <ng-template #noData>
+                <div class=" text-center font-light text-3xl">
+                    {{'there_is_no_data' | translate}}
+                </div>
+            </ng-template>
+        </div>
+    </ng-template>
+
+</div>
