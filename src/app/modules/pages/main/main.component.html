@@ -104,32 +104,32 @@
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">home</i>
             <span>{{'sidebar.menu.home' | translate}}</span>
           </a>
-
-          <a routerLink="/videocam" class="flex flex-col items-center">
-            <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">voice_chat</i>
-            <span>{{'videocam' | translate}}</span>
-          </a>
           
           <!-- <a routerLink="/{{this.countryCurrentIso}}" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">home</i>
             <span>{{'sidebar.menu.home' | translate}}</span>
           </a> -->
 
-          <!-- <a routerLink="/" class="flex flex-col items-center">
+          <a routerLink="/" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">public</i>
             <span>{{'sidebar.menu.countries' | translate}}</span>
-          </a> -->
+          </a>
 
-          <!-- <a routerLink="/feed" class="flex flex-col items-center">
+          <a routerLink="/feed" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">movie</i>
             <span>Feed</span>
-          </a> -->
+          </a>
 
-          <a *ngIf="this.authService.user" routerLink="/{{this.authService.user.username}}"
+          <a routerLink="/videocam" class="flex flex-col items-center">
+            <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">voice_chat</i>
+            <span>{{'videocam' | translate}}</span>
+          </a>
+
+          <!-- <a *ngIf="this.authService.user" routerLink="/{{this.authService.user.username}}"
             class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">face</i>
             <span>{{'sidebar.menu.profile' | translate}}</span>
-          </a>
+          </a> -->
 
           <button *ngIf="this.authService.user" (click)="onMenuSiberDialog()" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">menu</i>

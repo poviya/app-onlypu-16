@@ -82,7 +82,7 @@ const routes: Routes = [
         { path: 'error/500', component: InternalServerComponent }, 
         
         { 
-          path: '',
+          path: 'feed',
           loadChildren: () => import('./modules/home/posts/posts.module').then( m => m.PostsModule )
         },
 

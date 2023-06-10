@@ -169,7 +169,7 @@ export class MainComponent implements OnInit {
     //this.userCreditData = await this.userCreditService.getUserCreditCurrentLocal();
   }
 
-  onMenu(): void {
+  onMenu0(): void {
     if (this.authService.user) {
       this.menuSidebar = [
 
@@ -280,7 +280,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-  onMenu0(): void {
+  onMenu(): void {
     if (this.authService.user) {
       this.menuSidebar = [
         // {
@@ -339,6 +339,13 @@ export class MainComponent implements OnInit {
           link_name: "sidebar.menu.feed",
           link: "/feed",
           icon: "movie",
+          sub_menu: []
+        },
+
+        {
+          link_name: "videocam",
+          link: "/videocam",
+          icon: "voice_chat",
           sub_menu: []
         },
 
@@ -484,6 +491,13 @@ export class MainComponent implements OnInit {
           link_name: "sidebar.menu.feed",
           link: "/feed",
           icon: "movie",
+          sub_menu: []
+        },
+
+        {
+          link_name: "videocam",
+          link: "/videocam",
+          icon: "voice_chat",
           sub_menu: []
         },
         // {
