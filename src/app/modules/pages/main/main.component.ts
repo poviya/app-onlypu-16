@@ -143,7 +143,7 @@ export class MainComponent implements OnInit {
     this.onWindowResize();
 
     if (this.authService.user) {
-      this.userCredit();
+      //this.userCredit();
     }
   }
 

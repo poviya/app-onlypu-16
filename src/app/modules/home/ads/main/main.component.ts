@@ -127,7 +127,7 @@ export class MainComponent implements OnInit {
             Country: res.dataGeo.Country,
             StateCity: res.dataGeo.StateCity,
           };
-          this.telegramBotService.latestPostAll(dataTelegram).subscribe(res => { });
+          //this.telegramBotService.latestPostAll(dataTelegram).subscribe(res => { });
         }
 
         // if (this.currentPage < this.totalPages) {

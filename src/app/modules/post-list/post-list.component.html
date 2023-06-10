@@ -269,7 +269,7 @@
                                     <span class="text-xs font-bold">{{item.Comment!.length | thousands}}</span>
                                 </button>
 
-                                <button *ngIf="item.PostMedia!.length > 0 " (click)="onTipDialog(item)"
+                                <button *ngIf="item.PostMedia!.length > 0 && item.type == 'POST' " (click)="onTipDialog(item)"
                                     class="flex justify-between items-center space-x-1 text-xs font-semibold border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-1">
                                     <span class=""><i class="fa-solid fa-dollar-sign"></i></span>
                                     <span class="text-xs">{{'sendTip' | translate}}</span>
