@@ -4,13 +4,15 @@
   "scripts": {
     "ng": "ng",
     "start": "node dist/app-onlypu-16/server/main.js",
-    "build": "ng build",
+    "build": "npm run build:ssr",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "dev:ssr": "ng run app-onlypu-16:serve-ssr",
     "serve:ssr": "node dist/app-onlypu-16/server/main.js",
     "build:ssr": "ng build && ng run app-onlypu-16:server",
-    "prerender": "ng run app-onlypu-16:prerender"
+    "prerender": "ng run app-onlypu-16:prerender",
+    "serve-movil": "node dist/app-onlypu-16/server/main.js --host=0.0.0.0",
+    "start-pwa": "npm run build:ssr  && http-server -p 8000 -c-1 dist/app-onlypu-16"
   },
   "private": true,
   "dependencies": {
