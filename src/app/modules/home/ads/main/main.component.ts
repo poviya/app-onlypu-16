@@ -217,13 +217,15 @@ export class MainComponent implements OnInit {
   headPageCountry(postName: any) {
     //console.log(postName);
 
+   const countryCode =  this.countryCode.toLowerCase();
+
     if (postName) {
       if (postName.Country && !postName.PostAdCategory && !postName.StateCity && !postName.CityZone) {
         this.metaTags = {
           keyworks: `Anuncios calientes para gente que busca placer ' + postName.Country + ' - Onlypu, putas, jovencitas, buscando sexo, 18 años, 19 años, 20 años, prostitutas, damas de compañia, escorts, gay, swingers y travestis, masajes, videollamadas, sexo, desnuada total, follame, trato de enamorados, besos, sexo duro, sexo suave, en cuatro, citas, trato de enamorados`,
           title: `Anuncios calientes para gente que busca placer ' + ${postName.Country} + ' - Onlypu`,
           description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
-          url: `https://onlypu.com/${this.countryCode}`,
+          url: `https://onlypu.com/${countryCode}`,
           image: 'https://onlypu.com/assets/logo/seo.jpg'
         }
       }
@@ -232,7 +234,7 @@ export class MainComponent implements OnInit {
           keyworks: `Anuncios calientes para gente que busca placer ${postName.PostAdCategory} en ${postName.Country} - Onlypu, putas, jovencitas, buscando sexo, 18 años, 19 años, 20 años, prostitutas, damas de compañia, escorts, gay, swingers y travestis, masajes, videollamadas, sexo, desnuada total, follame, trato de enamorados, besos, sexo duro, sexo suave, en cuatro, citas, trato de enamorados`,
           title: `Anuncios calientes para gente que busca placer ${postName.PostAdCategory} en ${postName.Country} - Onlypu`,
           description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
-          url: `https://onlypu.com/${this.countryCode}/${this.categorySlug}`,
+          url: `https://onlypu.com/${countryCode}/${this.categorySlug}`,
           image: 'https://onlypu.com/assets/logo/seo.jpg'
         }
       }
@@ -241,7 +243,7 @@ export class MainComponent implements OnInit {
           keyworks: `Anuncios calientes para gente que busca placer ${postName.PostAdCategory} en ${postName.Country} ${postName.StateCity} - Onlypu, putas, jovencitas, buscando sexo, 18 años, 19 años, 20 años, prostitutas, damas de compañia, escorts, gay, swingers y travestis, masajes, videollamadas, sexo, desnuada total, follame, trato de enamorados, besos, sexo duro, sexo suave, en cuatro, citas, trato de enamorados `,
           title: `Anuncios calientes para gente que busca placer ${postName.PostAdCategory} en ${postName.Country} ${postName.StateCity} - Onlypu`,
           description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
-          url: `https://onlypu.com/${this.countryCode}/${this.categorySlug}/${this.stateCitySlug}`,
+          url: `https://onlypu.com/${countryCode}/${this.categorySlug}/${this.stateCitySlug}`,
           image: 'https://onlypu.com/assets/logo/seo.jpg'
         }
       }
@@ -250,7 +252,7 @@ export class MainComponent implements OnInit {
           keyworks: `Anuncios calientes para gente que busca placer ${postName.PostAdCategory} en ${postName.Country} ${postName.CityZone} zona ${postName.StateCity} ' - Onlypu, putas, jovencitas, buscando sexo, 18 años, 19 años, 20 años, prostitutas, damas de compañia, escorts, gay, swingers y travestis, masajes, videollamadas, sexo, desnuada total, follame, trato de enamorados, besos, sexo duro, sexo suave, en cuatro, citas, trato de enamorados `,
           title: `Anuncios calientes para gente que busca placer  ${postName.PostAdCategory} en ${postName.Country} ${postName.CityZone} zona ${postName.StateCity} - Onlypu`,
           description: "Busca y publica anuncios eróticos gratis, clasificados de escorts y putas, avisos de escorts gay, swingers y travestis en Onlypu.com",
-          url: `https://onlypu.com/${this.countryCode}/${this.categorySlug}/${this.stateCitySlug}/${this.cityZoneSlug}`,
+          url: `https://onlypu.com/${countryCode}/${this.categorySlug}/${this.stateCitySlug}/${this.cityZoneSlug}`,
           image: 'https://onlypu.com/assets/logo/seo.jpg'
         }
       } else {
