@@ -1,10 +1,10 @@
 <div *ngIf="country"
     class="sticky top-0  w-full py-2 px-3 text-xs bg-background-light dark:bg-zinc-900 dark:text-zinc-200 z-10 border-b border-zinc-200 dark:border-zinc-800">
     <div class="flex justify-between items-center h-10">
-        <div (click)="onScrollTop()" class="flex items-center uppercase font-bold text-base cursor-pointer space-x-2">
+        <button (click)="onScrollTop()" class="flex items-center uppercase font-bold text-base cursor-pointer space-x-2">
             <img src="{{country.icon}}" alt="{{country.name}}" class="h-6" />
             <span>{{country.name}}</span>
-        </div>
+        </button>
 
         <div class="flex justify-between item-center space-x-5">
             <button (click)="onAdd()"

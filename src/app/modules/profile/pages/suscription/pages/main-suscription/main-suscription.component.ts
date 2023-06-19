@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Membership, Suscription, User, UserCredit } from 'src/app/interfaces';
-import { AuthService, MembershipService, PaymentOrderService, SuscriptionService, UserCreditService } from 'src/app/services';
+import { AuthService, MembershipService, PaymentOrderService, ProductCreditService, SuscriptionService, UserCreditService } from 'src/app/services';
 import { Tools } from 'src/app/common/tools';
 import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/library/spinner/spinner.service';
@@ -38,6 +38,7 @@ export class MainSuscriptionComponent implements OnInit {
     private suscriptionService: SuscriptionService,
     private dialogService: DialogService,
     private toastService: ToastService,
+    private productCreditService: ProductCreditService,
   ) { }
 
   ngOnInit(): void {
@@ -116,6 +117,7 @@ export class MainSuscriptionComponent implements OnInit {
         });
 
       } else {
+        this.productCreditService.setSharedData(membership.credit);
         this.dialogService.toogleBuyCredit();
         this.spinnerService.close();
       }

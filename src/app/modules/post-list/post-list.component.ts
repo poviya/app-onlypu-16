@@ -9,13 +9,23 @@ import { Router } from '@angular/router';
 import { SpinnerService } from 'src/app/library/spinner/spinner.service';
 
 import { HammerGestureConfig } from '@angular/platform-browser';
+import * as Hammer from 'hammerjs';
 import { BookmarkService } from 'src/app/services/bookmark.service';
 
+@Injectable()
+export class TikTokGestureConfig extends HammerGestureConfig {
+  override overrides = {
+    'swipe': { direction: Hammer.DIRECTION_VERTICAL }
+  };
+}
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss'],
+  providers: [
+    { provide: HammerGestureConfig, useClass: TikTokGestureConfig }
+  ]
 })
 export class PostListComponent implements OnInit, AfterViewInit {
 
@@ -143,7 +153,7 @@ export class PostListComponent implements OnInit, AfterViewInit {
     // me gustaría hacer le delicioso contigo
     return "Hola, acabo de ver tu anuncio en Onlypu.com, "
       + Tools.cropText(item.title!, 25) + '(...)' +
-      ", quiero hacer el delicioso contigo."
+      ", quiero una cita contigo."
       + " https://onlypu.com/pu/" + item.slug;
   }
 
@@ -442,4 +452,9 @@ export class PostListComponent implements OnInit, AfterViewInit {
     videoElement.play(); // Inicia la reproducción del video
   }
 
+
+  //***** LOGIN */
+  onLogin(): void {
+    this.router.navigate(['/auth/login']);
+  }
 }

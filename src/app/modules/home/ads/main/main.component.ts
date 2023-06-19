@@ -4,7 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User, metaTags } from 'src/app/interfaces';
 import { DialogService } from 'src/app/library/dialog/dialog.service';
-import { PostAdService, TelegramBotService } from 'src/app/services';
+import { AuthService, GeoService, PostAdService, TelegramBotService } from 'src/app/services';
 
 @Component({
   selector: 'app-main',
@@ -38,10 +38,10 @@ export class MainComponent implements OnInit {
   postStories: any = [];
   totalPages: 100;
   currentPage = 0;
-  limitPage = 3;
+  limitPage = 2;
   observer: any;
   user: User;
-  
+  isFirstElement = true;
   metaTags: metaTags;
 
   constructor(
@@ -54,6 +54,8 @@ export class MainComponent implements OnInit {
     private meta: Meta,
     private title: Title,
     public dialogService: DialogService,
+    private geoService: GeoService,
+    private authService: AuthService
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.isBrowser = true;
@@ -76,6 +78,8 @@ export class MainComponent implements OnInit {
     this.stateCitySlug = this.activeRoute.snapshot.paramMap.get('stateCitySlug');
     this.cityZoneSlug = this.activeRoute.snapshot.paramMap.get('cityZoneSlug');
 
+    this.countryCode =  this.countryCode.toUpperCase();
+    console.log(this.countryCode);
     this.dataSearchSlug = {
       search: this.search,
       countryCode: this.countryCode,
@@ -123,11 +127,31 @@ export class MainComponent implements OnInit {
         });
         this.loading = false;
         if (res.dataGeo.StateCity) {
-          const dataTelegram = {
+          const dataUpdate = {
             Country: res.dataGeo.Country,
             StateCity: res.dataGeo.StateCity,
           };
+         
+          if(this.authService.user)
+          {
+            this.geoService.create(dataUpdate).subscribe(res => {
+
+            });
+          } else {
+            this.postAdService.latestPost(dataUpdate).subscribe(res => {
+            });
+          }
           //this.telegramBotService.latestPostAll(dataTelegram).subscribe(res => { });
+        } else {
+          if(this.authService.user)
+          {
+            const dataUpdate = {
+              Country: res.dataGeo.Country,
+            };
+            this.geoService.create(dataUpdate).subscribe(res => {
+
+            });
+          }
         }
 
         // if (this.currentPage < this.totalPages) {
@@ -147,6 +171,10 @@ export class MainComponent implements OnInit {
       }
      
       this.postAdService.findAllSearchInfinite(this.dataSearch, this.limitPage, this.currentPage).subscribe(res => {
+        if (this.isFirstElement) {
+          res.data.shift();
+          this.isFirstElement = false;
+        }
         res.data.forEach((element: any) => {
           this.posts.push(element);
         });

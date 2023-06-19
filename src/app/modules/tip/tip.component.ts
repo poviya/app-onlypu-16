@@ -45,8 +45,6 @@ export class TipComponent implements OnInit {
 
   async userCreditFinOne() {
     try {
-
-      console.log(await this.userCreditService.credit);
       this.userCredit = await this.userCreditService.credit;
       console.log('userCredit', this.userCredit);
     } catch (error) {

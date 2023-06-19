@@ -10,7 +10,7 @@ import { UserTransfer, ResponseApi } from '../interfaces';
 })
 export class UserTransferService {
 
-  daymentMethod: UserTransfer[] = [];
+  daymentMethod: UserTransfer[];
   url = 'user-transfer';
   
   constructor(

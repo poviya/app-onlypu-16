@@ -11,6 +11,7 @@ import { Cam, ProductCredit } from '../interfaces';
 export class ProductCreditService {
 
   url = 'product-credit';
+  private sharedData: any;
 
   constructor(private http: HttpClient) { }
 
@@ -19,5 +20,13 @@ export class ProductCreditService {
       Site: environment.site
     }
     return this.http.post<ProductCredit[]>(environment.api + this.url + '/find-all', data);
+  }
+
+  setSharedData(data: any) {
+    this.sharedData = data;
+  }
+
+  getSharedData() {
+    return this.sharedData;
   }
 }

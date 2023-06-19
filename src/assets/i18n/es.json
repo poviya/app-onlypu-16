@@ -2,14 +2,9 @@
     "Girls": "Mujeres",
     "Guys": "Hombres",
     "Search": "Buscar",
-    "home": {
-        "country": {
-            "title": "Bienvenido!",
-            "subtitle": "Busca la cita más calurosa en tu país",
-            "text": "Para acceder a los Términos y condiciones detallados de cada país, seleccione el país, haga clic en el enlace Términos y condiciones y revise la página."
-        },
-        "ads": {}
-    },
+    "welcome": "Bienvenido!",
+    "subtitleCountry": "Busca la cita más calurosa en tu país",
+    "textCountry": "Para acceder a los Términos y condiciones detallados de cada país, seleccione el país, haga clic en el enlace Términos y condiciones y revise la página.",
     "search": {
         "search_here": "Busca aquí...",
         "select_country": "Seleccionar país",
@@ -17,28 +12,21 @@
         "all_cities": "Todas las ciudades",
         "all_areas": "Todas las areas"
     },
+    "home": "Inicio",
     "read.more": "Leer más",
     "read.less": "Leer menos",
     "phone": "Telefono",
-    "sidebar": {
-        "menu": {
-            "home": "Inicio",
-            "countries": "Países",
-            "feed": "Feed",
-            "bookmarks": "Favoritos",
-            "suscriptions": "Suscripciones",
-            "profile": "Perfil",
-            "my_dating": "Mis citas",
-            "incomes": "Ingresos",
-            "payments": "Payments",
-            "withdrawal_of_money": "Retiro de dinero",
-            "setting": "Configuración",
-            "logout": "Cerrar sesión",
-            "login": "Iniciar sesión",
-            "new_post": "Nueva publicación",
-            "more": "Más"
-        }
-    },
+    "countries": "Países",
+    "feed": "Feed",
+    "profile": "Perfil",
+    "my_dating": "Mis citas",
+    "incomes": "Ingresos",
+    "withdrawal_of_money": "Retiro de dinero",
+    "setting": "Configuración",
+    "logout": "Cerrar sesión",
+    "login": "Iniciar sesión",
+    "new_post": "Nueva publicación",
+    "more": "Más",
     "post": "Publicar",
     "ad": "Anuncio",
     "dating": "Tener una cita",
@@ -117,8 +105,6 @@
     "register": "Regístrate",
     "noAccountYet": "¿Aún no tienes una cuenta? ",
     "registerNow": "¡Regístrate ahora!",
-
-
     "verifyEmail": "Verificar email",
     "verificationCodeSent": "Se envió un código de verificación a su correo electrónico",
     "resendEmail": "Reenviar email",
@@ -199,6 +185,8 @@
     "paymentMethods": "Métodos de pago",
     "price": "Precio",
     "minimumOrFree": "Mínimo 0 o gratis",
+    "mountedInUSD": "Monto en USD",
+    "minimumBuyCredit": "Mínimo 1 o 5.00 - 99.00",
     "subscriptionBundles": "Paquetes de suscripción",
     "offerSubscription": "Ofrecer varios meses de suscripción como un paquete con descuento.",
     "off": "Descuento",
@@ -220,5 +208,6 @@
     "liveSexVideoCalls": "Videollamadas de Sexo en Vivo ",
     "itWasSaved": "Se guardo",
     "itWasDeleted": "Se eliminó",
-    "notSave": "No guardar"
+    "notSave": "No guardar",
+    "pleaseTryAgain": "Vuela a intentarlo"
 }

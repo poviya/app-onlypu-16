@@ -1,13 +1,13 @@
 <div
     class="sticky top-0 left-0  w-full text-xs  dark:text-zinc-200 z-50 border-b-none border-r border-zinc-200 dark:border-zinc-800">
     <div
-        class="flex justify-between items-center h-12  backdrop-blur-xl bg-background-light/90 dark:bg-background-dark/90">
-        <div class="flex justify-between items-center space-x-5 px-2">
+        class="flex justify-between items-center h-12  backdrop-blur-0 bg-background-light/5 dark:bg-background-dark/5">
+        <div class="flex justify-between items-center space-x-5 px-2 text-white">
             <button (click)="goBack()">
                 <span class=" material-icons-outlined notranslate">arrow_back</span>
             </button>
             <button *ngIf="user" (click)="onScrollTop()"
-                class="flex flex-col items-center cursor-pointer uppercase text-lg">
+                class="flex flex-col items-center cursor-pointer uppercase text-base font-bold">
                 <span>{{user.name}}</span>
             </button>
         </div>

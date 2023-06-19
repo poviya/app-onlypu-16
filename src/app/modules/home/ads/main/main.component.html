@@ -12,6 +12,7 @@
             <app-nav [posts]="posts" [postName]="postName" [dataSearchSlug]="dataSearchSlug"></app-nav>
          </div>
          <div class="mt-5">
+            <!-- <app-list-ads [posts]="posts" [loading]="loading" [user]="user" (findAllPostsInfiniteEvent)="findAllPostsInfinite()"></app-list-ads> -->
             <app-post-list [posts]="posts" [loading]="loading" [user]="user" (findAllPostsInfiniteEvent)="findAllPostsInfinite()"></app-post-list>
          </div>
       </main>

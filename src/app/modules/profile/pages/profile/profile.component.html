@@ -1,42 +1,41 @@
-<div>
+<div class="">
     <div *ngIf="!loadingUser" class="dark:bg-background-dark">
-    
+        
         <div style="background-image: url('{{this.user.Cover!.length > 0 ? this.prinImages(this.user.Cover) : null}}');" 
-            class="bg-cover bg-zinc-300 dark:bg-zinc-800 flex justify-end items-end px-6 pt-5 pb-6 h-40 md:h-56 w-full object-cover -z-10 ">
+            class="bg-cover bg-zinc-300 dark:bg-zinc-800 flex justify-end items-end px-6 pt-5 pb-6 h-48 md:h-64 w-full object-cover -z-10 ">
             <div  class="space-y-1 text-center">
             <div class="flex justify-center items-center space-x-2 text-sm">
             </div>
             </div>
         </div>
     
-        <div class="-mt-10 md:-mt-16 flex justify-between mx-4">
+        <div class="-mt-12 md:-mt-20 flex justify-between mx-4">
             <div 
                 style="background-image: url('{{this.user.Profile!.length > 0 ? this.prinImages(this.user.Profile) : null}}');" 
-                class="bg-zinc-200 dark:bg-zinc-700 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-32 md:h-32 z-10">
+                class="bg-zinc-200 dark:bg-zinc-700 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-28 h-28 md:w-40 md:h-40 z-10">
                 <div class="flex justify-end items-end text-center">
                 </div>
             </div>
-            <div class="-mb-1 md:mb-4 relative flex justify-end items-end right-0 space-x-2">
-                <!-- <button (click)="onCreateChat()"  
-                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
-                    <span class=" material-icons-outlined notranslate">chat</span>
-                </button> -->
+            <div class="mb-3 md:mb-8 relative flex justify-end items-end right-0 space-x-2">
+                <button (click)="onCreateChat()"  
+                    class="w-10 h-10 text-center text-xl p-1 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <i class="fa-solid fa-message"></i>
+                </button>
                 <button (click)="onTipDialog()"  
-                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
-                    <span class=" material-icons-outlined notranslate">paid</span>
+                    class="w-10 h-10 text-center text-xl   p-1 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <i class="fa-solid fa-circle-dollar-to-slot"></i>
                 </button>
                 <button 
                     (click)="onCam()"
-                    *ngIf="user.Cam"
-                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
-                    <span class="material-icons-outlined notranslate">video_camera_front</span>
+                    class="w-10 h-10 text-center text-xl  p-1 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    <i class="fa-solid fa-video"></i>
                 </button>
                 <!-- <button 
                     class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
                     <span class=" material-icons-outlined notranslate">favorite_border</span>
                 </button> -->
                 <button (click)="compartir()" 
-                    class="w-10 h-10 text-center  p-2 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
+                    class="w-10 h-10 text-center text-xl  p-1 rounded-full border border-zinc-300 dark:border-zinc-700 text-primary-600 dark:text-primary-600">
                     <i class="fa-solid fa-share"></i>
                 </button>
                 <!-- <button  (click)="copyText()"
@@ -78,8 +77,8 @@
             </div>
         </div>
     
-        <div class="-mt-16">
-            <div class="bg-zinc-200 dark:bg-zinc-700 ml-4 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-20 h-20 md:w-32 md:h-32 z-10">
+        <div class="-mt-20">
+            <div class="bg-zinc-200 dark:bg-zinc-700 ml-4 flex bg-cover justify-center px-6 pt-6 pb-6 rounded-full w-28 h-28 md:w-40 md:h-40 z-10">
                 <div class="flex justify-end items-end text-center">
                 </div>
             </div>

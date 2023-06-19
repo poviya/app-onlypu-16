@@ -1,8 +1,8 @@
 {
-  "name": "app-onlypu-16",
-  "short_name": "app-onlypu-16",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "onlypu.com",
+  "short_name": "onlypu",
+  "theme_color": "#db2777",
+  "background_color": "#db2777",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

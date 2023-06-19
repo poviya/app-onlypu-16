@@ -516,7 +516,8 @@
                   </div> -->
                 </div>
                 <!-- <img src="https://tethrdnation.com/wp-content/uploads/2022/02/Comp-2.gif" class=" object-cover video h-80" *ngIf="loadingState">   [muted]="'muted'"-->
-                <video playsinline autoplay loop controls preload="none" #videoElement 
+                
+                <video playsinline  loop controls preload="none" #videoElement 
                   class=" bg-black video h-32 sm:h-40 w-40" disablePictureInPicture controlsList="nodownload noplaybackrate " 
                   crossorigin="anonymous" *ngIf="videoLoaded">
                   <source [src]="videoUrl" type="video/mp4">

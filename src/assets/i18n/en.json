@@ -2,13 +2,9 @@
     "Girls": "Girls",
     "Guys": "Guys",
     "Search": "Search",
-    "home": {
-        "country": {
-            "title": "Welcome!",
-            "subtitle": "Look for the hottest date in your country",
-            "text": "To access detailed Terms and Conditions for each country, please select the country, click on Terms and Conditions link, and review the page"
-        }
-    },
+    "welcome": "Welcome",
+    "subtitleCountry": "Look for the hottest date in your country",
+    "textCountry": "To access detailed Terms and Conditions for each country, please select the country, click on Terms and Conditions link, and review the page",
     "search": {
         "search_here": "Search here...",
         "select_country": "Select country",
@@ -16,28 +12,21 @@
         "all_cities": "All cities",
         "all_areas": "All areas"
     },
+    "home": "Home",
     "read.more": "Read more",
     "read.less": "Read less",
     "phone": "Phone",
-    "sidebar": {
-        "menu": {
-            "home": "Home",
-            "countries": "Countries",
-            "feed": "Feed",
-            "bookmarks": "Bookmarks",
-            "suscriptions": "suscriptions",
-            "profile": "Profile",
-            "my_dating": "My Dating",
-            "incomes": "Incomes",
-            "payments": "Payments",
-            "withdrawal_of_money": "Withdrawal of money",
-            "setting": "Setting",
-            "logout": "Logout",
-            "login": "Login",
-            "new_post": "New post",
-            "more": "More"
-        }
-    },
+    "countries": "Countries",
+    "feed": "Feed",
+    "profile": "Profile",
+    "my_dating": "My Dating",
+    "incomes": "Incomes",
+    "withdrawal_of_money": "Withdrawal of money",
+    "setting": "Setting",
+    "logout": "Logout",
+    "login": "Login",
+    "new_post": "New post",
+    "more": "More",
     "post": "Post",
     "ad": "Ad",
     "dating": "Dating",
@@ -198,6 +187,8 @@
     "paymentMethods": "Payment methods",
     "price": "Price",
     "minimumOrFree": "Minimum 0 or free",
+    "mountedInUSD": "Mounted in USD",
+    "minimumBuyCredit": "Minimum 1 or 5 - 99",
     "subscriptionBundles": "Subscription bundles",
     "offerSubscription": "Offer several months of subscription as a discounted bundle.",
     "off": "Off",
@@ -219,5 +210,6 @@
     "liveSexVideoCalls": "Live Sex video calls",
     "itWasSaved": "It was saved",
     "itWasDeleted": "It was deleted",
-    "notSave": "Not save"
+    "notSave": "Not save",
+    "pleaseTryAgain": "Please try again"
 }

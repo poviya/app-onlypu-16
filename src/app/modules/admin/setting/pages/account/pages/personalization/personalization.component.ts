@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostMedia, User } from 'src/app/interfaces';
 import { SpinnerService } from 'src/app/library/spinner/spinner.service';
+import { ToastService } from 'src/app/library/toast/toast.service';
 import { AuthService, PostMediaService, UserService } from 'src/app/services';
 
 @Component({
@@ -27,6 +28,7 @@ export class PersonalizationComponent implements OnInit {
     private userService: UserService,
     public authService: AuthService,
     private spinnerService: SpinnerService,
+    private toastService: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -117,6 +119,9 @@ export class PersonalizationComponent implements OnInit {
           this.selectedFilesCover = this.user.Cover!;
           this.spinnerService.close();
         }
+      },(error) => {
+        this.toastService.start('pleaseTryAgain');
+        setTimeout(() => this.toastService.close(), 2000);
       });
     }
   }
@@ -183,9 +188,10 @@ export class PersonalizationComponent implements OnInit {
           this.imagesProfile = [];
           this.spinnerService.close();
         }
-      }
-
-      );
+      },(error) => {
+        this.toastService.start('pleaseTryAgain');
+        setTimeout(() => this.toastService.close(), 2000);
+      });
     } else {
 
     }

@@ -1,9 +1,9 @@
 <div *ngIf="this.isBrowser" class="lg:mr-[18.5rem]">
     <div class="border border-t-0 dark:border-zinc-800">
         <app-header [user]="user"></app-header>
-        <div class="space-y-2">
+        <div class="space-y-2 -mt-12">
             <div class=" w-full bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200 shadow-sm">
-                <app-profile [loadingUser]="loadingUser" [user]="user"></app-profile>
+                <app-profile [loadingUser]="loadingUser" [user]="user" [suscription]="suscription"></app-profile>
             </div>
             <div *ngIf="!currentUser">
                 <app-main-suscription *ngIf="user" [user]="user" [suscription]="suscription"></app-main-suscription>

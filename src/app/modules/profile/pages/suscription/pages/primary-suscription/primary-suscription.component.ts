@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NumericValidator, pricePrimary } from 'src/app/common/custom-validators.ts';
 import { Membership, User } from 'src/app/interfaces';
 import { AuthService, UserService } from 'src/app/services';
@@ -22,6 +23,8 @@ export class PrimarySuscriptionComponent implements OnInit, AfterViewInit {
   @Input() membership: Membership[];
 
   constructor(
+    private authService: AuthService,
+    public router: Router,
     private fb: FormBuilder) {
      }
 
@@ -55,7 +58,7 @@ export class PrimarySuscriptionComponent implements OnInit, AfterViewInit {
   }
   
   onSubmit(): void { 
-    if(this.membership.length > 0)
+    if(this.authService.user && this.membership.length > 0)
     {
       if(this.membership[0].credit !== 0) { 
         const data: any = {
@@ -69,6 +72,8 @@ export class PrimarySuscriptionComponent implements OnInit, AfterViewInit {
         };
         this.createMembershipFreeEvent.emit(data);
       }
+    } else {
+      this.router.navigate(['/auth/login']);
     }
   }
 }

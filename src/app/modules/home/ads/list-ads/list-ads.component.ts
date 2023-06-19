@@ -27,7 +27,8 @@ export class ListAdsComponent implements OnInit {
   @Input() postName: any;
   @Input() posts: any = [];
   @Input() postStories: any = [];
-
+  @Input() user: any;
+  
   observer: any;
   post: Post;
 
@@ -111,7 +112,7 @@ export class ListAdsComponent implements OnInit {
     // me gustaría hacer le delicioso contigo
     return "Hola, acabo de ver tu anuncio en Onlypu.com, "
       + Tools.cropText(item.title!, 25) + '(...)' +
-      ", quiero hacer el delicioso contigo."
+      ", quiero una cita contigo."
       + " https://onlypu.com/pu/" + item.slug;
   }
 

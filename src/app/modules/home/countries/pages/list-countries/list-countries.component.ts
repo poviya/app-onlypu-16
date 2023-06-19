@@ -73,8 +73,13 @@ export class ListCountriesComponent implements OnInit {
   }
 
   onCountryCurrent(code: string) {
+    code = code.toLowerCase();
     this.toolsService.countryCurrentCreate(code);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
+  }
+
+  countryCode(code: string) {
+    return code.toLowerCase();
   }
 }

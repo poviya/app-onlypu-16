@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tools } from 'src/app/common/tools';
-import { Cam, Money, PaymentOrder, User } from 'src/app/interfaces';
+import { Cam, Money, PaymentOrder, Suscription, User } from 'src/app/interfaces';
 import { ModalService } from 'src/app/library/modal/modal.service';
 import { AuthService, ChatService, MoneyService, PaymentOrderService, TipService } from 'src/app/services';
 import { TipComponent } from '../../../tip/tip.component';
@@ -22,11 +22,13 @@ export class ProfileComponent implements OnInit {
   dataTip: object;
   @Input() loadingUser: boolean;
   @Input() user: User;
+  @Input() suscription: Suscription;
+
   money: Money;
   paymentOrder: PaymentOrder;
-  
+
   constructor(
-    public router: Router,  
+    public router: Router,
     public authService: AuthService,
     private paymentOrderService: PaymentOrderService,
     private modalService: ModalService,
@@ -36,7 +38,7 @@ export class ProfileComponent implements OnInit {
     private toastService: ToastService,
     private moneyService: MoneyService,
     private tipService: TipService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
   }
@@ -52,14 +54,13 @@ export class ProfileComponent implements OnInit {
   get modalTip() {
     return this.dialogService.modalTip;
   }
- 
+
   closeModalTip() {
     this.dialogService.toogleTip();
   }
 
 
-  prinImages(images: any) 
-  { 
+  prinImages(images: any) {
     return images[0]['url'];
   };
 
@@ -69,19 +70,18 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/panel/setting/personalization']);
 
   }
-  
-  innerText(text: any)
-  {
-    if(text) 
-    return Tools.innerText(text);
+
+  innerText(text: any) {
+    if (text)
+      return Tools.innerText(text);
   }
-  
+
   onTipAccount() {
 
   }
-   
-   /************** tip */
-   onTipDialog() {
+
+  /************** tip */
+  onTipDialog() {
     this.dialogService.toogleTip();
     this.dataTip = {
       type: 'tip_account',
@@ -92,16 +92,30 @@ export class ProfileComponent implements OnInit {
   }
 
   onCreateChat() {
-    const data = {
-      UserTwo: this.user._id
-    }
-    this.chatService.create(data).subscribe(res => {
-      if(res) {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-        this.router.onSameUrlNavigation = 'reload';
-        this.router.navigate(['/chat/messages', res._id]);
+    if (this.authService.user) {
+
+      if (!this.suscription) {
+        this.dialogService.toogleTip();
+        this.dataTip = {
+          type: 'tip_account',
+          user: this.user
+        };
+        this.tipService.create(this.dataTip);
+      } else {
+        const data = {
+          UserTwo: this.user._id
+        }
+        this.chatService.create(data).subscribe(res => {
+          if (res) {
+            this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+            this.router.onSameUrlNavigation = 'reload';
+            //this.router.navigate(['/chat/messages', res._id]);
+          }
+        });
       }
-    });
+    } else {
+      this.router.navigate(['/auth/login']);
+    }
   }
 
   openModal(value: any) {
@@ -116,7 +130,7 @@ export class ProfileComponent implements OnInit {
     const textToCopy = " https://onlypu.com/" + this.user.username;
     navigator.clipboard.writeText(textToCopy).then(() => {
       this.toastService.start('copied_link');
-      setTimeout( () => this.toastService.close(), 2000 );
+      setTimeout(() => this.toastService.close(), 2000);
       console.log('El texto ha sido copiado al portapapeles');
     }, (err) => {
       console.error('Error al copiar el texto al portapapeles: ', err);
@@ -124,10 +138,23 @@ export class ProfileComponent implements OnInit {
   }
 
   onCam(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/cam' ],
-    { queryParams: { roomID: this.user.Cam!.roomId } });
+    if (this.authService.user) {
+      if (!this.suscription) {
+        this.dialogService.toogleTip();
+        this.dataTip = {
+          type: 'tip_account',
+          user: this.user
+        };
+        this.tipService.create(this.dataTip);
+      } else {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['/cam'],
+          { queryParams: { roomID: this.user.Cam!.roomId } });
+      }
+    } else {
+      this.router.navigate(['/auth/login']);
+    }
   }
 
   compartir() {

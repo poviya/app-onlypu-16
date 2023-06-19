@@ -28,7 +28,7 @@ export class MainComponent implements OnInit {
   cams: Post[] = [];
   totalPages: 100;
   currentPage = 0;
-  limitPage = 3;
+  limitPage = 6;
   dataSearch: any;
 
   constructor(

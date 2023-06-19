@@ -16,10 +16,15 @@ export class PaymentOrderService {
   constructor(
     private http: HttpClient
   ) { }
-  
+ 
   createCreditSale(data: any): Observable<PaymentOrder> {
 
     return this.http.post<PaymentOrder>(environment.api + this.url + '/create-credit-sale', data,  Headers.HttpOptions());
+  }
+
+  createCreditSaleAmount(data: any): Observable<PaymentOrder> {
+
+    return this.http.post<PaymentOrder>(environment.api + this.url + '/create-credit-sale-amount', data,  Headers.HttpOptions());
   }
 
   createTip(data: any): Observable<PaymentOrder> {

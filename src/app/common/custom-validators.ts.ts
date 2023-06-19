@@ -42,6 +42,21 @@ export function pricePrimary(control: AbstractControl) {
   return null;
 }
 
+export function buyCredit(control: AbstractControl) {
+  let val = control.value;
+
+  if (val === null || val === '') return null;
+
+  if (!val.toString().match(/^[0-9]+(\.?[0-9]+)?$/)) return { 'invalidNumber': true };
+
+  if(val <  0) return {'InvalidNumber': true}
+  if(val ==  0) return {'InvalidNumber': true}
+  if(val > 0 && val < 0.99 ) return {'InvalidNumber': true}
+  if(val > 1 && val < 5 ) return {'InvalidNumber': true}
+  if(val > 99 ) return {'InvalidNumber': true}
+  return null;
+}
+
 export function NumeriDiscount(control: AbstractControl) {
   let val = control.value;
 

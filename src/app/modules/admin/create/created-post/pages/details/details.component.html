@@ -18,7 +18,7 @@
 
 <div class="w-full rounded-xl border border-zinc-200 dark:border-zinc-700  p-4 sm:p-6 shadow-xl bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-200 ">
     <div class="mb-4">
-      <h1 class="text-xl font-bold">{{'sidebar.menu.new_post' | translate}}</h1>
+      <h1 class="text-xl font-bold">{{'new_post' | translate}}</h1>
       <h2 class="text-lg font-light text-gray-400 hidden">{{'create.post_a_video_to_your_account' | translate}}</h2>
     </div>
     <form [formGroup]="myform" novalidate class="sm:px-0">
@@ -326,7 +326,7 @@
                   </div> -->
                 </div>
                 <!-- <img src="https://tethrdnation.com/wp-content/uploads/2022/02/Comp-2.gif" class=" object-cover video h-80" *ngIf="loadingState">   [muted]="'muted'"-->
-                <video playsinline autoplay loop controls preload="none" #videoElement 
+                <video playsinline loop controls preload="none" #videoElement 
                   class=" bg-black video h-32 sm:h-40 w-40" disablePictureInPicture controlsList="nodownload noplaybackrate " 
                   crossorigin="anonymous" *ngIf="videoLoaded">
                   <source [src]="videoUrl" type="video/mp4">

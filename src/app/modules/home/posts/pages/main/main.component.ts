@@ -28,8 +28,9 @@ export class MainComponent implements OnInit {
   posts: Post[] = [];
   totalPages: 100;
   currentPage = 0;
-  limitPage = 1;
+  limitPage = 2;
   dataSearch: any;
+  isFirstElement = true;
 
   constructor(
     private readonly postService: PostService,
@@ -72,6 +73,12 @@ export class MainComponent implements OnInit {
         });
         this.loading = false;
         this.headPage();
+        const dataUpdate = {
+
+        };
+        this.postService.latestPost(dataUpdate).subscribe(res => {
+
+        });
       }
     });
   }
@@ -82,6 +89,10 @@ export class MainComponent implements OnInit {
 
       this.postService.findAllInfinite(this.dataSearch, this.limitPage, this.currentPage).subscribe(res => {
         if (res) {
+          if (this.isFirstElement) {
+            res.data.shift();
+            this.isFirstElement = false;
+          }
           res.data.forEach((element: any) => {
             this.posts.push(element);
           });

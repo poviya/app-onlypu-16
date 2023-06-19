@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { io } from 'socket.io-client';
 
 @Component({
   selector: 'app-main-messages',

@@ -40,7 +40,6 @@ export class LoginComponent {
 
     this.authService.login( username.trim(), password.trim(), environment.site )
       .subscribe( res => {
-        console.log(res);
         if ( res.ok === true ) {
           if(!res.data.user.emailVerified)  {
             this.router.navigateByUrl('auth/verified-account');
@@ -63,5 +62,8 @@ export class LoginComponent {
       );
   }
   
+  goBack(): void {
+    this.location.back();
+  }
 
 }

@@ -25,4 +25,5 @@ export { Cam } from './cam';
 export { UserCredit } from './userCredit';
 export { Comment } from './comment';
 export { Report } from './report';
+export { Geo } from './geo';
 //export {  } from './';

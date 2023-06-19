@@ -160,6 +160,11 @@ export class PostAdService {
     return this.http.post<Post>(environment.api + this.url + '/update-plan', data);
   }
 
+  latestPost(data: any): Observable<Post> {
+
+    return this.http.post<Post>(environment.api + this.url + '/latest-post', data);
+  }
+
   handleError(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

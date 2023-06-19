@@ -6,7 +6,7 @@
         <div class="flex space-x-2">
             <div> 
                 <img *ngIf="dataTip.user.Profile!.length > 0" 
-                    class="h-14 w-14 rounded-full" 
+                    class="h-14 w-14 rounded-full object-cover" 
                     src="{{dataTip.user.Profile!.length > 0 ? this.prinImages(dataTip.user.Profile) : ''}}" alt="{{dataTip.user.username}}">
                 <div *ngIf="dataTip.user.Profile?.length == 0" class="h-14 w-14 rounded-full object-cover bg-zinc-200 dark:bg-zinc-700"></div>
             </div>

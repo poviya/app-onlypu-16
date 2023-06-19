@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { ToolsService } from './tools.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { environment } from 'src/environments/environment';
-import { TransactionCredit, User, UserCredit } from '../interfaces';
+import { UserCredit } from '../interfaces';
 import { Headers } from 'src/app/common/http-headers';
 import { AuthService } from './auth.service';
-import { catchError, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ export class UserCreditService {
 
   url = 'user-credit';
 
-  userCreditData: UserCredit = {};
+  userCreditData: UserCredit;
   
   constructor(
     private http: HttpClient,
@@ -46,7 +45,7 @@ export class UserCreditService {
       const res = await this.findOneUser().toPromise();
       return res!;
     } catch (error) {
-      //console.error(error);
+      console.error(error);
       throw error;
     }
 

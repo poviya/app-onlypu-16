@@ -1,14 +1,14 @@
-<div *ngIf="slides" class=" h-160  md:h-160 w-full">
+<div *ngIf="slides" class=" h-112  md:h-128 w-full">
   <div *ngIf="slides[0].type == 'image'">
-    <div #main class="carousel-container h-160  md:h-160 w-ful">
+    <div #main class="carousel-container h-112  md:h-128 w-ful">
       <div class="carousel-track "
         [ngStyle]="{ transform: 'translateX(' + (-currentIndex * slideWidth) + 'px)', transition: 'transform ' + transitionDuration + 's ease-in-out' }">
         <div *ngFor="let slide of slides" class="carousel-slide  ">
-          <div class=" h-160  md:h-160 w-full"
+          <div class=" h-112  md:h-128 w-full"
             style=" background-image: url('{{slide.url}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
             <div class="lightbox  backdrop-blur-xl bg-zinc-200/10  ">
-              <div class="flex justify-center">
-                <img [src]="slide.url" alt="" class="h-160 md:h-160 w-fit">
+              <div class="flex justify-center items-center">
+                <img [src]="slide.url" alt="" class="h-112 md:h-128 w-fit object-cover">
               </div>
             </div>
           </div>
@@ -50,20 +50,20 @@
 
   </div>
   <div *ngIf="slides[0].type == 'video'" class="hidden">
-    <div #main class="carousel-container h-96  md:h-160 w-ful">
+    <div #main class="carousel-container h-96  md:h-128 w-ful">
       <div class="carousel-track "
         [ngStyle]="{ transform: 'translateX(' + (-currentIndex * slideWidth) + 'px)', transition: 'transform ' + transitionDuration + 's ease-in-out' }">
         <div class="carousel-slide  ">
-          <div class=" h-96  md:h-160 w-full"
+          <div class=" h-96  md:h-128 w-full"
             style=" background-image: url('{{slides[0].urlSnapshot}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
             <div class="lightbox  backdrop-blur-xl bg-zinc-200/10  ">
               
               <div class="flex justify-center relative">
-                <img [src]="slides[0].urlSnapshot" alt="" class="h-96 sm:h-160 md:h-160 w-fit">
+                <img [src]="slides[0].urlSnapshot" alt="" class="h-96 sm:h-128 md:h-128 w-fit">
                 <div class="absolute inset-0 flex items-center justify-center text-5xl cursor-pointer">
                   <i class="fa-solid fa-play"></i>
                 </div>
-                <!-- <video #videoPlayer class=" bg-black h-96 sm:h-160 md:h-160 w-fit flex justify-center" preload loop controls
+                <!-- <video #videoPlayer class=" bg-black h-96 sm:h-128 md:h-128 w-fit flex justify-center" preload loop controls
                   controlsList="nodownload" disablePictureInPicture controlsList="nodownload noplaybackrate "
                   oncontextmenu="return false;" poster="{{slides[0].urlSnapshot}}">
                   <source src="{{slides[0].url}}" type="video/mp4">
@@ -80,7 +80,7 @@
 
 
 <ng-template #one>
-  <video *ngIf="postMedia![0].type == 'video'" class=" bg-black w-full h-72 sm:h-80 md:h-160 flex justify-center"
+  <video *ngIf="postMedia![0].type == 'video'" class=" bg-black w-full h-72 sm:h-80 md:h-128 flex justify-center"
     preload loop controls controlsList="nodownload" disablePictureInPicture controlsList="nodownload noplaybackrate "
     oncontextmenu="return false;" poster="{{postMedia![0].urlSnapshot}}">
     <source src="{{postMedia![0].url}}" type="video/mp4">
@@ -95,7 +95,7 @@
     </div> -->
     <div *ngIf="showMask" class="lightbox  backdrop-blur-xl bg-zinc-200/10  " @animation2>
       <div class="lightbox-img">
-        <img [src]="imgSrc" alt="" class="h-96 sm:h-160 md:h-160 w-fit">
+        <img [src]="imgSrc" alt="" class="h-96 sm:h-128 md:h-128 w-fit">
       </div>
     </div>
   </div>

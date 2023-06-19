@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { translateBrowserLoaderFactory } from './shared/translate-browser.loader';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from 'src/environments/environment';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,14 +46,29 @@ export function delay(delay: number) {
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     CommonModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader, 
+        useFactory: translateBrowserLoaderFactory,
+        deps: [HttpClient, TransferState]
+      }
+    }),
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
     HttpClientModule,
     BrowserAnimationsModule,
+    // TransferHttpCacheModule,
+    // SocketIoModule.forRoot(config),
     ErrorModule,
     ModalModule,
     SpinnerModule,
@@ -61,20 +77,7 @@ export function delay(delay: number) {
     DialogModule,
     PipesModule,
     ProductCreditModule,
-    TipModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader, 
-        useFactory: translateBrowserLoaderFactory,
-        deps: [HttpClient, TransferState]
-      }
-    }),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
+    TipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

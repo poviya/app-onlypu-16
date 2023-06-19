@@ -98,7 +98,7 @@
                             style=" background-image: url('{{post.PostMedia![0].urlSnapshot}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
                             <div class="lightbox  backdrop-blur-xl bg-zinc-200/10  ">
                                 <div class="flex justify-center">
-                                    <video class=" bg-black h-96 sm:h-112 md:h-112 w-fit flex justify-center" preload autoplay
+                                    <video class=" bg-black h-96 sm:h-112 md:h-112 w-fit flex justify-center" preload
                                         loop controls controlsList="nodownload" disablePictureInPicture
                                         controlsList="nodownload noplaybackrate " oncontextmenu="return false;"
                                         poster="{{post.PostMedia![0].urlSnapshot}}">
@@ -111,20 +111,31 @@
                         <div *ngIf="post!.typeView != 'FREE'">
                             <div *ngIf="suscription; else private">
                                 <div *ngIf="suscription.expired"
-                                    class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
-                                    <i class="fa-solid fa-lock"></i>
-                                    <span>{{'suscribe' | translate}}</span>
+                                    class="absolute inset-0 text-white  backdrop-blur-xl bg-zinc-100/30 dark:bg-zinc-800/30 m-4 flex flex-col justify-center items-center rounded-lg space-y-2">
+                                    <div *ngIf="post.PostMedia![0].type == 'video'"
+                                        class="flex justify-center items-center text-3xl">
+                                        <i class="fa-solid fa-play"></i>
+                                    </div>
+                                    <div class="flex justify-center items-center space-x-1">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <span>{{'suscribe' | translate}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <ng-template #private>
                                 <div
-                                    class="absolute inset-0  backdrop-blur-xl bg-zinc-100/40 dark:bg-zinc-800/40 flex justify-center items-center m-2 rounded-lg space-x-1">
-                                    <i class="fa-solid fa-lock"></i>
-                                    <span>{{'suscribe' | translate}}</span>
+                                    class="absolute inset-0 text-white  backdrop-blur-xl bg-zinc-100/30 dark:bg-zinc-800/30 m-4 flex flex-col justify-center items-center rounded-lg space-y-2">
+                                    <div *ngIf="post.PostMedia![0].type == 'video'"
+                                        class="flex justify-center items-center text-3xl">
+                                        <i class="fa-solid fa-play"></i>
+                                    </div>
+                                    <div class="flex justify-center items-center space-x-1">
+                                        <i class="fa-solid fa-lock"></i>
+                                        <span>{{'suscribe' | translate}}</span>
+                                    </div>
                                 </div>
                             </ng-template>
                         </div>
-
                     </div>
 
                 </div>

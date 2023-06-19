@@ -122,4 +122,9 @@ export class PostService {
       .get<PostMedia[]>(environment.api + this.url + '/' + id);
       //.pipe(retry(1), catchError(this.handleError));
   }
+
+  latestPost(data: any): Observable<Post> {
+
+    return this.http.post<Post>(environment.api + this.url + '/latest-post', data);
+  }
 }

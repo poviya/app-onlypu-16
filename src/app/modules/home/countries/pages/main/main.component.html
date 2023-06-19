@@ -2,15 +2,15 @@
 <div *ngIf="isBrowser"> <!-- min-h-screen from-pink-700 via-pink-600 to-pink-800 bg-gradient-to-br -->
     <!-- <app-header></app-header> -->
     <div class="text-center my-20 space-y-2 px-2">
-        <h1 class="text-4xl">{{'home.country.title' | translate }}</h1>
-        <h2 class="text-lg">{{'home.country.subtitle' | translate }}</h2>
+        <h1 class="text-4xl">{{'welcome' | translate }}</h1>
+        <h2 class="text-lg">{{'subtitleCountry' | translate }}</h2>
     </div>
     <main>
         <app-list-countries></app-list-countries>
     </main>
     <footer>
         <p class="my-20 text-center max-w-4xl mx-auto px-2 text-sm" >
-            {{'home.country.text' | translate }}
+            {{'textCountry' | translate }}
         </p>
     </footer>
 </div>

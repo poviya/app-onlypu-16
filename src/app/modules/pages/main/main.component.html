@@ -32,7 +32,7 @@
                 <button (click)="onMenuSiberDialog()"
                   class="w-full  rounded-full relative flex flex-row items-center h-12 focus:outline-none hover:bg-white dark:hover:bg-zinc-800 text-zinc-100-600 hover:text-zinc-100-800 border-l-0 border-transparent hover:border-zinc-500 dark:hover:border-zinc-800 pr-6">
                   <i class=" material-icons-outlined notranslate inline-flex justify-center items-center ml-3">menu</i>
-                  <span class="ml-2 text-sm tracking-wide truncate">{{'sidebar.menu.more' | translate}}</span>
+                  <span class="ml-2 text-sm tracking-wide truncate">{{'more' | translate}}</span>
                 </button>
               </li>
 
@@ -42,7 +42,7 @@
                     class="w-full  rounded-full relative flex flex-row items-center h-12 focus:outline-none hover:bg-white dark:hover:bg-zinc-800 text-zinc-100-600 hover:text-zinc-100-800 border-l-0 border-transparent hover:border-zinc-500 dark:hover:border-zinc-800 pr-6">
                     <i
                       class=" material-icons-outlined notranslate inline-flex justify-center items-center ml-3">logout</i>
-                    <span class="ml-2 text-sm tracking-wide truncate">{{'sidebar.menu.logout' | translate}}</span>
+                    <span class="ml-2 text-sm tracking-wide truncate">{{'logout' | translate}}</span>
                   </button>
                 </div>
               </li>
@@ -53,7 +53,7 @@
                     class="w-full  rounded-full relative flex flex-row items-center h-12 focus:outline-none hover:bg-white dark:hover:bg-zinc-800 text-zinc-100-600 hover:text-zinc-100-800 border-l-0 border-transparent hover:border-zinc-500 dark:hover:border-zinc-800 pr-6">
                     <i
                       class=" material-icons-outlined notranslate inline-flex justify-center items-center ml-3">login</i>
-                    <span class="ml-2 text-sm tracking-wide truncate">{{'sidebar.menu.login' | translate}}</span>
+                    <span class="ml-2 text-sm tracking-wide truncate">{{'login' | translate}}</span>
                   </a>
                 </div>
               </li>
@@ -66,7 +66,7 @@
                       <i class=" material-icons-outlined notranslate ml-3">add</i>
                     </div>
                     <div class=" text-xs font-bold tracking-wide truncate uppercase text-center  w-full -ml-3 ">
-                      {{'sidebar.menu.new_post' | translate}}
+                      {{'new_post' | translate}}
                     </div>
                   </a>
                 </div>
@@ -97,49 +97,49 @@
       </main>
       <!-- bottom navigation -->
       <header
-        class="fixed bottom-0 w-full py-2 px-3 text-xs bg-zinc-50 dark:bg-zinc-900 border-t dark:border-zinc-800 z-20">
-        <div class="flex justify-between items-center">
+        class="fixed bottom-0 w-full  text-xs bg-zinc-50 dark:bg-zinc-900 border-t dark:border-zinc-800 z-20 ">
+        <div class="flex justify-between items-center py-2 px-3 h-14">
           
           <a routerLink="/{{this.countryCurrentIso}}" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">home</i>
-            <span>{{'sidebar.menu.home' | translate}}</span>
+            <!-- <span>{{'home' | translate}}</span> -->
           </a>
           
           <!-- <a routerLink="/{{this.countryCurrentIso}}" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">home</i>
-            <span>{{'sidebar.menu.home' | translate}}</span>
+            <span>{{'home' | translate}}</span>
           </a> -->
 
           <a routerLink="/" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">public</i>
-            <span>{{'sidebar.menu.countries' | translate}}</span>
+            <!-- <span>{{'countries' | translate}}</span> -->
           </a>
 
           <a routerLink="/feed" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">movie</i>
-            <span>Feed</span>
+            <!-- <span>Feed</span> -->
           </a>
 
           <a routerLink="/videocam" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">voice_chat</i>
-            <span>{{'videocam' | translate}}</span>
+            <!-- <span>{{'videocam' | translate}}</span> -->
           </a>
 
           <!-- <a *ngIf="this.authService.user" routerLink="/{{this.authService.user.username}}"
             class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">face</i>
-            <span>{{'sidebar.menu.profile' | translate}}</span>
+            <span>{{'profile' | translate}}</span>
           </a> -->
 
           <button *ngIf="this.authService.user" (click)="onMenuSiberDialog()" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">menu</i>
-            <span>{{'sidebar.menu.more' | translate}}</span>
+            <!-- <span>{{'more' | translate}}</span> -->
           </button>
 
 
           <a *ngIf="!this.authService.user" routerLink="auth/login" class="flex flex-col items-center">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center w-5 h-5">login</i>
-            <span>{{'sidebar.menu.login' | translate}}</span>
+            <!-- <span>{{'login' | translate}}</span> -->
           </a>
 
 
@@ -206,7 +206,7 @@
           <button (click)="logout()"
             class="w-full  rounded-full relative flex flex-row items-center h-11 focus:outline-none hover:bg-white dark:hover:bg-zinc-800 text-zinc-100-600 hover:text-zinc-100-800 border-l-0 border-transparent hover:border-zinc-500 dark:hover:border-zinc-800 pr-6">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center ml-2">logout</i>
-            <span class="ml-2 text-sm tracking-wide truncate">{{'sidebar.menu.logout' | translate}}</span>
+            <span class="ml-2 text-sm tracking-wide truncate">{{'logout' | translate}}</span>
           </button>
         </div>
       </li>
@@ -216,7 +216,7 @@
           <a routerLink="auth/login"
             class="w-full  rounded-full relative flex flex-row items-center h-11 focus:outline-none hover:bg-white dark:hover:bg-zinc-800 text-zinc-100-600 hover:text-zinc-100-800 border-l-0 border-transparent hover:border-zinc-500 dark:hover:border-zinc-800 pr-6">
             <i class=" material-icons-outlined notranslate inline-flex justify-center items-center ml-2 ">login</i>
-            <span class="ml-2 text-sm tracking-wide truncate">{{'sidebar.menu.login' | translate}}</span>
+            <span class="ml-2 text-sm tracking-wide truncate">{{'login' | translate}}</span>
           </a>
         </div>
       </li>

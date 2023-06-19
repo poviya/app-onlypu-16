@@ -53,16 +53,16 @@
 
                                     <div *ngIf="item.User!.Profile else noProfile">
                                         <img *ngIf="item.User!.Profile!.length > 0"
-                                            class="rounded-full max-w-none w-12 h-12 object-cover"
+                                            class="rounded-full max-w-none w-16 h-16 object-cover"
                                             src="{{item.User!.Profile!.length > 0 ? this.prinImages(item.User!.Profile!) : ''}}" />
                                         <div *ngIf="item.User!.Profile?.length == 0"
-                                            class="rounded-full max-w-none w-12 h-12 object-cover bg-zinc-200 dark:bg-zinc-700">
+                                            class="rounded-full max-w-none w-16 h-16 object-cover bg-zinc-200 dark:bg-zinc-700">
                                         </div>
                                     </div>
 
                                     <ng-template #noProfile>
                                         <div
-                                            class="rounded-full max-w-none w-12 h-12 object-cover bg-zinc-200 dark:bg-zinc-700">
+                                            class="rounded-full max-w-none w-16 h-16 object-cover bg-zinc-200 dark:bg-zinc-700">
                                         </div>
                                     </ng-template>
 
@@ -150,8 +150,8 @@
                             <!-- <a routerLink="/pu/{{item.slug}}"
                                 class="overflow-x-auto truncate-one font-medium text-base sm:text-lg text-primary-600 cursor-pointer">
                                 {{item.title}}
-                            </a> -->
-                            <button (click)="onPostDialog(item)"
+                            </a>  (click)="onPostDialog(item)" -->
+                            <button 
                                 class="overflow-x-auto truncate-one font-medium text-base sm:text-lg text-primary-600 cursor-pointer">
                                 {{item.title}}
                             </button>
@@ -176,8 +176,9 @@
                             <div *ngIf="item.PostMedia![0].type == 'video'" class=" h-160  md:h-160 w-full"
                                 style=" background-image: url('{{item.PostMedia![0].urlSnapshot}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
 
-                                <div
+                                <div *ngIf="item.typeView != 'SUBSCRIBERS'; else subscriber"
                                     class="video backdrop-blur-xl bg-zinc-200/10 flex justify-center items-center relative ">
+                                    <!-- free -->
                                     <video #videoElement [src]="item.PostMedia![0].url" [muted]="false"
                                         (loadedmetadata)="onVideoLoaded(i)" (ended)="restartVideo(videoElement)"
                                         class=" bg-black h-160 md:h-160 w-fit flex justify-center"></video>
@@ -187,46 +188,122 @@
                                         <!-- <i class="fa-solid fa-play"></i> -->
                                     </button>
                                 </div>
+                                <ng-template #subscriber>
+                                    <!-- subscriber -->
+                                    <div *ngIf="authService.user!; else noUser">
+                                        <div *ngIf="item.User!._id == authService.user._id; else noUser"
+                                            class="video backdrop-blur-xl bg-zinc-200/10 flex justify-center items-center relative ">
+                                            <!-- user -->
+                                            <video #videoElement [src]="item.PostMedia![0].url" [muted]="false"
+                                                (loadedmetadata)="onVideoLoaded(i)" (ended)="restartVideo(videoElement)"
+                                                class=" bg-black h-160 md:h-160 w-fit flex justify-center"></video>
+                                            <!-- <button (click)="selectVideo(i)">Seleccionar</button> -->
+                                            <button (click)="togglePlayPause(videoElement)"
+                                                class="absolute inset-0 flex items-center justify-center text-5xl cursor-pointer">
+                                                <!-- <i class="fa-solid fa-play"></i> -->
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <ng-template #noUser>
+                                        <div *ngIf="suscription; else noSuscription">
+
+                                            <div *ngIf="!suscription.expired; else noSuscription"
+                                                class="video backdrop-blur-xl bg-zinc-200/10 flex justify-center items-center relative ">
+                                                <!-- user -->
+                                                <video #videoElement [src]="item.PostMedia![0].url" [muted]="false"
+                                                    (loadedmetadata)="onVideoLoaded(i)"
+                                                    (ended)="restartVideo(videoElement)"
+                                                    class=" bg-black h-160 md:h-160 w-fit flex justify-center"></video>
+                                                <!-- <button (click)="selectVideo(i)">Seleccionar</button> -->
+                                                <button (click)="togglePlayPause(videoElement)"
+                                                    class="absolute inset-0 flex items-center justify-center text-5xl cursor-pointer">
+                                                    <!-- <i class="fa-solid fa-play"></i> -->
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <ng-template #noSuscription>
+                                            <div class=" h-160  md:h-160 w-full"
+                                                style=" background-image: url('{{item.PostMedia![0].urlSnapshot}}'); background-repeat: no-repeat; background-position: center center;  background-size: cover;">
+                                                <div class="lightbox  backdrop-blur-xl bg-zinc-200/10  ">
+                                                    <div class="flex justify-center items-center">
+                                                        <img [src]="item.PostMedia![0].urlSnapshot" alt=""
+                                                            class="h-160 md:h-160 w-fit object-cover">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+
+                                    </ng-template>
+
+                                </ng-template>
                             </div>
 
                             <div *ngIf="authService.user; else noAuth">
                                 <div *ngIf="authService.user._id !== item.User!._id">
-                                    <div *ngIf="item.typeView == 'SUBSCRIBERS' || item.typeView == 'PAYMENT'"
-                                        class="absolute inset-0  backdrop-blur-xl bg-zinc-100/95 dark:bg-zinc-800/95 flex justify-center items-center m-1 rounded-lg space-x-1">
-                                        <i class="fa-solid fa-lock"></i>
-                                        <span>{{'suscribe' | translate}}</span>
-                                    </div>
-                                    <ng-template #private>
-                                        <div
-                                            class="absolute inset-0  backdrop-blur-xl bg-zinc-100/95 dark:bg-zinc-800/95 flex justify-center items-center m-1 rounded-lg space-x-1">
-                                            <i class="fa-solid fa-lock"></i>
-                                            <span>{{'suscribe' | translate}}</span>
+
+                                    <div *ngIf="!suscription">
+                                        <div *ngIf="item.typeView == 'SUBSCRIBERS' || item.typeView == 'PAYMENT'"
+                                            class="absolute inset-0 text-white backdrop-blur-xl bg-zinc-100/30 dark:bg-zinc-800/30 m-0 flex flex-col justify-center items-center space-y-2">
+                                            <div *ngIf="item.PostMedia![0].type == 'video'"
+                                                class="flex justify-center items-center text-3xl">
+                                                <i class="fa-solid fa-play"></i>
+                                            </div>
+                                            <div class="flex justify-center items-center space-x-1">
+                                                <i class="fa-solid fa-lock"></i>
+                                                <span>{{'suscribe' | translate}}</span>
+                                            </div>
                                         </div>
-                                    </ng-template>
+                                        <ng-template #private>
+                                            <div
+                                                class="absolute inset-0 text-white  backdrop-blur-xl bg-zinc-100/30 dark:bg-zinc-800/30 m-0 flex flex-col justify-center items-center space-y-2">
+                                                <div *ngIf="item.PostMedia![0].type == 'video'"
+                                                    class="flex justify-center items-center text-3xl">
+                                                    <i class="fa-solid fa-play"></i>
+                                                </div>
+                                                <div class="flex justify-center items-center space-x-1">
+                                                    <i class="fa-solid fa-lock"></i>
+                                                    <span>{{'suscribe' | translate}}</span>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </div>
+
                                 </div>
                             </div>
                             <ng-template #noAuth>
                                 <div *ngIf="item.typeView == 'SUBSCRIBERS' || item.typeView == 'PAYMENT'"
-                                    class="absolute inset-0  backdrop-blur-xl bg-zinc-100/95 dark:bg-zinc-800/95 flex justify-center items-center m-1 rounded-lg space-x-1">
-                                    <i class="fa-solid fa-lock"></i>
-                                    <span>{{'suscribe' | translate}}</span>
-                                </div>
-                                <ng-template #private>
-                                    <div
-                                        class="absolute inset-0  backdrop-blur-xl bg-zinc-100/95 dark:bg-zinc-800/95 flex justify-center items-center m-1 rounded-lg space-x-1">
+                                    class="absolute inset-0 text-white  backdrop-blur-xl bg-zinc-100/30 dark:bg-zinc-800/30 m-0 flex flex-col justify-center items-center space-y-2">
+                                    <div *ngIf="item.PostMedia![0].type == 'video'"
+                                        class="flex justify-center items-center text-3xl">
+                                        <i class="fa-solid fa-play"></i>
+                                    </div>
+                                    <div class="flex justify-center items-center space-x-1">
                                         <i class="fa-solid fa-lock"></i>
                                         <span>{{'suscribe' | translate}}</span>
                                     </div>
+                                </div>
+                                <ng-template #private>
+                                    <div
+                                        class="absolute inset-0 text-white  backdrop-blur-xl bg-zinc-100/30 dark:bg-zinc-800/30 m-0 flex flex-col justify-center items-center space-y-2">
+                                        <div *ngIf="item.PostMedia![0].type == 'video'"
+                                            class="flex justify-center items-center text-3xl">
+                                            <i class="fa-solid fa-play"></i>
+                                        </div>
+                                        <div class="flex justify-center items-center space-x-1">
+                                            <i class="fa-solid fa-lock"></i>
+                                            <span>{{'suscribe' | translate}}</span>
+                                        </div>
+                                    </div>
                                 </ng-template>
                             </ng-template>
-
 
                         </div>
 
                         <!-- contacts -->
                         <div *ngIf="item.whatsapp || item.phone || item.telegram"
                             class=" mt-2 flex items-center justify-center mx-0 text-lg space-x-0 sm:space-x-0">
-                            <div class="flex flex-wrap space-x-2 items-center">
+                            <div *ngIf="authService.user; else noUser" class="flex flex-wrap space-x-2 items-center">
                                 <a *ngIf="item.whatsapp && item.phone" (click)="onUpdateClick(item._id!, 'whatsapp')"
                                     class=" flex justify-between items-center space-x-1 text-xs font-semibold uppercase border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-2"
                                     href="https://wa.me/{{item.phonePrefix}}{{item.phone}}/?text={{textMessage(item)}}"
@@ -247,7 +324,24 @@
                                     <span>Telegram</span>
                                 </a>
                             </div>
-
+                            <ng-template #noUser class="flex flex-wrap space-x-2 items-center">
+                                <button *ngIf="item.whatsapp && item.phone" (click)="onLogin()"
+                                    class=" flex justify-between items-center space-x-1 text-xs font-semibold uppercase border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-2"
+                                    target="_blank">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>WhatsApp</span>
+                                </button>
+                                <button *ngIf="item.phone" (click)="onLogin()"
+                                    class="flex justify-between items-center space-x-1 text-xs font-semibold uppercase border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-2">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <span>{{'phone' | translate}}</span>
+                                </button>
+                                <button *ngIf="item.telegram" (click)="onLogin()"
+                                    class=" {{!item.phone ? 'flex' : 'flex'}} flex justify-between items-center space-x-1 text-xs font-semibold uppercase border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-2">
+                                    <i class="fab fa-telegram"></i>
+                                    <span>Telegram</span>
+                                </button>
+                            </ng-template>
                         </div>
 
 
@@ -269,7 +363,8 @@
                                     <span class="text-xs font-bold">{{item.Comment!.length | thousands}}</span>
                                 </button>
 
-                                <button *ngIf="item.PostMedia!.length > 0 && item.type == 'POST' " (click)="onTipDialog(item)"
+                                <button *ngIf="item.PostMedia!.length > 0 && item.type == 'POST'"
+                                    (click)="onTipDialog(item)"
                                     class="flex justify-between items-center space-x-1 text-xs font-semibold border border-zinc-300 dark:border-zinc-700 hover:bg-primary-50  hover:dark:bg-primary-800/10 text-zinc-600 dark:text-zinc-300 hover:text-primary-600  rounded-full p-1">
                                     <span class=""><i class="fa-solid fa-dollar-sign"></i></span>
                                     <span class="text-xs">{{'sendTip' | translate}}</span>
@@ -296,7 +391,7 @@
                 <section *ngFor="let item of this.postLoading"
                     class="bg-zinc-50 dark:bg-zinc-800  p-4 w-full mx-auto space-y-2 shadow-sm">
                     <div class="animate-pulse flex space-x-4">
-                        <div class="rounded-full bg-zinc-200 dark:bg-zinc-700 h-12 w-12"></div>
+                        <div class="rounded-full bg-zinc-200 dark:bg-zinc-700 h-16 w-16"></div>
                         <div class="flex-1 space-y-6 py-1">
                             <div class="flex flex-col space-y-1">
                                 <div class="h-2 bg-zinc-200 dark:bg-zinc-700 rounded w-32">
@@ -312,7 +407,7 @@
                     <div class=" animate-pulse h-2 bg-zinc-200 dark:bg-zinc-700 rounded ">
 
                     </div>
-                    <div class=" animate-pulse w-full h-112 md:h-112 bg-zinc-200 dark:bg-zinc-700 rounded ">
+                    <div class=" animate-pulse w-full h-96 md:h-96 bg-zinc-200 dark:bg-zinc-700 rounded ">
 
                     </div>
                 </section>

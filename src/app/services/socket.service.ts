@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
-//import { Socket } from 'ngx-socket-io';
+import { Socket } from 'ngx-socket-io';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SocketService {
+export class SocketService extends Socket {
+
+  constructor() {
+    super({
+      url: ''
+    });
+   }
 }

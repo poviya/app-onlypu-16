@@ -1,4 +1,4 @@
-import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser, isPlatformServer, Location } from '@angular/common';
 import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cam, Membership, Money, PaymentOrder, Post, PostMedia, Suscription, User } from 'src/app/interfaces';
@@ -55,17 +55,17 @@ export class MainComponent implements OnInit {
     private postService: PostService,
     private moneyService: MoneyService,
     @Inject(PLATFORM_ID) private platformId: object,
-    private errorHandler: ErrorHandlerService,
     @Inject(DOCUMENT) private document: Document,
     private tipService: TipService,
     private dialogService: DialogService,
+    private location: Location
   ) {
-    //console.log('slug',this.activeRoute.snapshot.queryParamMap.get('slug'));
-    this.slug = this.router.url.split('/')[1];
-    if (this.slug == 'panel')
-      this.slug = this.router.url.split('/')[2];
-
-    this.slug = this.slug.trim();
+    
+    let fragmento = this.location.path().split('?')[0];
+    const parts = fragmento.split('/');
+    fragmento = parts[1];
+    const value = fragmento.substr(fragmento.lastIndexOf('/') + 1);
+    this.slug = value;
   }
 
   ngOnInit(): void {
@@ -78,6 +78,15 @@ export class MainComponent implements OnInit {
     this.findOne()
     this.onScrollTop();
     //this.findOneMoney();
+  }
+
+  obtenerParametro(): void {
+    this.activeRoute.queryParamMap.subscribe((params) => {
+      this.slug = params.get('fbclid');
+      if (this.slug) {
+        this.slug = this.slug.split('?')[0]; // Obtener solo "leysi" eliminando el resto de la URL
+      }
+    });
   }
 
   @HostListener('contextmenu', ['$event'])

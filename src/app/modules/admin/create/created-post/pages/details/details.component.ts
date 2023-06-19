@@ -9,6 +9,7 @@ import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { DomSanitizer } from "@angular/platform-browser";
 import { SpinnerService } from 'src/app/library/spinner/spinner.service';
+import { ToastService } from 'src/app/library/toast/toast.service';
 
 @Component({
   selector: 'app-details',
@@ -91,7 +92,8 @@ export class DetailsComponent implements OnInit {
     private router: Router,
     private spinnerService: SpinnerService,
     private audioRecordingService: AudioRecordingService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private toastService: ToastService
   ) {
 
     this.audioRecordingService
@@ -452,7 +454,6 @@ export class DetailsComponent implements OnInit {
 
       console.log('data', data);
 
-      this.createFormControls();
       this.imagesButton = false;
       this.mediaButton = true;
       this.videoButton = false;
@@ -465,6 +466,7 @@ export class DetailsComponent implements OnInit {
 
       this.postService.create(data, this.filesData).subscribe(res => {
         if (res) {
+          this.createFormControls();
           this.onDiscard();
           this.spinnerService.close();
           console.log('repuesta', res);
@@ -472,6 +474,10 @@ export class DetailsComponent implements OnInit {
           this.router.onSameUrlNavigation = 'reload';
           this.router.navigate(['/pu/' + res.slug]);
         }
+      },(error) => {
+        this.spinnerService.close();
+        this.toastService.start('pleaseTryAgain');
+        setTimeout(() => this.toastService.close(), 2000);
       });
     }
   }
@@ -494,6 +500,10 @@ export class DetailsComponent implements OnInit {
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['/pu/' + res.slug]);
+      },(error) => {
+        this.spinnerService.close();
+        this.toastService.start('pleaseTryAgain');
+        setTimeout(() => this.toastService.close(), 2000);
       });
     }
   }

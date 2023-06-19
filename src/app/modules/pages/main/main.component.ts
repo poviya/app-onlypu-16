@@ -174,7 +174,7 @@ export class MainComponent implements OnInit {
       this.menuSidebar = [
 
         {
-          link_name: "sidebar.menu.home",
+          link_name: "home",
           link: `${this.countryCurrentIso}`,
           icon: "home",
           sub_menu: []
@@ -188,20 +188,20 @@ export class MainComponent implements OnInit {
         },
 
         {
-          link_name: "sidebar.menu.bookmarks",
+          link_name: "bookmarks",
           link: "/panel/bookmarks",
           icon: "bookmarks",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.suscriptions",
+          link_name: "suscriptions",
           link: "/my/subscribers",
           icon: "face_4",
           sub_menu: []
         },
 
         {
-          link_name: "sidebar.menu.profile",
+          link_name: "profile",
           link: `/${this.authService.user.username}`,
           icon: "face",
           sub_menu: []
@@ -211,19 +211,19 @@ export class MainComponent implements OnInit {
 
       this.menuSidebarModal = [
         {
-          link_name: "sidebar.menu.profile",
+          link_name: "profile",
           link: `/${this.authService.user.username}`,
           icon: "face",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.bookmarks",
+          link_name: "bookmarks",
           link: "/panel/bookmarks",
           icon: "bookmarks",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.incomes",
+          link_name: "incomes",
           link: "/panel/incomes",
           icon: "account_balance",
           sub_menu: []
@@ -235,13 +235,13 @@ export class MainComponent implements OnInit {
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.withdrawal_of_money",
+          link_name: "withdrawal_of_money",
           link: "/panel/withdrawal-money",
           icon: "currency_exchange",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.setting",
+          link_name: "setting",
           link: "/panel/setting",
           icon: "settings",
           sub_menu: []
@@ -251,7 +251,7 @@ export class MainComponent implements OnInit {
 
       this.menuSidebar = [
         {
-          link_name: "sidebar.menu.home",
+          link_name: "home",
           link: `/`,
           icon: "home",
           sub_menu: []
@@ -264,13 +264,13 @@ export class MainComponent implements OnInit {
         },
 
         {
-          link_name: "sidebar.menu.bookmarks",
+          link_name: "bookmarks",
           link: "/panel/bookmarks",
           icon: "bookmarks",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.suscriptions",
+          link_name: "suscriptions",
           link: "/my/subscribers",
           icon: "face_4",
           sub_menu: []
@@ -324,19 +324,19 @@ export class MainComponent implements OnInit {
 
 
         {
-          link_name: "sidebar.menu.home",
+          link_name: "home",
           link: `${this.countryCurrentIso}`,
           icon: "home",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.countries",
+          link_name: "countries",
           link: "/",
           icon: "public",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.feed",
+          link_name: "feed",
           link: "/feed",
           icon: "movie",
           sub_menu: []
@@ -350,13 +350,13 @@ export class MainComponent implements OnInit {
         },
 
         {
-          link_name: "sidebar.menu.bookmarks",
+          link_name: "bookmarks",
           link: "/panel/bookmarks",
           icon: "bookmarks",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.suscriptions",
+          link_name: "suscriptions",
           link: "/my/subscribers",
           icon: "face_4",
           sub_menu: []
@@ -398,7 +398,7 @@ export class MainComponent implements OnInit {
         //   sub_menu: []
         // } 
         {
-          link_name: "sidebar.menu.profile",
+          link_name: "profile",
           link: `/${this.authService.user.username}`,
           icon: "face",
           sub_menu: []
@@ -430,25 +430,25 @@ export class MainComponent implements OnInit {
 
       this.menuSidebarModal = [
         {
-          link_name: "sidebar.menu.profile",
+          link_name: "profile",
           link: `/${this.authService.user.username}`,
           icon: "face",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.bookmarks",
+          link_name: "bookmarks",
           link: "/panel/bookmarks",
           icon: "bookmarks",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.my_dating",
+          link_name: "my_dating",
           link: "/panel/your-ads",
           icon: "whatshot",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.incomes",
+          link_name: "incomes",
           link: "/panel/incomes",
           icon: "account_balance",
           sub_menu: []
@@ -460,13 +460,13 @@ export class MainComponent implements OnInit {
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.withdrawal_of_money",
+          link_name: "withdrawal_of_money",
           link: "/panel/withdrawal-money",
           icon: "currency_exchange",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.setting",
+          link_name: "setting",
           link: "/panel/setting",
           icon: "settings",
           sub_menu: []
@@ -476,19 +476,19 @@ export class MainComponent implements OnInit {
 
       this.menuSidebar = [
         {
-          link_name: "sidebar.menu.home",
+          link_name: "home",
           link: `${this.countryCurrentIso}`,
           icon: "home",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.countries",
+          link_name: "countries",
           link: "/",
           icon: "public",
           sub_menu: []
         },
         {
-          link_name: "sidebar.menu.feed",
+          link_name: "feed",
           link: "/feed",
           icon: "movie",
           sub_menu: []

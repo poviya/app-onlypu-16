@@ -14,7 +14,8 @@ export class FooterOneComponent implements OnInit {
 
   langs: any[] = [
     { value: 'en', name: 'English' },
-    { value: 'es', name: 'Español' }
+    { value: 'es', name: 'Español' },
+    { value: 'pt_BR', name: 'Portugués' }
   ];
   
   myform: FormGroup;

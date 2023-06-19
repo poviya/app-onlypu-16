@@ -104,7 +104,6 @@ export class RegisterComponent implements OnInit {
       //whatsapp: true,
       Site: environment.site
     }
-
     this.authService.register(data )
         .subscribe(res => {
         if ( res.data.useExists!) {

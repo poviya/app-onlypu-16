@@ -27,5 +27,6 @@ export { CamService } from './cam.service';
 export { TipService } from './tip.service';
 export { UserCreditService } from './user-credit.service';
 export { ProductCreditService } from './product-credit.service';
+export { GeoService } from './geo.service';
 //export {  } from './';
 

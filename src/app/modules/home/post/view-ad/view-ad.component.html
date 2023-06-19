@@ -1,6 +1,7 @@
 <div>
     <!-- <app-menu-two *ngIf="countrySlug" [countrySlug] = "countrySlug" [fixed]=false [width]="width"></app-menu-two> -->
     <div *ngIf="this.post; else loadingTemplate" class="mx-auto mt-0 px-2 md:px-4">
+        
         <div class="mt-5 mb-5">
             <div class="grid grid-cols-5 gap-4">
                 <div class="col-span-5 sm:col-span-4 space-y-2">
@@ -40,6 +41,37 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="flex mt-4">
+                        <a class="inline-block mr-4" routerLink="/{{post.User!.username}}">
+                            <div *ngIf="post.User!.Profile else noProfile">
+                                <img *ngIf="post.User!.Profile!.length > 0"
+                                    class="rounded-full max-w-none w-12 h-12 object-cover"
+                                    src="{{post.User!.Profile!.length > 0 ? post.User!.Profile![0]!.url : ''}}" />
+                                <div *ngIf="post.User!.Profile?.length == 0"
+                                    class="rounded-full max-w-none w-12 h-12 object-cover bg-zinc-200 dark:bg-zinc-700">
+                                </div>
+                            </div>
+            
+                            <ng-template #noProfile>
+                                <div
+                                    class="rounded-full max-w-none w-12 h-12 object-cover bg-zinc-200 dark:bg-zinc-700">
+                                </div>
+                            </ng-template>
+            
+                        </a>
+                        <div class="flex flex-col truncate">
+                            <div>
+                                <a class="inline-block text-lg font-bold dark:text-white truncate-one "
+                                    routerLink="/{{post.User!.username}}">{{post.User!.name ? post.User!.name :
+                                    post.User!.username}}</a>
+                            </div>
+                            <div class="text-zinc-500 dark:text-zinc-400 text-xs">
+                                {{post.planAt | dateAgo}}
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="flex items-center space-x-5 ">
                         <div class="text-sm  italic">
                             <span *ngIf="post.publishedAt; else createdAt">

@@ -9,6 +9,7 @@ import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { DomSanitizer } from "@angular/platform-browser";
 import { SpinnerService } from 'src/app/library/spinner/spinner.service';
+import { ToastService } from 'src/app/library/toast/toast.service';
 
 @Component({
   selector: 'app-details',
@@ -108,6 +109,7 @@ export class DetailsComponent implements OnInit {
         private sanitizer: DomSanitizer,
         private appService: AppService,
         public postAdService: PostAdService,
+        private toastService: ToastService,
         ) {
 
           this.audioRecordingService
@@ -494,8 +496,7 @@ export class DetailsComponent implements OnInit {
       }
 
       console.log('data', data);
-
-      this.createFormControls();
+      
       this.imagesButton = false;
       this.mediaButton = true;
       this.videoButton = false;
@@ -507,10 +508,16 @@ export class DetailsComponent implements OnInit {
       this.filesVideoSnapshotArray = null;
       
       this.postAdService.create2(data, this.filesData).subscribe( res => {
-        this.onDiscard();
-
+        if(res) {
+          this.createFormControls();
+          this.onDiscard();
+          this.spinnerService.close();
+          this.router.navigate(['/panel/create-ad/manage/' + res._id]);
+        }
+      },(error) => {
         this.spinnerService.close();
-        this.router.navigate(['/panel/create-ad/manage/' + res._id]);
+        this.toastService.start('pleaseTryAgain');
+        setTimeout(() => this.toastService.close(), 2000);
       });
     }
   }
@@ -537,9 +544,15 @@ export class DetailsComponent implements OnInit {
         
       }
       this.postAdService.update2(this.idPost, data).subscribe( res => {
+       if(res) {
         this.onDiscard();
         this.spinnerService.close();
         this.router.navigate(['/panel/create-ad/manage/' + res._id]);
+       }
+      },(error) => {
+        this.spinnerService.close();
+        this.toastService.start('pleaseTryAgain');
+        setTimeout(() => this.toastService.close(), 2000);
       });
     }
   }

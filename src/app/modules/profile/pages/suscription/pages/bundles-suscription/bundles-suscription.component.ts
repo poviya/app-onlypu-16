@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NumeriDiscount } from 'src/app/common/custom-validators.ts';
 import { Membership, User } from 'src/app/interfaces';
-import { MembershipService } from 'src/app/services';
+import { AuthService, MembershipService } from 'src/app/services';
 
 @Component({
   selector: 'app-bundles-suscription',
@@ -24,7 +25,11 @@ export class BundlesSuscriptionComponent implements OnInit, AfterViewInit {
   @Input() user: User;
   @Input() membership: Membership[];
 
-  constructor(private fb: FormBuilder, private membershipService: MembershipService) { }
+  constructor(
+        private fb: FormBuilder, 
+        public router: Router,
+        private authService: AuthService,
+        private membershipService: MembershipService) { }
 
   ngAfterViewInit(): void {
     this.createFormControls();
@@ -76,13 +81,15 @@ export class BundlesSuscriptionComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(membership: Membership): void { 
-    if(this.membership.length > 0)
+    if(this.authService.user && this.membership.length > 0)
     {
       const data: any = {
         Membership: membership,
         //Receiver: this.membership[0].User?._id,
       }
       this.createMembershipEvent.emit(data);
+    } else {
+      this.router.navigate(['/auth/login']);
     }
   }
 }
